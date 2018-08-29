@@ -8,34 +8,30 @@ import kingery.game.engine.Engine;
 
 public class ItemManager {
 	private Engine e;
-	private ArrayList<Item> items;
-	
+	private ArrayList<Item> items = new ArrayList<Item>();
+
 	public ItemManager(Engine e) {
 		this.e = e;
-		items = new ArrayList<Item>();
 	}
+
 	public void addItem(Item i) {
 		items.add(i);
 	}
-	
-	
+
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
 	}
+
 	public void update() {
-		Iterator<Item> it = items.iterator();
-		while(it.hasNext()) {
-			Item i = it.next();
-			i.update();
-			if(i.getCount() == Item.PICKEDUP)
-				it.remove();
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i).pickedUp)
+				items.remove(i);
 		}
 	}
 
 	public void render(Graphics g) {
-		for(Item i : items)
+		for (Item i : items)
 			i.render(g);
 	}
-	
-}
 
+}
