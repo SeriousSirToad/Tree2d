@@ -18,6 +18,7 @@ public abstract class Tile {
 	public static final Tile WOOD = new BasicTile(4, 0, 32, 0xFFFFFF00);
 	public static final Tile WOOD_SOLID = new BasicSolidTile(5, 8, 32, 0xFF5F5F00);
 	public static final Tile WATER = new BasicSolidTile(6, 24, 0, 0xFF0000FF);
+	public static final Tile FLORAL_GRASS = new BasicTile(7, 8, 0, 0xFF227200);
 
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected int id;
