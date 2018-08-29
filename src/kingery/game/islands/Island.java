@@ -20,7 +20,6 @@ public class Island {
 
 	private Engine e;
 	public BufferedImage levelImage;
-	public ArrayList<Building> buildings = new ArrayList<>();
 	public ArrayList<Entity> entities = new ArrayList<>();
 	boolean hasCycledA = false;
 	boolean hasCycledB = false;
@@ -29,11 +28,11 @@ public class Island {
 	public int height;
 	private String imagePath;
 	private BufferedImage image;
-	
+
 	//
-	
+
 	public static Island Utopia;
-	
+
 	private Comparator<Entity> entitySorter = new Comparator<Entity>() {
 
 		@Override
@@ -70,11 +69,13 @@ public class Island {
 	}
 
 	private void loadTiles() {
-		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0, width);
+		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
+				width);
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				tileCheck: for (Tile t : Tile.tiles) {
-					if (t != null && t.getLevelColour() == tileColours[x + y * width]) {
+					if (t != null
+							&& t.getLevelColour() == tileColours[x + y * width]) {
 						this.tiles[x][y] = t.getId();
 						break tileCheck;
 					}
@@ -94,21 +95,25 @@ public class Island {
 	public void renderTile(Graphics g) {
 
 		int xMin = Math.max(0, Camera.x() / Tile.width);
-		int xMax = Math.min(width, (Camera.x() + Engine.WIDTH) / Tile.width + 1);
+		int xMax = Math
+				.min(width, (Camera.x() + Engine.WIDTH) / Tile.width + 1);
 		int yMin = Math.max(0, Camera.y() / Tile.width);
-		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT) / Tile.width + 1);
+		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT) / Tile.width
+				+ 1);
 
 		for (int y = yMin; y < yMax; y++) {
 			for (int x = xMin; x < xMax; x++) {
-				getTile(x, y).renderTile(g, x * Tile.width - Camera.x(), y * Tile.width - Camera.y());
+				getTile(x, y).renderTile(g, x * Tile.width - Camera.x(),
+						y * Tile.width - Camera.y());
 			}
 		}
 
 	}
-	
+
 	public void update() {
 		for (Entity f : entities) {
-			f.update();
+			if (f.isMob())
+				f.update();
 		}
 	}
 
@@ -122,10 +127,6 @@ public class Island {
 			f.render(g);
 		}
 		entities.sort(entitySorter);
-		
-		for (Building b : buildings) {
-
-		}
 
 	}
 
@@ -133,9 +134,9 @@ public class Island {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				if (x * y % 10 < 8) {
-					// tiles[x + y * width] = Tile.GRASS.getId();
+					tiles[x][y] = Tile.GRASS.getId();
 				} else {
-					// tiles[x + y * width] = Tile.STONE.getId();
+					tiles[x][y] = Tile.STONE.getId();
 				}
 			}
 		}

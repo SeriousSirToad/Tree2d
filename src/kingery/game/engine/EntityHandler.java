@@ -31,8 +31,8 @@ public class EntityHandler {
 	
 	public void Utopia() {
 		String johnText = 
-				  "Hello and welcome to Tree Town pre Alpha release -1.0. \n "
-				+ "It's nice here, no? This is the Utopia level. Have fun \n"
+				  "Hello " + p.name + " and welcome to Tree Town pre Alpha release \n "
+				+ "0.0. It's nice here, no? This is the Utopia level. Have fun \n"
 				+ "fun developing! Just kidding.";
 		NPC npc_1 = new Lumberjack_A(40 * Tile.width, 22 * Tile.width, "Ian", engine, Island.Utopia);
 		NPC john = new NPC(11 * Tile.width, 6 * Tile.width, johnText, "John", Assets.NPC_LUMBERJACK_A, engine, Island.Utopia);

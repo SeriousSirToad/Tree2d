@@ -55,8 +55,6 @@ public class Engine extends Canvas implements Runnable {
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
 
-	Color transparency = Color.white;
-
 	public boolean running = false;
 	public JFrame frame = new JFrame();
 	static final Dimension gameDimension = new Dimension((int) (WIDTH), (int) (HEIGHT));
@@ -150,6 +148,9 @@ public class Engine extends Canvas implements Runnable {
 			delta2 += (now - lastTime) / renderTime;
 			lastTime = now;
 			boolean shouldRender = false;
+			if(Settings.frameCap == 0){
+				shouldRender = true;
+			}
 			while (delta >= 1) {
 				ticks++;
 				tick();
@@ -163,7 +164,7 @@ public class Engine extends Canvas implements Runnable {
 			}
 
 			try {
-				Thread.sleep(2);
+				Thread.sleep(1);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
