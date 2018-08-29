@@ -11,6 +11,7 @@ import kingery.game.gfx.Animation;
 import kingery.game.gfx.Assets;
 import kingery.game.gfx.Camera;
 import kingery.game.gfx.SpriteSheet;
+import kingery.game.islands.tiles.Tile;
 
 public class Player extends Mob {
 
@@ -18,7 +19,7 @@ public class Player extends Mob {
 	public int movingDir;
 
 	public Rectangle zoneCheck;
-	
+
 	public boolean moving = false;
 	public boolean running = false;
 	public boolean goingRight = false;
@@ -47,7 +48,7 @@ public class Player extends Mob {
 		this.input = input;
 
 		zoneCheck = new Rectangle(x, y, width, height);
-		
+
 		collider.x = 9;
 		collider.y = 43;
 		collider.width = 16;
@@ -62,10 +63,10 @@ public class Player extends Mob {
 
 	@Override
 	public void update() {
-		
+
 		zoneCheck.x = x;
 		zoneCheck.y = y;
-		
+
 		if (moveSwitch > moveInt) {
 			moveSwitch = 0;
 		}
@@ -103,6 +104,46 @@ public class Player extends Mob {
 			shouldBeMoving = true;
 		} else {
 			shouldBeMoving = false;
+		}
+
+		if (shouldExit((x + xa + collider.x + collider.width) / Tile.width, (y + collider.y) / Tile.width)) {
+			if ((x + collider.x) / Tile.width > island.width / 2) {
+				e.island = island.rightI;
+				System.out.println(e.island.imagePath);
+			}
+
+			island.entities.remove(this);
+			island = e.island;
+			island.entities.add(this);
+
+			thid: for (int x = 0; x < island.width; x++) {
+				for (int y = 0; y < island.height; y++) {
+					if (island.getTile(x, y).getId() == 8) {
+						this.x = island.width - ((x + 2) * Tile.width);
+						this.y = (y - 1) * Tile.width;
+						break thid;
+					}
+				}
+			}
+
+		} else if (shouldExit((x + xa + collider.x) / Tile.width, (y + collider.y) / Tile.width)) {
+			if ((x + collider.x) / Tile.width < island.width / 2) {
+				e.island = island.leftI;
+				System.out.println(e.island.imagePath);
+			}
+
+			island.entities.remove(this);
+			island = e.island;
+			island.entities.add(this);
+
+			for (int x = 0; x < e.island.width; x++) {
+				for (int y = 0; y < e.island.height; y++) {
+					if (island.getTile(x, y).getId() == 8) {
+						this.x = (x - 2) * Tile.width;
+						this.y = (y - 1) * Tile.width;
+					}
+				}
+			}
 		}
 
 	}

@@ -97,6 +97,7 @@ public class Engine extends Canvas implements Runnable {
 	public void initIslands() {
 
 		Island.Utopia = new Island("res/Islands/Utopia.png", this);
+		Island.Test = new Island("res/Islands/test.png", this);
 
 	}
 

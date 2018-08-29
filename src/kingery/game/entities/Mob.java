@@ -75,6 +75,12 @@ public abstract class Mob extends Entity {
 
 	}
 
+	protected boolean shouldExit(int x, int y) {
+		if(island.getTile(x, y).getId() == 8)
+			return true;
+		else return false;
+	}
+	
 	@Override
 	public abstract void update();
 

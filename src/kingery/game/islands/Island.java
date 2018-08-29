@@ -26,12 +26,13 @@ public class Island {
 	private int[][] tiles;
 	public int width;
 	public int height;
-	private String imagePath;
+	public String imagePath;
 	private BufferedImage image;
-
+	public Island rightI, leftI;
 	//
 
 	public static Island Utopia;
+	public static Island Test;
 
 	private Comparator<Entity> entitySorter = new Comparator<Entity>() {
 
@@ -111,10 +112,17 @@ public class Island {
 	}
 
 	public void update() {
-		for (Entity f : entities) {
-			if (f.isMob())
-				f.update();
+
+		for(int i = 0; i < entities.size(); i++) {
+			if(entities.get(i).isMob()) {
+				entities.get(i).update();
+			}
 		}
+		
+		if(rightI == null && leftI == null) {
+			init();
+		}
+		
 	}
 
 	public void renderEntities(Graphics g) {
@@ -128,6 +136,17 @@ public class Island {
 		}
 		entities.sort(entitySorter);
 
+	}
+	
+	public void init() {
+		
+		if(this.equals(Test)) {
+			rightI = Utopia;
+		}
+		if(this.equals(Utopia)) {
+			leftI = Test;
+		}
+		
 	}
 
 	public void GenerateIsland() {
