@@ -28,7 +28,6 @@ public class TextBox {
 	}
 
 	public Object drawConfirmDialog(String s, String s2, Object[] strings) {
-		Object[] possibilities = {"ham", "spam", "yam"};
 		return JOptionPane.showInputDialog(
                 e.frame,
                 "Complete the sentence:\n"
@@ -36,7 +35,7 @@ public class TextBox {
                 "Customized Dialog",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                possibilities,
+                strings,
                 "ham");
 	}
 
