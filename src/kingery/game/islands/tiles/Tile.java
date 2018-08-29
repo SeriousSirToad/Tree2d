@@ -11,7 +11,7 @@ import kingery.game.gfx.SpriteSheet;
 public abstract class Tile {
 
 	public static final Tile[] tiles = new Tile[256];
-	public static final Tile GRASS = new BasicTile(1, 0, 8, 0xFF00FF00);
+	public static final Tile GRASS = new BasicTile(1, 0, 0, 0xFF00FF00);
 	public static final Tile VOID = new BasicSolidTile(0, 40, 0, 0xFF000000);
 	public static final Tile STONE = new BasicTile(2, 0, 24, 0xFF7F7F7F);
 	public static final Tile STONE_SOLID = new BasicSolidTile(3, 8, 24, 0xFF444444);
@@ -19,7 +19,7 @@ public abstract class Tile {
 	public static final Tile WOOD_SOLID = new BasicSolidTile(5, 8, 32, 0xFF5F5F00);
 	public static final Tile WATER = new BasicSolidTile(6, 24, 0, 0xFF0000FF);
 
-	protected boolean isSolid, isEmitter;
+	protected boolean isSolid, isEmitter, isRandom = false;
 	protected int id;
 	private int levelColor;
 	public final static byte scale = 4;
@@ -42,6 +42,7 @@ public abstract class Tile {
 	}
 
 	public void renderTile(Graphics g, int x, int y) {
+		
 		g.drawImage(tileImage, x, y, width, width, null);
 
 		collider.x = x;
