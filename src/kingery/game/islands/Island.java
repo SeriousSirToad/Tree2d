@@ -30,6 +30,8 @@ public class Island {
 	private String imagePath;
 	private BufferedImage image;
 	
+	//
+	
 	public static Island Utopia;
 	
 	private Comparator<Entity> entitySorter = new Comparator<Entity>() {

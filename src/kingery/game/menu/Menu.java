@@ -40,10 +40,12 @@ public class Menu {
 		int bbbbb = (menuImage.getWidth());
 		int bbbb = (menuImage.getHeight());
 
-		start = new GameButton(297 + Engine.WIDTH / 2 - menuImage.getWidth() / 2,
-				381 + Engine.HEIGHT / 2 - menuImage.getHeight() / 2, 52, 24, engine);
-		exit = new GameButton(300 + renderX / 2 - menuImage.getWidth() / 2,
-				444 + renderY / 2 - menuImage.getHeight() / 2, 48, 26, engine);
+		start = new GameButton(297 + Engine.WIDTH / 2 - menuImage.getWidth()
+				/ 2, 381 + Engine.HEIGHT / 2 - menuImage.getHeight() / 2, 52,
+				24, engine);
+		exit = new GameButton(300 + +Engine.WIDTH / 2 - menuImage.getWidth()
+				/ 2, 444 + Engine.HEIGHT / 2 - menuImage.getHeight() / 2, 48, 26,
+				engine);
 
 	}
 
@@ -68,7 +70,8 @@ public class Menu {
 
 	public void renderTitle(Graphics g) {
 
-		g.drawImage(menuImage, renderY / 2 - menuImage.getWidth() / 2, renderX / 2 - menuImage.getHeight() / 2, null);
+		g.drawImage(menuImage, renderY / 2 - menuImage.getWidth() / 2, renderX
+				/ 2 - menuImage.getHeight() / 2, null);
 
 	}
 
