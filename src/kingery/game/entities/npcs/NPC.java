@@ -28,7 +28,7 @@ public class NPC extends Mob {
 			Island island) {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
-		interactZone = new Rectangle(x - width, y - height / 2, width * 3, height * 2);
+		interactZone = new Rectangle(x, y, width, height);
 		this.message = message;
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
@@ -41,7 +41,7 @@ public class NPC extends Mob {
 	@Override
 	public void update() {
 
-		if (interactZone.contains(Engine.p.zoneCheck)) {
+		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}
@@ -65,8 +65,8 @@ public class NPC extends Mob {
 			g.drawImage(entityImage, x - Camera.x() + width, y - Camera.y(), -width, height, null);
 		else
 			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
-		
-		if (interactZone.contains(Engine.p.zoneCheck)) {
+
+		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
 			g.setFont(font);
 			fm = g.getFontMetrics();
 			int eWidth = fm.stringWidth("[E]");

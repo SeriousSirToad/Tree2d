@@ -36,7 +36,7 @@ public class Island {
 
 		@Override
 		public int compare(Entity a, Entity b) {
-			if (a.y + a.height < b.y + a.height)
+			if (a.y + a.height < b.y + b.height)
 				return -1;
 			return 1;
 		}
