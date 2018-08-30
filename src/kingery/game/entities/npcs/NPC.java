@@ -20,10 +20,12 @@ public class NPC extends Mob {
 	protected String message;
 	protected TextBox dialougeBox;
 	protected String name;
+	protected boolean inverted = false;
 
 	private Island l;
 
-	public NPC(int x, int y, String message, String name, BufferedImage entityImage, Engine e, Island island) {
+	public NPC(int x, int y, String message, String name, BufferedImage entityImage, boolean inverted, Engine e,
+			Island island) {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
 		interactZone = new Rectangle(x - width, y - height / 2, width * 3, height * 2);
@@ -31,6 +33,7 @@ public class NPC extends Mob {
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
+		this.inverted = inverted;
 	}
 
 	boolean canShowBox = false;
@@ -58,7 +61,11 @@ public class NPC extends Mob {
 	FontMetrics fm;
 
 	public void render(Graphics g) {
-		g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), null);
+		if (inverted)
+			g.drawImage(entityImage, x - Camera.x() + width, y - Camera.y(), -width, height, null);
+		else
+			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
+		
 		if (interactZone.contains(Engine.p.zoneCheck)) {
 			g.setFont(font);
 			fm = g.getFontMetrics();

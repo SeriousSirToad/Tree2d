@@ -34,13 +34,13 @@ public class Player extends Mob {
 
 		super(x, y, "player", Assets.PLAYER, e, is);
 
-		BufferedImage[] someImages = new BufferedImage[12];
+		BufferedImage[] someImages = new BufferedImage[2];
 
-		for (int i = 0; i < 12; i++) {
-			someImages[i] = SpriteSheet.getImage(32 + i * 32, 536, 32, 64);
+		for (int i = 0; i < 2; i++) {
+			someImages[i] = SpriteSheet.getImage(8 + i * 8, 584, 8, 16);
 		}
 
-		walkR = new Animation((short) 12, (byte) 2, someImages);
+		walkR = new Animation((short) 2, (byte) 8, someImages);
 
 		name = username;
 		EntityColor = Color.orange;
@@ -49,10 +49,10 @@ public class Player extends Mob {
 
 		zoneCheck = new Rectangle(x, y, width, height);
 
-		collider.x = 9;
-		collider.y = 43;
-		collider.width = 16;
-		collider.height = 22;
+		collider.x = 1 * Tile.scale;
+		collider.y = 12 * Tile.scale;
+		collider.width = 5 * Tile.scale;
+		collider.height = 4 * Tile.scale;
 
 	}
 
@@ -153,9 +153,10 @@ public class Player extends Mob {
 			g.drawImage(walkR.animate(), x - Camera.x(), y - Camera.y(), width, height, null);
 		} else if (moving && goingLeft) {
 			g.drawImage(walkR.animate(), x - Camera.x() + width, y - Camera.y(), -width, height, null);
+		} else if (!moving && goingLeft) {
+			g.drawImage(entityImage, x - Camera.x() + width, y - Camera.y(), -width, height, null);
 		} else {
 			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
-			Engine.p.walkR.reset();
 		}
 
 	}

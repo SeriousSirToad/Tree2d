@@ -54,7 +54,7 @@ public class Menu {
 		start.update();
 		exit.update();
 
-		if (start.hasBeenClicked) {
+		if (start.hasBeenClicked || Engine.p.input.space.isPressed()) {
 
 			startGame = true;
 

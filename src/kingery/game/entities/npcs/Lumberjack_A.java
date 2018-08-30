@@ -6,8 +6,8 @@ import kingery.game.islands.Island;
 
 public class Lumberjack_A extends NPC {
 
-	public Lumberjack_A(int x, int y, String name, Engine e, Island island) {
-		super(x, y, "Hiya there", name, Assets.NPC_LUMBERJACK_A, e, island);
+	public Lumberjack_A(int x, int y, String name, boolean inverted, Engine e, Island island) {
+		super(x, y, "Hiya there", name, Assets.NPC_LUMBERJACK_A, inverted, e, island);
 	}
 
 }

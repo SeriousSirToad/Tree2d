@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import kingery.game.engine.Engine;
 import kingery.game.gfx.Camera;
 import kingery.game.islands.Island;
+import kingery.game.islands.tiles.Tile;
 
 public abstract class Entity {
 
@@ -46,8 +47,8 @@ public abstract class Entity {
 		this.isMob = isMob;
 		this.entityImage = entityImage;
 
-		width = entityImage.getWidth();
-		height = entityImage.getHeight();
+		width = entityImage.getWidth() * Tile.scale;
+		height = entityImage.getHeight() * Tile.scale;
 		
 		collider = new Rectangle(0, 0, width, height);
 
