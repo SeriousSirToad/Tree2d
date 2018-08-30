@@ -14,13 +14,9 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
-import kingery.game.entities.Entity;
 import kingery.game.entities.Player;
-import kingery.game.gfx.Camera;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
-import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
@@ -88,7 +84,7 @@ public class Engine extends Canvas implements Runnable {
 
 		new Sound(this);
 		initIslands();
-		island = Island.Utopia;
+		island = Island.Test;
 		eHandle = new EntityHandler(this);
 		p = eHandle.p;
 
@@ -149,7 +145,7 @@ public class Engine extends Canvas implements Runnable {
 			delta2 += (now - lastTime) / renderTime;
 			lastTime = now;
 			boolean shouldRender = false;
-			if(Settings.frameCap == 0){
+			if (Settings.frameCap == 0) {
 				shouldRender = true;
 			}
 			while (delta >= 1) {

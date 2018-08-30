@@ -11,6 +11,7 @@ import kingery.game.gfx.Animation;
 import kingery.game.gfx.Assets;
 import kingery.game.gfx.Camera;
 import kingery.game.gfx.SpriteSheet;
+import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
 
 public class Player extends Mob {
@@ -25,14 +26,13 @@ public class Player extends Mob {
 	public boolean goingRight = false;
 	public boolean goingLeft = false;
 	public int speedMultiplier = 1;
-	private int scale = 2;
 	int numSteps;
 
 	public Animation walkR;
 
-	public Player(String username, int x, int y, InputHandler input, Engine e) {
+	public Player(String username, int x, int y, InputHandler input, Engine e, Island is) {
 
-		super(x, y, "player", Assets.PLAYER, e, e.island);
+		super(x, y, "player", Assets.PLAYER, e, is);
 
 		BufferedImage[] someImages = new BufferedImage[12];
 
@@ -120,7 +120,6 @@ public class Player extends Mob {
 				for (int y = 0; y < island.height; y++) {
 					if (island.getTile(x, y).getId() == 8) {
 						this.x = island.width - ((x + 2) * Tile.width);
-						this.y = (y - 1) * Tile.width;
 						break thid;
 					}
 				}
@@ -139,8 +138,7 @@ public class Player extends Mob {
 			for (int x = 0; x < e.island.width; x++) {
 				for (int y = 0; y < e.island.height; y++) {
 					if (island.getTile(x, y).getId() == 8) {
-						this.x = (x - 2) * Tile.width;
-						this.y = (y - 1) * Tile.width;
+						this.x = (x - 1) * Tile.width;
 					}
 				}
 			}

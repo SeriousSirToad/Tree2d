@@ -9,10 +9,8 @@ import java.util.Comparator;
 
 import javax.imageio.ImageIO;
 
-import kingery.game.buildings.Building;
 import kingery.game.engine.Engine;
 import kingery.game.entities.Entity;
-import kingery.game.entities.Player;
 import kingery.game.gfx.Camera;
 import kingery.game.islands.tiles.Tile;
 

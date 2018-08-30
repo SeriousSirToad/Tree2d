@@ -43,7 +43,6 @@ public abstract class Entity {
 		this.name_short = name_short;
 		this.e = e;
 		this.name_short = name_short;
-		island = e.island;
 		this.isMob = isMob;
 		this.entityImage = entityImage;
 
@@ -53,6 +52,7 @@ public abstract class Entity {
 		collider = new Rectangle(0, 0, width, height);
 
 		island.entities.add(this);
+		System.out.println(island.imagePath);
 
 	}
 
@@ -75,7 +75,7 @@ public abstract class Entity {
 	public abstract void update();
 
 	public void render(Graphics g) {
-		g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), null);
+		g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
 	}
 
 }
