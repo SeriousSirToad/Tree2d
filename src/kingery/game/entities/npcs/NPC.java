@@ -48,20 +48,24 @@ public class NPC extends Mob {
 				canShowBox = true;
 			}
 			
-			if (canShowBox && !e.input.E.isPressed() && vendor == false) {
+			if (canShowBox && !e.input.E.isPressed() && !vendor) {
 				dialougeBox.drawTextBox(message, name);
 				canShowBox = false;
 			}
 
 
-			if (canShowBox && !e.input.E.isPressed() && vendor == true) {
-				dialougeBox.drawQuestionBox(message, name);
+			if (canShowBox && !e.input.E.isPressed() && vendor) {
+				int val = dialougeBox.drawQuestionBox(message, name);
+				System.out.println(val);
+				if(val == 0) {
+					System.out.println(true);
+				} else {
+					System.out.println(false);
+				}
 				canShowBox = false;
-				
-			
-		}
+			}
 
-	}
+		}
 	}
 
 	Font font = new Font(Font.MONOSPACED, Font.BOLD, 14);

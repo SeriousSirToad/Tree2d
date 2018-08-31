@@ -28,9 +28,7 @@ public class TextBox {
 	}
 	
 	public int drawQuestionBox(String s, String s2) {
-		int value = JOptionPane.showConfirmDialog(null, "Do you want to trade?");
-		System.out.println(value);
-		return value;
+		return JOptionPane.showConfirmDialog(e.frame, "Do you want to trade?");
 		
 	}
 
