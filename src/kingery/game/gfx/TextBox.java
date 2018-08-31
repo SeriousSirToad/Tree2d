@@ -26,6 +26,13 @@ public class TextBox {
 		JOptionPane.showInputDialog("Please input a name");
 
 	}
+	
+	public int drawQuestionBox(String s, String s2) {
+		int value = JOptionPane.showConfirmDialog(null, "Do you want to trade?");
+		System.out.println(value);
+		return value;
+		
+	}
 
 	public Object drawConfirmDialog(String s, String s2, Object[] strings) {
 		return JOptionPane.showInputDialog(

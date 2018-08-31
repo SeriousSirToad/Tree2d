@@ -21,10 +21,11 @@ public class NPC extends Mob {
 	protected TextBox dialougeBox;
 	protected String name;
 	protected boolean inverted = false;
+	protected boolean vendor;
 
 	private Island l;
 
-	public NPC(int x, int y, String message, String name, BufferedImage entityImage, boolean inverted, Engine e,
+	public NPC(int x, int y, String message, String name, boolean vendor, BufferedImage entityImage, boolean inverted, Engine e,
 			Island island) {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
@@ -34,6 +35,7 @@ public class NPC extends Mob {
 		this.entityImage = entityImage;
 		this.name = name;
 		this.inverted = inverted;
+		this.vendor = vendor;
 	}
 
 	boolean canShowBox = false;
@@ -45,16 +47,21 @@ public class NPC extends Mob {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}
-
-			if (canShowBox && !e.input.E.isPressed()) {
-
+			
+			if (canShowBox && !e.input.E.isPressed() && vendor == false) {
 				dialougeBox.drawTextBox(message, name);
 				canShowBox = false;
-
 			}
 
+
+			if (canShowBox && !e.input.E.isPressed() && vendor == true) {
+				dialougeBox.drawQuestionBox(message, name);
+				canShowBox = false;
+				
+			
 		}
 
+	}
 	}
 
 	Font font = new Font(Font.MONOSPACED, Font.BOLD, 14);

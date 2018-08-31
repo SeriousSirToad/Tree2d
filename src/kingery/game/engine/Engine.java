@@ -201,6 +201,9 @@ public class Engine extends Canvas implements Runnable {
 		if (menu.canStartGame()) {
 			backGround(g);
 			island.renderEntities(g);
+			if (eHandle.p.inventory.active) {
+				eHandle.p.inventory.render(g);
+				}
 		} else {
 			g.setColor(Color.gray);
 			g.fillRect(0, 0, (WIDTH), (HEIGHT));

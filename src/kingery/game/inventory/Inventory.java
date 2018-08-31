@@ -11,30 +11,30 @@ import kingery.game.items.Item;
 
 public class Inventory{
 	private Engine e;
-	private boolean active = false;
+	public boolean active = false;
 	private ArrayList<Item> inventoryItems;
-	private int InvX = 64, InvY = 64, InvWidth = 128, InvHeight = 128;
+	private int InvX = 0, InvY = 0, InvWidth = 225, InvHeight = 225;
 	
-	public Inventory(Engine e) {
+	public Inventory(int InvX, int InvY, int InvWidth, int InvHeight, Engine e) {
 		this.e = e;
 		inventoryItems = new ArrayList<Item>();
 	}
 	
 	public void update() {
 		if (e.input.space.isPressed()){
-			active = true;
+			setActive(!isActive());
 		}
-		if (!active) {
+		if (!isActive()) 
 			return;
-		}
+		
 		System.out.println("Shit be working yo");
 	}
 	public void render(Graphics g) {
-		if (!active) {
+		if (!isActive()) 
 			return;
-		}else {
-		g.drawImage(Assets.INVENTORY, 0, 0, 64, 64, null);
-		}
+		
+		g.drawImage(Assets.INVENTORY, InvX, InvY, InvWidth, InvHeight, null);
+		
 	}
 	
 	public void AddItem(Item item) {
@@ -45,5 +45,13 @@ public class Inventory{
 			}
 			inventoryItems.add(item);
 		}
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 }

@@ -16,11 +16,11 @@ public abstract class Mob extends Entity {
 
 	int collidedDir = 0;
 	
-	Inventory inventory;
+	public Inventory inventory;
 
 	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e, Island island) {
 		super(x, y, name, true, entityImage, e, island);
-		 inventory = new Inventory(e);
+		 inventory = new Inventory(0, 0, 225, 225, e);
 	}
 
 	public void move() {
