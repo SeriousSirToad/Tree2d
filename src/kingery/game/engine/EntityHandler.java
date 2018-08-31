@@ -2,12 +2,10 @@ package kingery.game.engine;
 
 import java.util.Random;
 
-import javax.swing.JOptionPane;
-
 import kingery.game.entities.Player;
-import kingery.game.entities.buildings.Building;
 import kingery.game.entities.npcs.Lumberjack_A;
 import kingery.game.entities.npcs.NPC;
+import kingery.game.entities.npcs.Vendor;
 import kingery.game.gfx.Assets;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
@@ -43,7 +41,7 @@ public class EntityHandler {
 		NPC npc_1 = new Lumberjack_A(40 * Tile.width, 22 * Tile.width, "Ian", false, engine, Island.Utopia);
 		NPC john = new NPC(11 * Tile.width, 6 * Tile.width, johnText, "John", false, Assets.NPC_LUMBERJACK_A, true, engine, Island.Utopia);
 		NPC hermit = new NPC(5 * Tile.width, 97 * Tile.width, hermitText, "Hermit", false, Assets.NPC_HERMIT, true, engine, Island.Utopia);
-		NPC vendor = new NPC(20 * Tile.width, 40 * Tile.width, vendorText, "Vendor", true, Assets.NPC_LUMBERJACK_B, true, engine, Island.Utopia);
+		NPC vendor = new Vendor(20 * Tile.width, 40 * Tile.width, "Bip pippa", true, engine, Island.Utopia);
 		
 	}
 	
