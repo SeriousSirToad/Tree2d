@@ -10,7 +10,9 @@ import kingery.game.islands.tiles.Tile;
 public class Item {
 
 	public static Item[] items = new Item[256];
-	public static final Item woodItem = new Item(Assets.WOOD, "Wood", 1);
+	
+	public static final Item moneyItem = new Item(Assets.MONEY, "Money", 1, 1);
+	public static final Item woodItem = new Item(Assets.WOOD, "Wood", 5, 2);
 
 	public static final int ITEMWIDTH = 8, ITEMHEIGHT = 16;
 	boolean pickedUp = false;
@@ -20,12 +22,14 @@ public class Item {
 	protected String name;
 	protected final int id;
 	protected int x, y, count;
+	protected int value;
 
-	public Item(BufferedImage texture, String name, int id) {
+	public Item(BufferedImage texture, String name, int value, int id) {
 		this.texture = texture;
 		this.name = name;
 		this.id = id;
 		count = 1;
+		this.value = value;
 
 		items[id] = this;
 	}
@@ -45,7 +49,7 @@ public class Item {
 	}
 
 	public Item createNew(int x, int y) {
-		Item i = new Item(texture, name, id);
+		Item i = new Item(texture, name, value, id);
 		i.setPostion(x, y);
 		return i;
 	}
