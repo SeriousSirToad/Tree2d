@@ -64,6 +64,8 @@ public class Player extends Mob {
 	@Override
 	public void update() {
 
+		inventory.update();
+		
 		zoneCheck.x = x;
 		zoneCheck.y = y;
 

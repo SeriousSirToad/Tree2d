@@ -3,6 +3,7 @@ package kingery.game.entities;
 import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
+import kingery.game.inventory.Inventory;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
 
@@ -14,9 +15,12 @@ public abstract class Mob extends Entity {
 	int numsteps = 0;
 
 	int collidedDir = 0;
+	
+	Inventory inventory;
 
 	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e, Island island) {
 		super(x, y, name, true, entityImage, e, island);
+		 inventory = new Inventory(e);
 	}
 
 	public void move() {
