@@ -23,7 +23,7 @@ public class EntityHandler {
 	public EntityHandler(Engine engine) {
 
 		this.engine = engine;
-		p = new Player("John", 64, 64, engine.input, engine, engine.island);
+		p = new Player("John", 1 * Tile.width, 0 * Tile.width, engine.input, engine, engine.island);
 		Utopia();
 		Island_1();
 		//40 * Tile.width, 23 * Tile.width

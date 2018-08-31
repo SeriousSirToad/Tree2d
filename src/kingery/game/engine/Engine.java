@@ -26,7 +26,6 @@ public class Engine extends Canvas implements Runnable {
 	private static final long serialVersionUID = -5198863677834462653L;
 
 	public int tickCount;
-
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	public ArrayList<GameButton> buttons = new ArrayList<>();
