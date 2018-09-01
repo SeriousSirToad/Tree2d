@@ -1,7 +1,5 @@
 package kingery.game.gfx;
 
-import java.awt.*;
-
 import javax.swing.JOptionPane;
 
 import kingery.game.engine.Engine;
@@ -16,7 +14,6 @@ public class TextBox {
 
 	public void drawTextBox(String s, String s2) {
 
-		// JOptionPane.showMessageDialog(e.frame, s);
 		JOptionPane.showMessageDialog(e.frame, s, s2, JOptionPane.PLAIN_MESSAGE);
 
 	}
@@ -26,22 +23,17 @@ public class TextBox {
 		JOptionPane.showInputDialog("Please input a name");
 
 	}
-	
+
 	public int drawQuestionBox(String s, String s2) {
-		return JOptionPane.showConfirmDialog(e.frame, "Do you want to trade?");
-		
+		Object[] options = { "Yeah sure", "No, sorry" };
+		return JOptionPane.showOptionDialog(e.frame, "Do you want to trade?", s2, JOptionPane.OK_CANCEL_OPTION,
+				JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
 	}
 
 	public Object drawConfirmDialog(String s, String s2, Object[] strings) {
-		return JOptionPane.showInputDialog(
-                e.frame,
-                "Complete the sentence:\n"
-                + "\"Green eggs and...\"",
-                "Customized Dialog",
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                strings,
-                "ham");
+		return JOptionPane.showInputDialog(e.frame, "Complete the sentence:\n" + "\"Green eggs and...\"",
+				"Customized Dialog", JOptionPane.PLAIN_MESSAGE, null, strings, "ham");
 	}
 
 }

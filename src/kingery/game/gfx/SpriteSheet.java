@@ -10,10 +10,12 @@ public class SpriteSheet {
 
 	
 	private static BufferedImage spriteSheet;
-	public SpriteSheet(String file) {
+	private static BufferedImage spriteSheetB;
+	public SpriteSheet(String file, String file2) {
 		
 		try {
 			spriteSheet = ImageIO.read(new File("res/Images/" + file + ".png"));
+			spriteSheetB = ImageIO.read(new File("res/Images/" + file2 + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

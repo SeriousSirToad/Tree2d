@@ -54,7 +54,7 @@ public class Engine extends Canvas implements Runnable {
 	static final Dimension gameDimension = new Dimension((int) (WIDTH), (int) (HEIGHT));
 
 	public Engine() {
-		spriteSheet = new SpriteSheet("spriteSheet");
+		spriteSheet = new SpriteSheet("spriteSheet", "BuildingSpriteSheet.");
 		frame.setTitle(NAME);
 		frame.setSize(gameDimension);
 		frame.setMinimumSize(gameDimension);

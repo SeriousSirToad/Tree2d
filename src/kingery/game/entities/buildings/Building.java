@@ -17,8 +17,6 @@ public class Building extends Entity{
 		width = width * Tile.scale;
 		height = height * Tile.scale;
 		
-		System.out.print(island.imagePath);
-		
 	}
 
 	@Override
