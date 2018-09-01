@@ -17,6 +17,7 @@ public class NPC extends Mob {
 
 	public Rectangle collider;
 	public Rectangle interactZone;
+	protected String[] messages;
 	protected String message;
 	protected TextBox dialougeBox;
 	protected String name;
@@ -30,7 +31,21 @@ public class NPC extends Mob {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
 		interactZone = new Rectangle(x, y, width, height);
-		this.message = message;
+		messages = new String[1];
+		messages[0] = message;
+		dialougeBox = new TextBox(e);
+		this.entityImage = entityImage;
+		this.name = name;
+		this.inverted = inverted;
+		this.vendor = vendor;
+	}
+	
+	public NPC(int x, int y, String[] messages, String name, boolean vendor, BufferedImage entityImage, boolean inverted, Engine e,
+			Island island) {
+		super(x, y, name, entityImage, e, island);
+		collider = new Rectangle(9, 43, 16, 22);
+		interactZone = new Rectangle(x, y, width, height);
+		this.messages = messages;
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
@@ -39,33 +54,28 @@ public class NPC extends Mob {
 	}
 
 	boolean canShowBox = false;
+	int speechIndex = 0;
 
 	@Override
 	public void update() {
-
+		
 		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}
 			
-			if (canShowBox && !e.input.E.isPressed() && !vendor) {
-				dialougeBox.drawTextBox(message, name);
+			if (canShowBox && !e.input.E.isPressed()) {
+				dialougeBox.drawTextBox(messages[speechIndex], name);
 				canShowBox = false;
-			}
-
-
-			if (canShowBox && !e.input.E.isPressed() && vendor) {
-				int val = dialougeBox.drawQuestionBox(message, name);
-				System.out.println(val);
-				if(val == 0) {
-					System.out.println(true);
-				} else {
-					System.out.println(false);
-				}
-				canShowBox = false;
+				speechIndex++;
 			}
 
 		}
+		
+		if(speechIndex == messages.length) {
+			speechIndex = 0;
+		}
+		
 	}
 
 	Font font = new Font(Font.MONOSPACED, Font.BOLD, 14);

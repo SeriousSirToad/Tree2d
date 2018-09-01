@@ -12,6 +12,27 @@ public class Vendor extends NPC{
 		super(x, y, "Want to trade?", name, true, Assets.NPC_LUMBERJACK_C, inverted, e, island);
 		inventory = new Inventory(640, 0, 225, 225, e);
 	}
+	
+	public void update() {
+		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
+			if (e.input.E.isPressed()) {
+				canShowBox = true;
+			}
+
+
+			if (canShowBox && !e.input.E.isPressed()) {
+				int val = dialougeBox.drawQuestionBox(message, name);
+				System.out.println(val);
+				if(val == 0) {
+					System.out.println(true);
+				} else {
+					System.out.println(false);
+				}
+				canShowBox = false;
+			}
+
+		}
+	}
 
 }
 
