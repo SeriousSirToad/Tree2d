@@ -1,11 +1,9 @@
 package kingery.game.islands.tiles;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import kingery.game.engine.Engine;
 import kingery.game.gfx.SpriteSheet;
 
 public abstract class Tile {
@@ -24,7 +22,7 @@ public abstract class Tile {
 	public static final Tile EXITTILE = new BasicTile(8, 0, 24, 0xFF8F8F8F);
 
 	protected boolean isSolid, isEmitter, isRandom = false;
-	protected int id;
+	protected byte id;
 	private int levelColor;
 	public final static byte scale = 4;
 	public static final byte textureWidth = 8;
@@ -35,7 +33,7 @@ public abstract class Tile {
 
 	public Tile(int id, boolean isSolid, boolean isEmitter, int SSX, int SSY, int levelColour) {
 
-		this.id = id;
+		this.id = (byte) id;
 		this.isSolid = isSolid;
 		this.isEmitter = isEmitter;
 		tiles[id] = this;

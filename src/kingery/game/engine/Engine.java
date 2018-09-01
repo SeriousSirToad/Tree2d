@@ -44,8 +44,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public static int WIDTH = 640;
 	public static int HEIGHT = 480;
-	public static int SCALE = 2;
-	private static final String NAME = "Get a job you slob";
+	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
