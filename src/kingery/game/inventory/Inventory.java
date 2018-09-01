@@ -1,12 +1,10 @@
 package kingery.game.inventory;
 
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import kingery.game.engine.Engine;
 import kingery.game.gfx.Assets;
-import kingery.game.gfx.Camera;
 import kingery.game.items.Item;
 
 public class Inventory {

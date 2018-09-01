@@ -28,6 +28,7 @@ public class EntityHandler {
 
 	}
 
+	@SuppressWarnings("unused")
 	public void Utopia() {
 		String johnText = "Hello " + p.name + " and welcome to Tree Town pre Alpha release \n "
 				+ "0.0. It's nice here, no? This is the Utopia level. Have fun \n" + "fun developing! Just kidding.";
@@ -46,6 +47,7 @@ public class EntityHandler {
 
 	}
 
+	@SuppressWarnings("unused")
 	public void Island_1() {
 
 		String[] josephText = {"What? Oh, Sorry. Hey.", "Don't you think it's strange there's only 2 islands?"};

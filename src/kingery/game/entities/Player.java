@@ -23,7 +23,7 @@ public class Player extends Mob {
 
 	public boolean moving = false;
 	public boolean running = false;
-	public boolean goingRight = false;
+	public boolean goingRight = true;
 	public boolean goingLeft = false;
 	public int speedMultiplier = 1;
 	int numSteps;
