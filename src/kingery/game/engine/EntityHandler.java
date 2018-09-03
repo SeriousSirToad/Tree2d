@@ -31,6 +31,9 @@ public class EntityHandler {
 
 	@SuppressWarnings("unused")
 	public void Utopia() {
+		
+		Building bldg_0 = new Building(0, 39 * Tile.width, 10 * Tile.width, Assets.BLDG_SHOPPE_TEST, engine, Island.Utopia);
+		
 		String johnText = "Hello " + p.name + " and welcome to Tree Town pre Alpha release \n "
 				+ "0.0. It's nice here, no? This is the Utopia level. Have fun \n" + "developing! Just kidding.";
 		String hermitText = "Hmmm, very good indeed. Bes bes, mmm bes.";
@@ -51,7 +54,6 @@ public class EntityHandler {
 	@SuppressWarnings("unused")
 	public void Island_1() {
 
-		Building bldg_0 = new Building(0, 15 * Tile.width, 14 * Tile.width, Assets.BLDG_SHOPPE_TEST, engine, Island.Test);
 		String[] josephText = {"What? Oh, Sorry. Hey.", "Don't you think it's strange there's only 2 islands?"};
 		NPC npc_1 = new NPC(7 * Tile.width, 7 * Tile.width, josephText, "Joseph", Assets.NPC_LUMBERJACK_B, false,
 				engine, Island.Test);

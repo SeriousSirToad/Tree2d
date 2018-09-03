@@ -16,7 +16,7 @@ public class Assets {
 	public static BufferedImage NPC_LUMBERJACK_EVIL = SpriteSheet.getImage(72, 568, 8, 16);
 	public static BufferedImage NPC_HERMIT = SpriteSheet.getImage(0, 552, 8, 8);
 	//Building
-	public static BufferedImage BLDG_SHOPPE_TEST = SpriteSheet.getImg(104, 0, 33, 49);
+	public static BufferedImage BLDG_SHOPPE_TEST = SpriteSheet.getImg(128, 64, 80, 64);
 	
 	//Items
 	public static BufferedImage WOOD = SpriteSheet.getImage(0, 96,16, 7);
