@@ -47,7 +47,7 @@ public class EntityHandler {
 				engine, Island.Utopia);
 		NPC hermit = new NPC(5 * Tile.width, 97 * Tile.width, hermitText, "Hermit", false, Assets.NPC_HERMIT, true,
 				engine, Island.Utopia);
-		NPC vendor = new Vendor(20 * Tile.width, 40 * Tile.width, "Bip pippa", true, engine, Island.Utopia);
+		NPC vendor = new Vendor(1 * Tile.width, 1 * Tile.width, "Bip pippa", false, engine, Building.interior_0);
 
 	}
 
