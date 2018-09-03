@@ -32,7 +32,7 @@ public class EntityHandler {
 	@SuppressWarnings("unused")
 	public void Utopia() {
 		String johnText = "Hello " + p.name + " and welcome to Tree Town pre Alpha release \n "
-				+ "0.0. It's nice here, no? This is the Utopia level. Have fun \n" + "fun developing! Just kidding.";
+				+ "0.0. It's nice here, no? This is the Utopia level. Have fun \n" + "developing! Just kidding.";
 		String hermitText = "Hmmm, very good indeed. Bes bes, mmm bes.";
 		String vendorText = "Want to trade?";
 		String[] parque = { "I really love the park.", "Did you know I am the most recent addition \n" + "to this map?",
