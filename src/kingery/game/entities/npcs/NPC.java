@@ -50,7 +50,6 @@ public class NPC extends Mob {
 		this.entityImage = entityImage;
 		this.name = name;
 		this.inverted = inverted;
-		this.vendor = vendor;
 	}
 
 	boolean canShowBox = false;

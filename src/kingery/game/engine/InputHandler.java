@@ -45,6 +45,7 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 	public Key shift = new Key();
 	public Key r = new Key();
 	public Key E = new Key();
+	public Key f = new Key();
 	public Key w = new Key();
 	public Key a = new Key();
 	public Key s = new Key();
@@ -67,6 +68,12 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 		if (e.getKeyCode() == KeyEvent.VK_R) {
 
 			r.toggle(true);
+
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_F) {
+
+			f.toggle(true);
 
 		}
 		
@@ -158,6 +165,12 @@ public class InputHandler implements KeyListener, MouseListener, MouseMotionList
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		
+		if (e.getKeyCode() == KeyEvent.VK_F) {
+
+			f.toggle(false);
+
+		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_E) {
 

@@ -21,6 +21,7 @@ public abstract class Tile {
 	public static final Tile FLORAL_GRASS2 = new BasicTile(10, 8, 8, 0xFF00E500);
 	public static final Tile EXITTILE = new BasicTile(8, 0, 24, 0xFF8F8F8F);
 	public static final Tile COUNTER = new BasicSolidTile(11, 0, 40, 0xFF888264);
+	public static final Tile COUNTER2 = new BasicSolidTile(12, 8, 40, 0xFF888F64);
 
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;

@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 
 import kingery.game.engine.Engine;
 import kingery.game.entities.Entity;
+import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.Camera;
 import kingery.game.islands.tiles.Tile;
 
@@ -112,9 +113,7 @@ public class Island {
 	public void update() {
 
 		for(int i = 0; i < entities.size(); i++) {
-			if(entities.get(i).isMob()) {
 				entities.get(i).update();
-			}
 		}
 		
 		if(rightI == null && leftI == null) {
@@ -132,6 +131,7 @@ public class Island {
 		for (Entity f : entities) {
 			f.render(g);
 		}
+
 		entities.sort(entitySorter);
 
 	}

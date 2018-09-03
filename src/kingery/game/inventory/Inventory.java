@@ -18,12 +18,17 @@ public class Inventory {
 		inventoryItems = new ArrayList<Item>();
 	}
 
+	boolean canOpen = false;
 	public void update() {
+		
 		if (e.input.space.isPressed()) {
-			setActive(!isActive());
+			canOpen = true;
 		}
-		if (!isActive())
-			return;
+		
+		if (canOpen && !e.input.space.isPressed()) {
+			active = !active;
+			canOpen = false;
+		}
 	}
 
 	public void render(Graphics g) {

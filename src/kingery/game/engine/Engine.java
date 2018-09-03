@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import kingery.game.entities.Player;
+import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
 import kingery.game.menu.InGameMenu;
@@ -92,6 +93,7 @@ public class Engine extends Canvas implements Runnable {
 
 		Island.Utopia = new Island("res/Islands/Utopia.png", this);
 		Island.Test = new Island("res/Islands/test.png", this);
+		Building.interior_0 = new Island("res/Islands/bldg_01.png", this);
 
 	}
 

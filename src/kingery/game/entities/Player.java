@@ -65,7 +65,7 @@ public class Player extends Mob {
 	public void update() {
 
 		inventory.update();
-		
+
 		zoneCheck.x = x;
 		zoneCheck.y = y;
 
@@ -108,6 +108,11 @@ public class Player extends Mob {
 			shouldBeMoving = false;
 		}
 
+		doIslandStuff();
+
+	}
+
+	public void doIslandStuff() {
 		if (shouldExit((x + xa + collider.x + collider.width) / Tile.width, (y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width > island.width / 2) {
 				e.island = island.rightI;
@@ -129,7 +134,7 @@ public class Player extends Mob {
 
 		} else if (shouldExit((x + xa + collider.x) / Tile.width, (y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width < island.width / 2) {
-				e.island = island.leftI;
+				e.island = island.rightI;
 				System.out.println(e.island.imagePath);
 			}
 
@@ -143,9 +148,49 @@ public class Player extends Mob {
 						this.x = (x - 1) * Tile.width;
 					}
 				}
+			} // y + ya + collider.y + collider.height
+		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y) / Tile.width)) {
+			if ((y + collider.y) / Tile.width < island.height / 2) {
+				e.island = island.rightI;
+				System.out.println(e.island.imagePath);
+			}
+
+			island.entities.remove(this);
+			island = e.island;
+			island.entities.add(this);
+
+			for (int x = 0; x < e.island.width; x++) {
+				for (int y = 0; y < e.island.height; y++) {
+					if (island.getTile(x, y).getId() == 8) {
+						this.x = (y - 1) * Tile.width;
+					}
+				}
+			}
+		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y + collider.height) / Tile.width)) {
+			if ((y + collider.y) / Tile.width > island.height / 2) {
+				e.island = island.rightI;
+				//System.out.println(e.island.imagePath);
+			}
+
+			island.entities.remove(this);
+			island = e.island;
+			island.entities.add(this);
+
+			for (int x = 0; x < e.island.width; x++) {
+				for (int y = 0; y < e.island.height; y++) {
+					if (island.getTile(x, y).getId() == 8) {
+						this.y = (y + 2) * Tile.width;
+					}
+				}
 			}
 		}
+	}
 
+	public void changeIsland(Island i) {
+		e.island = i;
+		island.entities.remove(this);
+		island = e.island;
+		island.entities.add(this);
 	}
 
 	@Override

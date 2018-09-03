@@ -3,6 +3,7 @@ package kingery.game.engine;
 import java.util.Random;
 
 import kingery.game.entities.Player;
+import kingery.game.entities.buildings.Building;
 import kingery.game.entities.npcs.Lumberjack_A;
 import kingery.game.entities.npcs.NPC;
 import kingery.game.entities.npcs.Vendor;
@@ -50,6 +51,7 @@ public class EntityHandler {
 	@SuppressWarnings("unused")
 	public void Island_1() {
 
+		Building bldg_0 = new Building(0, 15 * Tile.width, 14 * Tile.width, Assets.BLDG_SHOPPE_TEST, engine, Island.Test);
 		String[] josephText = {"What? Oh, Sorry. Hey.", "Don't you think it's strange there's only 2 islands?"};
 		NPC npc_1 = new NPC(7 * Tile.width, 7 * Tile.width, josephText, "Joseph", Assets.NPC_LUMBERJACK_B, false,
 				engine, Island.Test);
