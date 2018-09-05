@@ -63,12 +63,6 @@ public class Engine extends Canvas implements Runnable {
 		frame.setPreferredSize(gameDimension);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		try {
-			backGround = ImageIO.read(new File("res/Images/background_day.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 		frame.setUndecorated(true);
 		frame.setVisible(true);
 		frame.setResizable(false);

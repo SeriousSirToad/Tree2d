@@ -134,7 +134,7 @@ public class Player extends Mob {
 
 		} else if (shouldExit((x + xa + collider.x) / Tile.width, (y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width < island.width / 2) {
-				e.island = island.rightI;
+				e.island = island.leftI;
 				System.out.println(e.island.imagePath);
 			}
 
