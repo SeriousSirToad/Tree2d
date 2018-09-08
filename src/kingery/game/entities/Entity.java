@@ -25,9 +25,6 @@ public abstract class Entity {
 
 	protected int movingDir = 0;
 	protected int collidedDir = 0;
-
-	public int hp = 100;
-
 	public boolean dead;
 
 	public Engine e;
@@ -59,15 +56,6 @@ public abstract class Entity {
 
 	public int hpCount;
 	public boolean hpCounting;
-	public int hpThresh = 100;
-
-	public void updateAll() {
-
-		if (hp <= 0) {
-			dead = true;
-		}
-
-	}
 
 	public boolean isMob() {
 		return isMob;

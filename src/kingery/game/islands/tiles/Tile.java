@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import kingery.game.engine.Engine;
 import kingery.game.gfx.SpriteSheet;
 
 public abstract class Tile {
@@ -27,9 +28,9 @@ public abstract class Tile {
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;
 	private int levelColor;
-	public final static byte scale = 4;
+	public final static int scale = 2 * Engine.SCALE;
 	public static final byte textureWidth = 8;
-	public static final byte width = textureWidth * scale;
+	public static final int width = textureWidth * scale;
 	public BufferedImage tileImage;
 	public Rectangle collider;
 	public int defX = 0, defY = 0;

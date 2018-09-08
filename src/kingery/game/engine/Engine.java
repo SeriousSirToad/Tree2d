@@ -14,10 +14,12 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+
 import kingery.game.entities.Player;
 import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
+import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
@@ -43,8 +45,9 @@ public class Engine extends Canvas implements Runnable {
 	public int cameraX = 0;
 	public int cameraY = 0;
 
-	public static int WIDTH = 640;
-	public static int HEIGHT = 480;
+	public static int WIDTH = 256;
+	public static int HEIGHT = 192;
+	public static int SCALE = 2;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
@@ -52,7 +55,8 @@ public class Engine extends Canvas implements Runnable {
 
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension((int) (WIDTH), (int) (HEIGHT));
+	static final Dimension gameDimension = new Dimension(WIDTH * SCALE, HEIGHT
+			* SCALE);
 
 	public Engine() {
 		spriteSheet = new SpriteSheet("spriteSheet", "BuildingSpriteSheet.");
@@ -192,16 +196,16 @@ public class Engine extends Canvas implements Runnable {
 		g = bs.getDrawGraphics();
 
 		// General Rendering
-		g.clearRect(0, 0, (WIDTH), (HEIGHT));
+		g.clearRect(0, 0, (WIDTH * SCALE), (HEIGHT * SCALE));
 		if (menu.canStartGame()) {
 			backGround(g);
 			island.renderEntities(g);
 			if (eHandle.p.inventory.active) {
 				eHandle.p.inventory.render(g);
-				}
+			}
 		} else {
 			g.setColor(Color.gray);
-			g.fillRect(0, 0, (WIDTH), (HEIGHT));
+			g.fillRect(0, 0, (WIDTH * SCALE), (HEIGHT * SCALE));
 			menu.renderTitle(g);
 		}
 
@@ -216,8 +220,8 @@ public class Engine extends Canvas implements Runnable {
 
 	void backGround(Graphics g) {
 
-		g.setColor(Color.blue.darker());
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(Color.cyan.darker());
+		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
 
 	}
 

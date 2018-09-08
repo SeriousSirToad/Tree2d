@@ -10,8 +10,8 @@ public class Camera {
 	private static int y = 0;
 	
 	public static void centerOnEntity(Entity e) {
-		x = e.x - Engine.WIDTH / 2 + e.width / 2;
-		y = e.y - Engine.HEIGHT / 2 + e.height / 2;
+		x = e.x - (Engine.WIDTH / 2) * Engine.SCALE + e.width / 2;
+		y = e.y - (Engine.HEIGHT / 2) * Engine.SCALE + e.height / 2;
 	}
 	
 	public static int x() {

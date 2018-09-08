@@ -87,7 +87,7 @@ public class Island {
 	int xOffset, yOffset;
 
 	public Tile getTile(int x, int y) {
-		if (0 > x || x > width || 0 > y || y > height)
+		if (x < 0 || x > width || 0 > y || y > height)
 			return Tile.VOID;
 		return Tile.tiles[tiles[x][y]];
 	}
@@ -96,9 +96,9 @@ public class Island {
 
 		int xMin = Math.max(0, Camera.x() / Tile.width);
 		int xMax = Math
-				.min(width, (Camera.x() + Engine.WIDTH) / Tile.width + 1);
+				.min(width, (Camera.x() + Engine.WIDTH * Engine.SCALE) / Tile.width + 1);
 		int yMin = Math.max(0, Camera.y() / Tile.width);
-		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT) / Tile.width
+		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT * Engine.SCALE) / Tile.width
 				+ 1);
 
 		for (int y = yMin; y < yMax; y++) {
