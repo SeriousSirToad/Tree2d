@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 
 public class Animation {
 
-	BufferedImage[] frames;
+	public BufferedImage[] frames;
 	public BufferedImage currentFrame;
 	public byte frameSkip;
 	private byte frameIndex;

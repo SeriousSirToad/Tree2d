@@ -28,7 +28,7 @@ public abstract class Tile {
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;
 	private int levelColor;
-	public final static int scale = 2 * Engine.SCALE;
+	public final static int scale = (int)(2 * Engine.SCALE);
 	public static final byte textureWidth = 8;
 	public static final int width = textureWidth * scale;
 	public BufferedImage tileImage;

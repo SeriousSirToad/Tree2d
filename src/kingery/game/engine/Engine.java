@@ -47,7 +47,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static int SCALE = 2;
+	public static int SCALE = 3;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;

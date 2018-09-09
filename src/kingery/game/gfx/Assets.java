@@ -8,7 +8,7 @@ import kingery.game.islands.tiles.Tile;
 public class Assets {
 	
 	//Entities
-	public static BufferedImage PLAYER = SpriteSheet.getImage(0, 584, 8, 16);
+	public static BufferedImage PLAYER = SpriteSheet.getImage(112, 584, 16, 16);
 	public static BufferedImage SHEEP_GENERIC = SpriteSheet.getImage(0, 504, 64, 32);
 	public static BufferedImage NPC_LUMBERJACK_A = SpriteSheet.getImage(0, 568, 8, 16);
 	public static BufferedImage NPC_LUMBERJACK_B = SpriteSheet.getImage(24, 568, 8, 16);

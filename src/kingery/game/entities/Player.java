@@ -17,10 +17,10 @@ import kingery.game.islands.tiles.Tile;
 public class Player extends Mob {
 
 	public InputHandler input;
-	public int movingDir;
 
 	public Rectangle zoneCheck;
 
+	private int movingDir = 0;
 	public boolean moving = false;
 	public boolean running = false;
 	public boolean goingRight = true;
@@ -29,18 +29,24 @@ public class Player extends Mob {
 	int numSteps;
 
 	public Animation walkR;
+	public Animation walkU;
 
 	public Player(String username, int x, int y, InputHandler input, Engine e, Island is) {
 
 		super(x, y, "player", Assets.PLAYER, e, is);
 
-		BufferedImage[] someImages = new BufferedImage[2];
-
-		for (int i = 0; i < 2; i++) {
-			someImages[i] = SpriteSheet.getImage(8 + i * 8, 584, 8, 16);
+		BufferedImage[] someImages = new BufferedImage[6];
+		for (int i = 0; i < someImages.length; i++) {
+			someImages[i] = SpriteSheet.getImage(16 + i * 16, 584, 16, 16);
 		}
+		walkR = new Animation((short) someImages.length, (byte) 8, someImages);
 
-		walkR = new Animation((short) 2, (byte) 8, someImages);
+		BufferedImage[] otherImages = new BufferedImage[2];
+		for (int i = 0; i < otherImages.length; i++) {
+			otherImages[i] = SpriteSheet.getImage(128 + i * 16, 584, 16, 16);
+		}
+		walkU = new Animation((short) otherImages.length, (byte) (walkR.frameSkip * 2), otherImages);
+		System.out.println(walkU.frames.length);
 
 		name = username;
 		EntityColor = Color.orange;
@@ -49,10 +55,10 @@ public class Player extends Mob {
 
 		zoneCheck = new Rectangle(x, y, width, height);
 
-		collider.x = 1 * Tile.scale;
-		collider.y = 12 * Tile.scale;
-		collider.width = 5 * Tile.scale;
-		collider.height = 4 * Tile.scale;
+		collider.x = 5 * Tile.scale;
+		collider.y = 8 * Tile.scale;
+		collider.width = 6 * Tile.scale;
+		collider.height = 8 * Tile.scale;
 
 	}
 
@@ -74,23 +80,26 @@ public class Player extends Mob {
 		}
 
 		walkR.update();
+		walkU.update();
 
 		xa = 0;
 		ya = 0;
 
-		if (input.w.isPressed())
+		if (input.w.isPressed()) {
 			ya = -speed;
-		if (input.s.isPressed())
+			movingDir = 2;
+		}
+		if (input.s.isPressed()) {
 			ya = speed;
+			movingDir = 2;
+		}
 		if (input.a.isPressed()) {
 			xa = -speed;
-			goingLeft = true;
-			goingRight = false;
+			movingDir = 3;
 		}
 		if (input.d.isPressed()) {
 			xa = speed;
-			goingLeft = false;
-			goingRight = true;
+			movingDir = 1;
 		}
 		if (xa != 0 || ya != 0) {
 			move();
@@ -106,6 +115,7 @@ public class Player extends Mob {
 			shouldBeMoving = true;
 		} else {
 			shouldBeMoving = false;
+			movingDir = 0;
 		}
 
 		doIslandStuff();
@@ -169,7 +179,7 @@ public class Player extends Mob {
 		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y + collider.height) / Tile.width)) {
 			if ((y + collider.y) / Tile.width > island.height / 2) {
 				e.island = island.rightI;
-				//System.out.println(e.island.imagePath);
+				// System.out.println(e.island.imagePath);
 			}
 
 			island.entities.remove(this);
@@ -196,12 +206,12 @@ public class Player extends Mob {
 	@Override
 	public void render(Graphics g) {
 
-		if (moving && goingRight) {
+		if (moving && movingDir == 1) {
 			g.drawImage(walkR.animate(), x - Camera.x(), y - Camera.y(), width, height, null);
-		} else if (moving && goingLeft) {
+		} else if (moving && movingDir == 3) {
 			g.drawImage(walkR.animate(), x - Camera.x() + width, y - Camera.y(), -width, height, null);
-		} else if (!moving && goingLeft) {
-			g.drawImage(entityImage, x - Camera.x() + width, y - Camera.y(), -width, height, null);
+		} else if (moving && movingDir == 2) {
+			g.drawImage(walkU.animate(), x - Camera.x(), y - Camera.y(), width, height, null);
 		} else {
 			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
 		}
