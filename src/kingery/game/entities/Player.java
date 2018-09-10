@@ -37,15 +37,15 @@ public class Player extends Mob {
 
 		BufferedImage[] someImages = new BufferedImage[6];
 		for (int i = 0; i < someImages.length; i++) {
-			someImages[i] = SpriteSheet.getImage(16 + i * 16, 584, 16, 16);
+			someImages[i] = SpriteSheet.getImage(8 + i * 8, 584, 8, 16);
 		}
 		walkR = new Animation((short) someImages.length, (byte) 8, someImages);
 
 		BufferedImage[] otherImages = new BufferedImage[2];
 		for (int i = 0; i < otherImages.length; i++) {
-			otherImages[i] = SpriteSheet.getImage(128 + i * 16, 584, 16, 16);
+			otherImages[i] = SpriteSheet.getImage(64 + i * 8, 584, 8, 16);
 		}
-		walkU = new Animation((short) otherImages.length, (byte) (walkR.frameSkip * 2), otherImages);
+		walkU = new Animation((short) otherImages.length, (byte) (12), otherImages);
 		System.out.println(walkU.frames.length);
 
 		name = username;
@@ -56,9 +56,9 @@ public class Player extends Mob {
 		zoneCheck = new Rectangle(x, y, width, height);
 
 		collider.x = 5 * Tile.scale;
-		collider.y = 8 * Tile.scale;
+		collider.y = 10 * Tile.scale;
 		collider.width = 6 * Tile.scale;
-		collider.height = 8 * Tile.scale;
+		collider.height = 6 * Tile.scale;
 
 	}
 
@@ -136,7 +136,7 @@ public class Player extends Mob {
 			thid: for (int x = 0; x < island.width; x++) {
 				for (int y = 0; y < island.height; y++) {
 					if (island.getTile(x, y).getId() == 8) {
-						this.x = island.width - ((x + 2) * Tile.width);
+						this.x = island.width - ((x + 1) * Tile.width);
 						break thid;
 					}
 				}
@@ -155,7 +155,7 @@ public class Player extends Mob {
 			for (int x = 0; x < e.island.width; x++) {
 				for (int y = 0; y < e.island.height; y++) {
 					if (island.getTile(x, y).getId() == 8) {
-						this.x = (x - 1) * Tile.width;
+						this.x = (x - 2) * Tile.width;
 					}
 				}
 			} // y + ya + collider.y + collider.height
@@ -218,10 +218,6 @@ public class Player extends Mob {
 
 	}
 
-	public int xMin = 0;
-	public int xMax = 1;
-	public int yMin = 0;
-	public int yMax = 1;
 
 	public byte speed() {
 		return speed;

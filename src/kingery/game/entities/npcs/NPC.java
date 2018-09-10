@@ -26,7 +26,7 @@ public class NPC extends Mob {
 
 	private Island l;
 
-	public NPC(int x, int y, String message, String name, boolean vendor, BufferedImage entityImage, boolean inverted, Engine e,
+	public NPC(int x, int y, String message, String name, boolean vendor, BufferedImage entityImage, Engine e,
 			Island island) {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
@@ -36,11 +36,10 @@ public class NPC extends Mob {
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
-		this.inverted = inverted;
 		this.vendor = vendor;
 	}
 	
-	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, boolean inverted, Engine e,
+	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Engine e,
 			Island island) {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
@@ -49,7 +48,6 @@ public class NPC extends Mob {
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
-		this.inverted = inverted;
 	}
 
 	boolean canShowBox = false;

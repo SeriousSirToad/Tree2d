@@ -4,22 +4,22 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.DisplayMode;
 import java.awt.Graphics;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import kingery.game.entities.Player;
 import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
-import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
@@ -45,41 +45,38 @@ public class Engine extends Canvas implements Runnable {
 	public int cameraX = 0;
 	public int cameraY = 0;
 
+	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static int SCALE = 3;
+	public static double SCALE = 2.5;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
-
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension(WIDTH * SCALE, HEIGHT
-			* SCALE);
+	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
 
 	public Engine() {
+
+		WIDTH *= SCALE;
+		HEIGHT *= SCALE;
+
 		spriteSheet = new SpriteSheet("spriteSheet", "BuildingSpriteSheet.");
 		frame.setTitle(NAME);
+		frame.setUndecorated(true);
 		frame.setSize(gameDimension);
+		frame.setPreferredSize(gameDimension);
 		frame.setMinimumSize(gameDimension);
 		frame.setMaximumSize(gameDimension);
-		frame.setPreferredSize(gameDimension);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		frame.setUndecorated(true);
-		frame.setVisible(true);
-		frame.setResizable(false);
-
 		frame.add(this, BorderLayout.CENTER);
-
+		frame.setResizable(false);
+		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-
-		frame.pack();
 
 		System.out.println(WIDTH + ", " + HEIGHT);
 
-		new Sound(this);
 		initIslands();
 		island = Island.Test;
 		eHandle = new EntityHandler(this);
@@ -196,7 +193,7 @@ public class Engine extends Canvas implements Runnable {
 		g = bs.getDrawGraphics();
 
 		// General Rendering
-		g.clearRect(0, 0, (WIDTH * SCALE), (HEIGHT * SCALE));
+		g.clearRect(0, 0, (WIDTH), (HEIGHT));
 		if (menu.canStartGame()) {
 			backGround(g);
 			island.renderEntities(g);
@@ -205,7 +202,7 @@ public class Engine extends Canvas implements Runnable {
 			}
 		} else {
 			g.setColor(Color.gray);
-			g.fillRect(0, 0, (WIDTH * SCALE), (HEIGHT * SCALE));
+			g.fillRect(0, 0, (WIDTH), (HEIGHT));
 			menu.renderTitle(g);
 		}
 
@@ -221,7 +218,7 @@ public class Engine extends Canvas implements Runnable {
 	void backGround(Graphics g) {
 
 		g.setColor(Color.cyan.darker());
-		g.fillRect(0, 0, WIDTH * SCALE, HEIGHT * SCALE);
+		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 	}
 
