@@ -22,11 +22,6 @@ public class Player extends Mob {
 
 	private int movingDir = 0;
 	public boolean moving = false;
-	public boolean running = false;
-	public boolean goingRight = true;
-	public boolean goingLeft = false;
-	public int speedMultiplier = 1;
-	int numSteps;
 
 	public Animation walkR;
 	public Animation walkU;
@@ -55,10 +50,10 @@ public class Player extends Mob {
 
 		zoneCheck = new Rectangle(x, y, width, height);
 
-		collider.x = 5 * Tile.scale;
+		collider.x = 1 * Tile.scale;
 		collider.y = 10 * Tile.scale;
-		collider.width = 6 * Tile.scale;
-		collider.height = 6 * Tile.scale;
+		collider.width = (int) (5.5 * Tile.scale);
+		collider.height = (6 * Tile.scale);
 
 	}
 

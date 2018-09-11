@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 
 import kingery.game.entities.Player;
 import kingery.game.entities.buildings.Building;
+import kingery.game.gfx.Assets;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
 import kingery.game.menu.InGameMenu;
@@ -74,9 +75,12 @@ public class Engine extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		System.out.println(WIDTH + ", " + HEIGHT);
 
+		new Sound(this).start();
 		initIslands();
 		island = Island.Test;
 		eHandle = new EntityHandler(this);
@@ -236,7 +240,6 @@ public class Engine extends Canvas implements Runnable {
 
 		running = true;
 		new Thread(this).start();
-		new Sound(this).start();
 
 	}
 
