@@ -5,6 +5,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.DisplayMode;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
@@ -75,7 +76,7 @@ public class Engine extends Canvas implements Runnable {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
-		
+
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		System.out.println(WIDTH + ", " + HEIGHT);
@@ -126,6 +127,8 @@ public class Engine extends Canvas implements Runnable {
 
 	}
 
+	int frames = 0;
+
 	@Override
 	public void run() {
 		long lastTime = System.nanoTime();
@@ -133,7 +136,6 @@ public class Engine extends Canvas implements Runnable {
 		double renderTime = 1000000000D / Settings.frameCap;
 		int ticks = 0;
 		int frames = 0;
-
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
 		double delta2 = 0;
@@ -172,6 +174,7 @@ public class Engine extends Canvas implements Runnable {
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
 				System.out.println(ticks + " ticks, " + frames + " frames");
+				this.frames = frames;
 				ticks = 0;
 				frames = 0;
 			}
@@ -213,6 +216,11 @@ public class Engine extends Canvas implements Runnable {
 		if (inMenu.inMenu) {
 			inMenu.renderMenu(g);
 		}
+
+		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+		g.setColor(Color.BLACK);
+		g.drawString(frames + " fps", 10, 20);
+
 		bs.show();
 		g.dispose();
 	}
