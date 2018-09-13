@@ -1,13 +1,13 @@
 package kingery.ui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
-import kingery.game.menu.Menu;
 
 public class GameButton {
 
@@ -18,6 +18,7 @@ public class GameButton {
 	private boolean canClick = true;
 	public boolean attatchedToEntity = false;
 	private boolean onThis = false;
+	private String string;
 	public Color color;
 
 	public int numTimesClicked;
@@ -50,14 +51,14 @@ public class GameButton {
 
 	}
 
-	public GameButton(int x, int y, int color, Engine e) {
+	public GameButton(int x, int y, int color, String s, Engine e) {
 
 		this.x = x;
 		this.y = y;
 		this.width = STD_WIDTH;
 		this.height = STD_HEIGHT;
 		this.e = e;
-
+		string = s;
 		this.color = new Color(color);
 
 		input = e.input;
@@ -94,6 +95,9 @@ public class GameButton {
 		
 		g.setColor(color());
 		g.fillRect(x, y, width, height);
+		g.setColor(Color.BLACK);
+		g.setFont(new Font(Font.DIALOG, Font.BOLD, g.getFontMetrics().getHeight()));
+		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2, y + (height / 2) + (g.getFontMetrics().getHeight() / 4));
 		
 	}
 
