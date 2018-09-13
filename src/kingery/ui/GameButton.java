@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
+import kingery.game.menu.Menu;
 
 public class GameButton {
 
@@ -84,9 +85,12 @@ public class GameButton {
 		} else {
 			onThis = false;
 		}
+		
+		render(Engine.g);
+		
 	}
 	
-	public void render(Graphics g) {
+	private void render(Graphics g) {
 		
 		g.setColor(color());
 		g.fillRect(x, y, width, height);

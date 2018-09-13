@@ -67,10 +67,6 @@ public class NPC extends Mob {
 
 		}
 
-		if (canShowBox && !e.input.E.isPressed()) {
-			speechIndex++;
-		}
-
 		if (speechIndex == messages.length) {
 			speechIndex = 0;
 		}

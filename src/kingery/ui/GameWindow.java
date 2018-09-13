@@ -12,7 +12,7 @@ import kingery.game.menu.Menu;
 public class GameWindow {
 
 	public GameButton[] buttons;
-	static int w = Engine.WIDTH / 2, h = Engine.HEIGHT / 2;
+	static int w = (int)(Engine.WIDTH / 1.2), h = (int)(Engine.HEIGHT / 1.2);
 	static int x = Engine.WIDTH / 2 - w / 2;
 	static int y = Engine.HEIGHT / 2 - h / 2;
 	public boolean active;
@@ -27,7 +27,7 @@ public class GameWindow {
 		active = true;
 		Engine.subwindows.add(this);
 		this.npc = attatchedNPC;
-		okay = new GameButton((w / 2) - (GameButton.STD_WIDTH / 2), y + (h - GameButton.STD_HEIGHT), 0xFFFFFFFF, Menu.engine);
+		okay = new GameButton(x + (w / 2) - (GameButton.STD_WIDTH / 2), y + (h - GameButton.STD_HEIGHT), 0xFF00009F, Menu.engine);
 	}
 
 	public void update(Graphics g) {
@@ -47,12 +47,14 @@ public class GameWindow {
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.black);
 		g.drawString(title, x, y + fm.getHeight());
+		g.drawString(message, x, y + fm.getHeight() * 2);
 
 		okay.update();
 
 		if (okay.hasBeenClicked) {
 			active = false;
 			npc.canShowBox = false;
+			npc.speechIndex++;
 		}
 
 	}

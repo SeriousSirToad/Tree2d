@@ -28,7 +28,7 @@ public class InGameMenu {
 		g.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
 		for (GameButton b : buttons) {
 
-			b.render(g);
+			b.update();;
 
 		}
 
