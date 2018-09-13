@@ -24,6 +24,7 @@ public abstract class Tile {
 	public static final Tile COUNTER = new BasicSolidTile(11, 0, 40, 0xFF888264);
 	public static final Tile COUNTER2 = new BasicSolidTile(12, 8, 40, 0xFF888F64);
 	public static final Tile BRICK_ROAD = new BasicTile(13, 16, 24, 0xFF7F0000);
+	public static final Tile WOOD_SOLID2 = new BasicSolidTile(14, 16, 32, 0xFF5F5F22);
 
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;

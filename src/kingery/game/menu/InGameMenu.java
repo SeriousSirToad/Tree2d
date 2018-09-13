@@ -4,18 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import kingery.game.engine.Engine;
-import kingery.game.engine.GameButton;
+import kingery.game.islands.tiles.Tile;
+import kingery.ui.GameButton;
 
 public class InGameMenu {
 
 	public boolean inMenu = false;
 	public Engine e;
-	GameButton exit;
+	GameButton[] buttons = new GameButton[2];
 	public boolean canExitMenu = false;
 
 	public InGameMenu(Engine engine) {
 		e = engine;
-		exit = new GameButton(e.WIDTH / 2 - 16, e.HEIGHT / 2 - 32, 64, 32, "exitButton", e);
+		buttons[0] = new GameButton(Engine.WIDTH - (17 * Tile.scale), 1 * Tile.scale, 0xFF9F0000, e);
+		buttons[1] = new GameButton(Engine.WIDTH / 2 - GameButton.STD_WIDTH / 2, Engine.HEIGHT / 2 - GameButton.STD_HEIGHT, 0xFF7F7F7F, e);
 	}
 
 	Color thisColor = new Color(128, 128, 128, 220);
@@ -23,8 +25,12 @@ public class InGameMenu {
 	public void renderMenu(Graphics g) {
 
 		g.setColor(thisColor);
-		g.fillRect(0, 0, e.WIDTH, e.HEIGHT);
-		g.drawImage(exit.buttonImage, exit.x, exit.y, null);
+		g.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
+		for (GameButton b : buttons) {
+
+			b.render(g);
+
+		}
 
 	}
 
@@ -38,15 +44,23 @@ public class InGameMenu {
 			if (e.input.esc.isPressed()) {
 				inMenu = false;
 				canExitMenu = false;
-			} else {
-				exit.update();
 			}
 
 		}
 
-		if (exit.hasBeenClicked) {
+		for (GameButton b : buttons)
+			b.update();
+
+		if (buttons[0].hasBeenClicked) {
 
 			System.exit(0);
+
+		}
+
+		if (buttons[1].hasBeenClicked) {
+
+			e.menu.startGame = false;
+			inMenu = false;
 
 		}
 

@@ -12,17 +12,19 @@ import kingery.game.entities.Mob;
 import kingery.game.gfx.Camera;
 import kingery.game.gfx.TextBox;
 import kingery.game.islands.Island;
+import kingery.ui.GameWindow;
 
 public class NPC extends Mob {
 
 	public Rectangle collider;
 	public Rectangle interactZone;
-	protected String[] messages;
+	public String[] messages;
 	protected String message;
 	protected TextBox dialougeBox;
-	protected String name;
+	public String name;
 	protected boolean inverted = false;
 	protected boolean vendor;
+	protected GameWindow dialogWindow;
 
 	private Island l;
 
@@ -37,10 +39,11 @@ public class NPC extends Mob {
 		this.entityImage = entityImage;
 		this.name = name;
 		this.vendor = vendor;
+
+		dialogWindow = new GameWindow(this);
 	}
-	
-	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Engine e,
-			Island island) {
+
+	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Engine e, Island island) {
 		super(x, y, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
 		interactZone = new Rectangle(x, y, width, height);
@@ -48,31 +51,30 @@ public class NPC extends Mob {
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
+		dialogWindow = new GameWindow(this);
 	}
 
-	boolean canShowBox = false;
-	int speechIndex = 0;
+	public boolean canShowBox = false;
+	public int speechIndex = 0;
 
 	@Override
 	public void update() {
-		
+
 		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}
-			
-			if (canShowBox && !e.input.E.isPressed()) {
-				dialougeBox.drawTextBox(messages[speechIndex], name);
-				canShowBox = false;
-				speechIndex++;
-			}
 
 		}
-		
-		if(speechIndex == messages.length) {
+
+		if (canShowBox && !e.input.E.isPressed()) {
+			speechIndex++;
+		}
+
+		if (speechIndex == messages.length) {
 			speechIndex = 0;
 		}
-		
+
 	}
 
 	Font font = new Font(Font.MONOSPACED, Font.BOLD, 14);
@@ -89,11 +91,11 @@ public class NPC extends Mob {
 			fm = g.getFontMetrics();
 			int eWidth = fm.stringWidth("[E]");
 			g.setColor(Color.WHITE);
-			g.fillRect(e.p.x + e.p.width / 2 - eWidth / 2 - Camera.x(), e.p.y - Camera.y() - fm.getHeight(), eWidth,
-					fm.getHeight());
+			g.fillRect(Engine.p.x + e.p.width / 2 - eWidth / 2 - Camera.x(), Engine.p.y - Camera.y() - fm.getHeight(),
+					eWidth, fm.getHeight());
 			g.setColor(Color.black);
-			g.drawString("[E]", e.p.x + e.p.width / 2 - fm.stringWidth("[E]") / 2 - Camera.x(),
-					(int) (e.p.y - Camera.y() - e.p.height / 10));
+			g.drawString("[E]", Engine.p.x + Engine.p.width / 2 - fm.stringWidth("[E]") / 2 - Camera.x(),
+					(int) (e.p.y - Camera.y() - Engine.p.height / 10));
 		}
 
 	}

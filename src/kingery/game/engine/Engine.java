@@ -25,6 +25,8 @@ import kingery.game.islands.Island;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
+import kingery.ui.GameButton;
+import kingery.ui.GameWindow;
 
 public class Engine extends Canvas implements Runnable {
 
@@ -34,14 +36,15 @@ public class Engine extends Canvas implements Runnable {
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
 	public ArrayList<GameButton> buttons = new ArrayList<>();
+	public static ArrayList<GameWindow> subwindows = new ArrayList<>();
 
 	public InputHandler input = new InputHandler(this);
 	public EntityHandler eHandle;
 
 	public Island island;
 
-	Menu menu = new Menu(this);
-	InGameMenu inMenu = new InGameMenu(this);
+	public Menu menu = new Menu(this);
+	InGameMenu inMenu;
 
 	public static Player p;
 	public int cameraX = 0;
@@ -81,6 +84,8 @@ public class Engine extends Canvas implements Runnable {
 
 		System.out.println(WIDTH + ", " + HEIGHT);
 
+		inMenu = new InGameMenu(this);
+
 		new Sound(this).start();
 		initIslands();
 		island = Island.Test;
@@ -100,7 +105,7 @@ public class Engine extends Canvas implements Runnable {
 	boolean canEnterMenu = false;
 
 	private void update() {
-
+		
 		if (menu.canStartGame() && !inMenu.inMenu) {
 
 			if (!input.esc.isPressed()) {
@@ -114,6 +119,7 @@ public class Engine extends Canvas implements Runnable {
 			}
 
 			island.update();
+			
 
 		} else if (!menu.canStartGame() && !inMenu.inMenu) {
 
@@ -183,13 +189,13 @@ public class Engine extends Canvas implements Runnable {
 	}
 
 	BufferStrategy bs;
-	Graphics g;
+	public static Graphics g;
 
 	int xOffset = 0;
 	int yOffset = 0;
-
+	
 	public void render() {
-
+		
 		// Creating graphics object
 		bs = getBufferStrategy();
 		if (bs == null) {
@@ -216,8 +222,12 @@ public class Engine extends Canvas implements Runnable {
 		if (inMenu.inMenu) {
 			inMenu.renderMenu(g);
 		}
-
-		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+		
+		for(GameWindow w : subwindows) {
+			w.update(g);
+		}
+		
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		g.setColor(Color.BLACK);
 		g.drawString(frames + " fps", 10, 20);
 
@@ -243,7 +253,7 @@ public class Engine extends Canvas implements Runnable {
 		tickCount++;
 
 	}
-
+	
 	public void start() {
 
 		running = true;

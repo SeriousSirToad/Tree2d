@@ -1,4 +1,4 @@
-package kingery.game.engine;
+package kingery.ui;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -84,14 +84,10 @@ public class GameButton {
 		} else {
 			onThis = false;
 		}
-		
-		render();
 	}
-
-	Graphics g = Engine.g;
-
-	private void render() {
-		g = Engine.g;
+	
+	public void render(Graphics g) {
+		
 		g.setColor(color());
 		g.fillRect(x, y, width, height);
 		

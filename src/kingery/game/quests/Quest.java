@@ -17,7 +17,18 @@ public abstract class Quest {
 	
 	public abstract void update();
 	
+	public void advanceQuest(int index) {
+		
+		if(index > stepIndex && index <= steps) {
+			
+			stepIndex = index;
+			
+		}
+		
+	}
+	
 	public boolean completed() {
+		
 		if(stepIndex == steps) {
 			return true;
 		}

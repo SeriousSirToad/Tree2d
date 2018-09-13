@@ -59,7 +59,7 @@ public class Player extends Mob {
 		collider.x = 1 * Tile.scale;
 		collider.y = 10 * Tile.scale;
 		collider.width = (int) (5.5 * Tile.scale);
-		collider.height = (6 * Tile.scale);
+		collider.height = (6 * Tile.scale) - 1;
 
 	}
 
