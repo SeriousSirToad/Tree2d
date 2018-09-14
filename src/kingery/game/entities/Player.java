@@ -23,7 +23,7 @@ public class Player extends Mob {
 	public Rectangle zoneCheck;
 
 	private static int[] colors = { 0xFF7F7F7F, 0xFF3F3F3F, 0xFF1F1F1F, 0xFF9F9F9F, 0xFF232323, 0xFF424242 };
-	private static int[] newColors = { Lumberjack.RED, Lumberjack.BLUE, 0xFF000099, 0xFFF7D7C4, 0xFF442109,
+	private static int[] newColors = { Lumberjack.PURPLE, Lumberjack.BLUE, 0xFF000099, 0xFFF7D7C4, 0xFF442109,
 			0xFF8B4513 };
 
 	private int movingDir = 0;

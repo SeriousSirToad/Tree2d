@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import kingery.game.engine.Engine;
 import kingery.game.entities.npcs.NPC;
+import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.Menu;
 
 public class GameWindow {
@@ -21,13 +22,13 @@ public class GameWindow {
 
 	static FontMetrics fm;
 
-	static Color transluscentBackground = new Color(0x7F7F7F7F);
+	static Color transluscentBackground = new Color(0xFF000000);
 
 	public GameWindow(NPC attatchedNPC) {
 		active = true;
 		Engine.subwindows.add(this);
 		this.npc = attatchedNPC;
-		okay = new GameButton(x + (w / 2) - (GameButton.STD_WIDTH / 2), y + (h - GameButton.STD_HEIGHT), 0xFF00009F,
+		okay = new GameButton(x + w - (17 * Tile.scale), y + (GameButton.STD_HEIGHT), 0xFF00009F,
 				"Okay", Menu.engine);
 	}
 
@@ -44,7 +45,7 @@ public class GameWindow {
 		int sx = x, sy = y + fm.getHeight();
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.drawString(title, x, y + fm.getHeight());
 		g.drawLine(x, y + fm.getHeight() + 3, x + w, y + fm.getHeight() + 3);
 		for (String line : message.split("\n"))

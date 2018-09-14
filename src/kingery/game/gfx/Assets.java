@@ -1,5 +1,6 @@
 package kingery.game.gfx;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -21,8 +22,6 @@ public class Assets {
 
 		for (int y = 0; y < LUMBERJACK.getHeight(); y++) {
 			for (int x = 0; x < LUMBERJACK.getWidth(); x++) {
-
-				System.out.println(x + " " + y);
 
 				switch (a) {
 				case Lumberjack.LUMBERJACK_FRIEND:

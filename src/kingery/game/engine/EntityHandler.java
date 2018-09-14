@@ -41,7 +41,7 @@ public class EntityHandler {
 		String vendorText = "Want to trade?";
 		String[] parque = { "I really love the park.", "Did you know I am the most recent addition \n" + "to this map?",
 				"You're very chatty." };
-		NPC npc_1 = new Lumberjack(40 * Tile.width, 22 * Tile.width, "shit be working yo", "Ian", 0, engine,
+		NPC npc_1 = new Lumberjack(40 * Tile.width, 22 * Tile.width, "shit be working yo", "Ian", 1, engine,
 				Island.Utopia);
 		NPC npc_2 = new Lumberjack(54 * Tile.width, 32 * Tile.width, parque, "Park guy", 0, engine, Island.Utopia);
 		NPC john = new Lumberjack(11 * Tile.width, 6 * Tile.width, johnText, "John", 0, engine, Island.Utopia);
@@ -55,7 +55,7 @@ public class EntityHandler {
 	public void Island_1() {
 
 		String[] josephText = { "What? Oh, Sorry. Hey.", "Don't you think it's strange there's only 2 islands?" };
-		NPC npc_1 = new Lumberjack(7 * Tile.width, 7 * Tile.width, josephText, "Joseph", 0, engine, Island.Test);
+		NPC npc_1 = new Lumberjack(7 * Tile.width, 7 * Tile.width, josephText, "Joseph", 1, engine, Island.Test);
 		// Building shoppe = new Building(20 * Tile.width, 17 * Tile.width, false,
 		// Assets.BLDG_SHOPPE_TEST, engine, Island.Test);
 
