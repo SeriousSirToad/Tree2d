@@ -61,6 +61,7 @@ public class InGameMenu {
 
 			e.menu.startGame = false;
 			inMenu = false;
+			canExitMenu = false;
 
 		}
 
