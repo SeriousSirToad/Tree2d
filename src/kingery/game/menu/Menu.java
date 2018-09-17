@@ -1,5 +1,6 @@
 package kingery.game.menu;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -40,16 +41,19 @@ public class Menu {
 		int bbbbb = (menuImage.getWidth());
 		int bbbb = (menuImage.getHeight());
 
-		start = new GameButton((int)(Engine.WIDTH * Engine.SCALE / 2), (int)(Engine.HEIGHT * Engine.SCALE / 2), 0xFF009F00, "Start", engine);
-		//exit = new GameButton(300 + Engine.WIDTH / 2 - Engine.HEIGHT / 2,
-				//444 + Engine.HEIGHT / 2 - menuImage.getHeight() / 2, 48, 26, engine);
+		start = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2)
+				- GameButton.STD_WIDTH / 2,
+				(int) (Engine.HEIGHT * Engine.SCALE / 2)
+						- GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start", engine);
+		exit = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2)
+				- GameButton.STD_WIDTH / 2,
+				(int) (Engine.HEIGHT * Engine.SCALE / 2)
+						- GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet", engine);
 
 	}
 
 	public void update() {
-
-		start.update();
-		//exit.update();
+		// exit.update();
 
 		if (start.hasBeenClicked || Engine.p.input.space.isPressed()) {
 
@@ -57,17 +61,20 @@ public class Menu {
 
 		}
 
-		//if (exit.hasBeenClicked) {
+		if (exit.hasBeenClicked) {
 
-			//System.exit(0);
+			System.exit(0);
 
-		//}
+		}
 
 	}
 
 	public void renderTitle(Graphics g) {
 
-		g.drawImage(menuImage, 0, 0, Engine.WIDTH, Engine.HEIGHT, null);
+		g.setColor(new Color(0xFF7F7F7F));
+		g.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
+		start.update();
+		exit.update();
 
 	}
 

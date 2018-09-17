@@ -44,16 +44,12 @@ public abstract class Tile {
 		tiles[id] = this;
 		this.levelColor = levelColour;
 		tileImage = SpriteSheet.getImage(SSX, SSY, textureWidth, textureWidth);
-		collider = new Rectangle(0, 0, width, width);
 
 	}
 
 	public void renderTile(Graphics g, int x, int y) {
 		
 		g.drawImage(tileImage, x, y, width, width, null);
-
-		collider.x = x;
-		collider.y = y;
 
 	}
 

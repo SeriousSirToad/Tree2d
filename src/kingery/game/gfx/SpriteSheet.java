@@ -24,13 +24,13 @@ public class SpriteSheet {
 
 	public static BufferedImage getImage(int x, int y, int w, int h) {
 
-		return spriteSheet.getSubimage(x, y, w, h);
+		return Assets.deepCopy(spriteSheet.getSubimage(x, y, w, h));
 
 	}
 
 	public static BufferedImage getImg(int x, int y, int w, int h) {
 
-		return spriteSheetB.getSubimage(x, y, w, h);
+		return Assets.deepCopy(spriteSheetB.getSubimage(x, y, w, h));
 
 	}
 

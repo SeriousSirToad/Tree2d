@@ -31,7 +31,8 @@ public class GameButton {
 
 	public BufferedImage buttonImage;
 
-	public static int STD_WIDTH = 16 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
+	public static int STD_WIDTH = 16 * (int) (Engine.SCALE * 2),
+			STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
 
 	public GameButton(int x, int y, int width, int height, int color, Engine e) {
 
@@ -42,6 +43,25 @@ public class GameButton {
 		this.e = e;
 
 		this.color = new Color(color);
+
+		input = e.input;
+
+		buttonRect = new Rectangle(x, y, width, height);
+
+		e.buttons.add(this);
+
+	}
+
+	public GameButton(int x, int y, int width, int height, BufferedImage image,
+			Engine e) {
+
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.e = e;
+
+		buttonImage = image;
 
 		input = e.input;
 
@@ -86,19 +106,21 @@ public class GameButton {
 		} else {
 			onThis = false;
 		}
-		
+
 		render(Engine.g);
-		
+
 	}
-	
+
 	private void render(Graphics g) {
-		
+
 		g.setColor(color());
 		g.fillRoundRect(x, y, width, height, 16, 16);
 		g.setColor(Color.BLACK);
-		g.setFont(new Font(Font.DIALOG, Font.BOLD, g.getFontMetrics().getHeight()));
-		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2, y + (height / 2) + (g.getFontMetrics().getHeight() / 4));
-		
+		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+		g.drawString(string,
+				x + width / 2 - g.getFontMetrics().stringWidth(string) / 2, y
+						+ (height / 2) + (g.getFontMetrics().getHeight() / 4));
+
 	}
 
 	public Color color() {

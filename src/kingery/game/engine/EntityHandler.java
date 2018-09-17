@@ -56,8 +56,6 @@ public class EntityHandler {
 
 		String[] josephText = { "What? Oh, Sorry. Hey.", "Don't you think it's strange there's only 2 islands?" };
 		NPC npc_1 = new Lumberjack(7 * Tile.width, 7 * Tile.width, josephText, "Joseph", 1, engine, Island.Test);
-		// Building shoppe = new Building(20 * Tile.width, 17 * Tile.width, false,
-		// Assets.BLDG_SHOPPE_TEST, engine, Island.Test);
 
 	}
 
