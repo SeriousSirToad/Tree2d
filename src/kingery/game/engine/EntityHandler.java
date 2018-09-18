@@ -33,8 +33,8 @@ public class EntityHandler {
 	@SuppressWarnings("unused")
 	public void Utopia() {
 
-		Building bldg_0 = new Building(0, 39 * Tile.width, 10 * Tile.width,
-				Assets.BLDG_SHOPPE_TEST, engine, Island.Utopia);
+		// Building bldg_0 = new Building(0, 39 * Tile.width, 10 * Tile.width,
+		// Assets.BLDG_SHOPPE_TEST, engine, Island.Utopia);
 
 		String johnText = "Hello "
 				+ p.name

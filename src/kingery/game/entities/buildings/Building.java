@@ -11,13 +11,15 @@ import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
 import kingery.ui.BuildingWindow;
 
-public class Building extends Entity {
+public abstract class Building extends Entity {
 
 	private Rectangle dCollider;
 	public BuildingWindow interior;
 	int dx, dy, dw, dh;
 	int id;
-	boolean inside;
+	public boolean inside = false;
+	public String bldg_name;
+	public String bldg_desc;
 
 	public Building(int id, int x, int y, BufferedImage entityImage, Engine e, Island island) {
 

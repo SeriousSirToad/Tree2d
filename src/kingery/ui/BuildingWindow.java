@@ -39,7 +39,9 @@ public class BuildingWindow {
 	}
 
 	public void update(Graphics g) {
-		
+		if(myBuilding.inside){
+			showDialog(myBuilding.bldg_name, myBuilding.bldg_desc, Engine.g);
+		}
 	}
 
 	public void showDialog(String title, String message, Graphics g) {
@@ -62,7 +64,7 @@ public class BuildingWindow {
 
 		if (buttons[0].hasBeenClicked) {
 			active = false;
-			
+			myBuilding.inside = false;
 		}
 
 	}
