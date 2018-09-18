@@ -9,16 +9,15 @@ import kingery.game.entities.Entity;
 import kingery.game.gfx.Camera;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
+import kingery.ui.BuildingWindow;
 
 public class Building extends Entity {
 
 	private Rectangle dCollider;
-	public Island interior;
+	public BuildingWindow interior;
 	int dx, dy, dw, dh;
 	int id;
-
-	public static Island interior_0;
-	public static Island interior_1;
+	boolean inside;
 
 	public Building(int id, int x, int y, BufferedImage entityImage, Engine e, Island island) {
 
@@ -33,18 +32,12 @@ public class Building extends Entity {
 
 		dCollider = new Rectangle(dx, dy, dw, dh);
 
-		initThatShitRn();
-
 	}
 
 	boolean canOpen = false;
 
 	@Override
 	public void update() {
-		
-		if(island == null) {
-			initThatShitRn();
-		}
 
 		if (dCollider.intersects(Engine.p.zoneCheck)) {
 			
@@ -53,10 +46,8 @@ public class Building extends Entity {
 			}
 
 			if (canOpen && !e.input.f.isPressed()) {
-				Engine.p.changeIsland(interior);
-				Engine.p.x = (interior.width / 2) * Tile.width;
-				Engine.p.y = (interior.height * Tile.width) - (4 * Tile.width);
 				canOpen = false;
+				inside = true;
 			}
 
 		}
@@ -65,29 +56,6 @@ public class Building extends Entity {
 
 	public void render(Graphics g) {
 		g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
-		g.drawRect(dx - Camera.x(), dy - Camera.y(), dw, dh);
-	}
-	
-	public void initThatShitRn() {
-
-		if (interior == null) {
-			switch (id) {
-
-			case 0:
-				interior = interior_0;
-				interior.leftI = island;
-				interior.rightI = island;
-				
-			//case 1:
-			//	interior = interior_1;
-				//interior.leftI = island;
-				//interior.rightI = interior.leftI;
-			default:
-				interior = interior_0;
-				interior.leftI = island;
-				interior.rightI = island;
-			}
-		}
 	}
 
 }

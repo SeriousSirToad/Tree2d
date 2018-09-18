@@ -17,26 +17,22 @@ public class GameWindow {
 	static int x = Engine.WIDTH / 2 - w / 2;
 	static int y = Engine.HEIGHT / 2 - h / 2;
 	public boolean active;
-	private NPC npc;
 	GameButton okay;
 
 	static FontMetrics fm;
 
 	static Color transluscentBackground = new Color(0xFF000000);
 
-	public GameWindow(NPC attatchedNPC) {
+	public GameWindow() {
 		active = true;
 		Engine.subwindows.add(this);
-		this.npc = attatchedNPC;
-		okay = new GameButton(x + w - (17 * Tile.scale), y + (GameButton.STD_HEIGHT), 0xFF00009F,
-				"Okay", Menu.engine);
+		buttons = new GameButton[1];
+		buttons[0] = new GameButton(x + w - (17 * Tile.scale), y + h - (GameButton.STD_HEIGHT) - (1 * Tile.scale), 0xFF00009F,
+				"Close", Menu.engine);
 	}
 
 	public void update(Graphics g) {
-		if (npc.canShowBox) {
-			active = true;
-			showDialog(npc.name, npc.messages[npc.speechIndex], g);
-		}
+		
 	}
 
 	public void showDialog(String title, String message, Graphics g) {
@@ -51,12 +47,10 @@ public class GameWindow {
 		for (String line : message.split("\n"))
 			g.drawString(line, x, sy += fm.getHeight());
 
-		okay.update();
-
-		if (okay.hasBeenClicked) {
-			active = false;
-			npc.canShowBox = false;
-			npc.speechIndex++;
+		for(GameButton b : buttons){
+			
+			b.update();
+			
 		}
 
 	}

@@ -13,6 +13,7 @@ import kingery.game.gfx.Camera;
 import kingery.game.gfx.TextBox;
 import kingery.game.islands.Island;
 import kingery.ui.GameWindow;
+import kingery.ui.NPCWindow;
 
 public class NPC extends Mob {
 
@@ -40,7 +41,7 @@ public class NPC extends Mob {
 		this.name = name;
 		this.vendor = vendor;
 
-		dialogWindow = new GameWindow(this);
+		dialogWindow = new NPCWindow(this);
 	}
 
 	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Engine e, Island island) {
@@ -51,7 +52,7 @@ public class NPC extends Mob {
 		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
-		dialogWindow = new GameWindow(this);
+		dialogWindow = new NPCWindow(this);
 	}
 
 	public boolean canShowBox = false;

@@ -98,7 +98,6 @@ public class Engine extends Canvas implements Runnable {
 
 		Island.Utopia = new Island("res/Islands/Utopia.png", this);
 		Island.Test = new Island("res/Islands/test.png", this);
-		Building.interior_0 = new Island("res/Islands/bldg_01.png", this);
 
 	}
 
@@ -239,7 +238,8 @@ public class Engine extends Canvas implements Runnable {
 
 	void backGround(Graphics g) {
 
-		g.setColor(Color.cyan.darker());
+		Color bg = new Color(0xFF87CEFA);
+		g.setColor(bg);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 	}
