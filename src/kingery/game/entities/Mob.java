@@ -9,18 +9,19 @@ import kingery.game.islands.tiles.Tile;
 
 public abstract class Mob extends Entity {
 
-	protected byte speed = 4;
+	protected byte speed = (byte) (1 * Tile.scale - Tile.scale / 4);
 	protected int xa, ya;
 
 	int numsteps = 0;
 
 	int collidedDir = 0;
-	
+
 	public Inventory inventory;
 
-	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e, Island island) {
+	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e,
+			Island island) {
 		super(x, y, name, true, entityImage, e, island);
-		 inventory = new Inventory(0, 0, 225, 225, e);
+		inventory = new Inventory(0, 0, 225, 225, e);
 	}
 
 	public void move() {
@@ -33,7 +34,9 @@ public abstract class Mob extends Entity {
 			int tx = (int) (x + xa + collider.x + collider.width) / Tile.width;
 
 			if (!collisionWithTile(tx, (int) (y + collider.y) / Tile.width)
-					&& !collisionWithTile(tx, (int) (y + collider.y + collider.height) / Tile.width)) {
+					&& !collisionWithTile(tx,
+							(int) (y + collider.y + collider.height)
+									/ Tile.width)) {
 				x += xa;
 			} else {
 				x = tx * Tile.width - collider.x - collider.width - speed + 1;
@@ -42,7 +45,9 @@ public abstract class Mob extends Entity {
 			int tx = (int) (x + xa + collider.x) / Tile.width;
 
 			if (!collisionWithTile(tx, (int) (y + collider.y) / Tile.width)
-					&& !collisionWithTile(tx, (int) (y + collider.y + collider.height) / Tile.width)) {
+					&& !collisionWithTile(tx,
+							(int) (y + collider.y + collider.height)
+									/ Tile.width)) {
 				x += xa;
 			} else {
 				x = tx * Tile.width + Tile.width - collider.x;
@@ -55,7 +60,9 @@ public abstract class Mob extends Entity {
 			int ty = (int) (y + ya + collider.y) / Tile.width;
 
 			if (!collisionWithTile((int) (x + collider.x) / Tile.width, ty)
-					&& !collisionWithTile((int) (x + collider.x + collider.width) / Tile.width, ty)) {
+					&& !collisionWithTile(
+							(int) (x + collider.x + collider.width)
+									/ Tile.width, ty)) {
 				y += ya;
 			} else {
 				y = ty * Tile.width + Tile.width - collider.y;
@@ -65,7 +72,9 @@ public abstract class Mob extends Entity {
 			int ty = (int) (y + ya + collider.y + collider.height) / Tile.width;
 
 			if (!collisionWithTile((int) (x + collider.x) / Tile.width, ty)
-					&& !collisionWithTile((int) (x + collider.x + collider.width) / Tile.width, ty)) {
+					&& !collisionWithTile(
+							(int) (x + collider.x + collider.width)
+									/ Tile.width, ty)) {
 				y += ya;
 			} else {
 				y = ty * Tile.width - collider.y - collider.height - 1;
@@ -80,11 +89,12 @@ public abstract class Mob extends Entity {
 	}
 
 	protected boolean shouldExit(int x, int y) {
-		if(island.getTile(x, y).getId() == 8)
+		if (island.getTile(x, y).getId() == 8)
 			return true;
-		else return false;
+		else
+			return false;
 	}
-	
+
 	@Override
 	public abstract void update();
 

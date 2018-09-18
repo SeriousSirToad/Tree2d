@@ -21,14 +21,11 @@ public class GameWindow {
 
 	static FontMetrics fm;
 
-	static Color transluscentBackground = new Color(0xFF000000);
+	static Color transluscentBackground = new Color(0, 0, 0, 100);
 
 	public GameWindow() {
 		active = true;
 		Engine.subwindows.add(this);
-		buttons = new GameButton[1];
-		buttons[0] = new GameButton(x + w - (17 * Tile.scale), y + h - (GameButton.STD_HEIGHT) - (1 * Tile.scale), 0xFF00009F,
-				"Close", Menu.engine);
 	}
 
 	public void update(Graphics g) {
@@ -38,19 +35,20 @@ public class GameWindow {
 	public void showDialog(String title, String message, Graphics g) {
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		fm = g.getFontMetrics();
-		int sx = x, sy = y + fm.getHeight();
+		int sx = x, sy = y + fm.getHeight() + (1 * Tile.scale);
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
-		g.drawString(title, x, y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + 3, x + w, y + fm.getHeight() + 3);
+		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
+				y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
-			g.drawString(line, x, sy += fm.getHeight());
+			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 
-		for(GameButton b : buttons){
-			
+		for (GameButton b : buttons) {
+
 			b.update();
-			
+
 		}
 
 	}

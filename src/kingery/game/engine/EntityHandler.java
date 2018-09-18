@@ -4,6 +4,7 @@ import java.util.Random;
 
 import kingery.game.entities.Player;
 import kingery.game.entities.buildings.Building;
+import kingery.game.entities.buildings.Lodge_0;
 import kingery.game.entities.npcs.Lumberjack;
 import kingery.game.entities.npcs.NPC;
 import kingery.game.entities.npcs.Vendor;
@@ -56,6 +57,8 @@ public class EntityHandler {
 		NPC hermit = new NPC(5 * Tile.width, 97 * Tile.width, hermitText,
 				"Hermit", true, Assets.NPC_HERMIT, engine, Island.Utopia);
 
+		Building lodge = new Lodge_0(engine);
+		
 	}
 
 	@SuppressWarnings("unused")

@@ -22,32 +22,47 @@ public class Player extends Mob {
 
 	public Rectangle zoneCheck;
 
-	private static int[] colors = { 0xFF7F7F7F, 0xFF3F3F3F, 0xFF1F1F1F, 0xFF9F9F9F, 0xFF232323, 0xFF424242 };
-	private static int[] newColors = { Lumberjack.PURPLE, Lumberjack.BLUE, 0xFF000099, 0xFFF7D7C4, 0xFF442109,
-			0xFF8B4513 };
+	private static int[] colors = { 0xFF7F7F7F, 0xFF3F3F3F, 0xFF1F1F1F,
+			0xFF9F9F9F, 0xFF232323, 0xFF424242 };
+	private static int[] newColors = { Lumberjack.PURPLE, Lumberjack.BLUE,
+			0xFF000099, 0xFFF7D7C4, 0xFF442109, 0xFF8B4513 };
 
 	private int movingDir = 0;
 	public boolean moving = false;
 
 	public Animation walkR;
 	public Animation walkU;
+	public Animation walkD;
 
-	public Player(String username, int x, int y, InputHandler input, Engine e, Island is) {
+	public Player(String username, int x, int y, InputHandler input, Engine e,
+			Island is) {
 
-		super(x, y, "player", Colour.fixYoSelf(colors, newColors, Assets.PLAYER), e, is);
+		super(x, y, "player", Colour
+				.fixYoSelf(colors, newColors, Assets.PLAYER), e, is);
 
 		BufferedImage[] someImages = new BufferedImage[6];
 		for (int i = 0; i < someImages.length; i++) {
-			someImages[i] = Colour.fixYoSelf(colors, newColors, SpriteSheet.getImage(8 + i * 8, 584, 8, 16));
+			someImages[i] = Colour.fixYoSelf(colors, newColors,
+					SpriteSheet.getImage(8 + i * 8, 584, 8, 16));
 		}
 		walkR = new Animation((short) someImages.length, (byte) 8, someImages);
 
 		BufferedImage[] otherImages = new BufferedImage[2];
 		for (int i = 0; i < otherImages.length; i++) {
-			otherImages[i] = Colour.fixYoSelf(colors, newColors, SpriteSheet.getImage(64 + i * 8, 584, 8, 16));
+			otherImages[i] = Colour.fixYoSelf(colors, newColors,
+					SpriteSheet.getImage(64 + i * 8, 584, 8, 16));
 		}
-		walkU = new Animation((short) otherImages.length, (byte) (12), otherImages);
+		walkU = new Animation((short) otherImages.length, (byte) (12),
+				otherImages);
 		System.out.println(walkU.frames.length);
+
+		BufferedImage[] otherOtherImages = new BufferedImage[2];
+		for (int i = 0; i < otherOtherImages.length; i++) {
+			otherOtherImages[i] = Colour.fixYoSelf(colors, newColors,
+					SpriteSheet.getImage(88 + i * 8, 584, 8, 16));
+		}
+		walkD = new Animation((short) otherOtherImages.length, (byte) (12),
+				otherOtherImages);
 
 		name = username;
 		EntityColor = Color.orange;
@@ -82,13 +97,14 @@ public class Player extends Mob {
 
 		walkR.update();
 		walkU.update();
+		walkD.update();
 
 		xa = 0;
 		ya = 0;
 
 		if (input.w.isPressed()) {
 			ya = -speed;
-			movingDir = 2;
+			movingDir = 4;
 		}
 		if (input.s.isPressed()) {
 			ya = speed;
@@ -124,7 +140,8 @@ public class Player extends Mob {
 	}
 
 	public void doIslandStuff() {
-		if (shouldExit((x + xa + collider.x + collider.width) / Tile.width, (y + collider.y) / Tile.width)) {
+		if (shouldExit((x + xa + collider.x + collider.width) / Tile.width,
+				(y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width > island.width / 2) {
 				e.island = island.rightI;
 				System.out.println(e.island.imagePath);
@@ -143,7 +160,8 @@ public class Player extends Mob {
 				}
 			}
 
-		} else if (shouldExit((x + xa + collider.x) / Tile.width, (y + collider.y) / Tile.width)) {
+		} else if (shouldExit((x + xa + collider.x) / Tile.width,
+				(y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width < island.width / 2) {
 				e.island = island.leftI;
 				System.out.println(e.island.imagePath);
@@ -160,7 +178,8 @@ public class Player extends Mob {
 					}
 				}
 			} // y + ya + collider.y + collider.height
-		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y) / Tile.width)) {
+		} else if (shouldExit((x + collider.x) / Tile.width,
+				(y + ya + collider.y) / Tile.width)) {
 			if ((y + collider.y) / Tile.width < island.height / 2) {
 				e.island = island.rightI;
 				System.out.println(e.island.imagePath);
@@ -177,7 +196,9 @@ public class Player extends Mob {
 					}
 				}
 			}
-		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y + collider.height) / Tile.width)) {
+		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya
+				+ collider.y + collider.height)
+				/ Tile.width)) {
 			if ((y + collider.y) / Tile.width > island.height / 2) {
 				e.island = island.rightI;
 				// System.out.println(e.island.imagePath);
@@ -208,13 +229,20 @@ public class Player extends Mob {
 	public void render(Graphics g) {
 
 		if (moving && movingDir == 1) {
-			g.drawImage(walkR.animate(), x - Camera.x(), y - Camera.y(), width, height, null);
+			g.drawImage(walkR.animate(), x - Camera.x(), y - Camera.y(), width,
+					height, null);
 		} else if (moving && movingDir == 3) {
-			g.drawImage(walkR.animate(), x - Camera.x() + width, y - Camera.y(), -width, height, null);
+			g.drawImage(walkR.animate(), x - Camera.x() + width,
+					y - Camera.y(), -width, height, null);
 		} else if (moving && movingDir == 2) {
-			g.drawImage(walkU.animate(), x - Camera.x(), y - Camera.y(), width, height, null);
+			g.drawImage(walkU.animate(), x - Camera.x(), y - Camera.y(), width,
+					height, null);
+		} else if (moving && movingDir == 4) {
+			g.drawImage(walkD.animate(), x - Camera.x(), y - Camera.y(), width,
+					height, null);
 		} else {
-			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
+			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width,
+					height, null);
 		}
 
 	}

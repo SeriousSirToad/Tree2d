@@ -88,7 +88,7 @@ public class Engine extends Canvas implements Runnable {
 
 		new Sound(this).start();
 		initIslands();
-		island = Island.Test;
+		island = Island.Utopia;
 		eHandle = new EntityHandler(this);
 		p = eHandle.p;
 

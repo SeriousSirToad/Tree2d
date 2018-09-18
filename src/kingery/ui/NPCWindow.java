@@ -16,8 +16,6 @@ public class NPCWindow extends GameWindow{
 
 	static FontMetrics fm;
 
-	static Color transluscentBackground = new Color(0xFF000000);
-
 	public NPCWindow(NPC attatchedNPC) {
 		active = true;
 		Engine.subwindows.add(this);
@@ -38,14 +36,15 @@ public class NPCWindow extends GameWindow{
 	public void showDialog(String title, String message, Graphics g) {
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		fm = g.getFontMetrics();
-		int sx = x, sy = y + fm.getHeight();
+		int sx = x, sy = y + fm.getHeight() + (1 * Tile.scale);
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
-		g.drawString(title, x, y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + 3, x + w, y + fm.getHeight() + 3);
+		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
+				y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
-			g.drawString(line, x, sy += fm.getHeight());
+			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 
 		for (GameButton b : buttons) {
 
