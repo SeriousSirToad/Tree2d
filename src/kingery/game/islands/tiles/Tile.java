@@ -39,6 +39,7 @@ public abstract class Tile {
 	public BufferedImage tileImage;
 	public BufferedImage thisImage;
 	public BufferedImage darkImage;
+	public BufferedImage darkerImage;
 	public Rectangle collider;
 	public int defX = 0, defY = 0;
 
@@ -52,13 +53,17 @@ public abstract class Tile {
 		tileImage = SpriteSheet.getImage(SSX, SSY, textureWidth, textureWidth);
 		thisImage = Assets.deepCopy(tileImage);
 		darkImage = Colour.darkerImage(tileImage);
+		darkerImage = Colour.darkerImage(Colour.darkerImage(tileImage));
 
 	}
 
 	public void renderTile(Graphics g, int x, int y) {
 
-		if (Menu.engine.island.timeIndex() == Island.MORNING || Menu.engine.island.timeIndex() == Island.EVENING) {
+		if (Engine.island.timeIndex() == Island.MORNING || Engine.island.timeIndex() == Island.EVENING) {
 			thisImage = darkImage;
+		} else if (Engine.island.timeIndex() == Island.EARLY_MORNING) {
+			if (!thisImage.equals(darkerImage))
+				thisImage = darkerImage;
 		} else {
 			if (!thisImage.equals(tileImage))
 				thisImage = tileImage;

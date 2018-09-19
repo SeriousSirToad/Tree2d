@@ -20,7 +20,8 @@ public class Lodge_0 extends Building {
 
 					@Override
 					public void onClick() {
-						Engine.island.time++;
+						if (Engine.island.time < Engine.island.maxTime)
+							Engine.island.time++;
 					}
 
 				} };

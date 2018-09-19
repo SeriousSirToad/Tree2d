@@ -121,7 +121,7 @@ public class GameButton {
 	private void render(Graphics g) {
 
 		g.setColor(color());
-		g.fillRoundRect(x, y, width, height, 16, 16);
+		g.fillRoundRect(x, y, width, height, 32, 32);
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
