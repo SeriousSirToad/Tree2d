@@ -11,20 +11,19 @@ import kingery.ui.GameButton;
 public class Lodge_0 extends Building {
 
 	public Lodge_0(Engine e) {
-		super(0, 39 * Tile.width, 10 * Tile.width, Assets.BLDG_SHOPPE_TEST, e,
-				Island.Utopia);
+		super(0, 39 * Tile.width, 10 * Tile.width, Assets.BLDG_SHOPPE_TEST, e, Island.Utopia);
 		this.bldg_name = "Lodge";
 		this.bldg_desc = "Welcome to the lodge. You want anything?";
 		GameButton[] buttons = {
 
-		new GameButton(0, 0, 0xFF009F00, "Burger", e) {
+				new GameButton(0, 0, 0xFF009F00, "Burger", e) {
 
-			@Override
-			public void updates() {
-				
-			}
+					@Override
+					public void onClick() {
+						Engine.island.time++;
+					}
 
-		} };
+				} };
 		interior = new BuildingWindow(buttons, bldg_desc, this);
 	}
 

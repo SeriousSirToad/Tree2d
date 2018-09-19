@@ -1,5 +1,6 @@
 package kingery.game.islands;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -28,6 +29,8 @@ public class Island {
 	public String imagePath;
 	private BufferedImage image;
 	public Island rightI, leftI;
+	public int time = 0;
+	public int maxTime = 24;
 	//
 
 	public static Island Utopia;
@@ -131,6 +134,9 @@ public class Island {
 		for (Entity f : entities) {
 			f.render(g);
 		}
+		
+		g.setColor(Color.BLACK);
+		g.drawString("" + time, 8, 62);
 
 		entities.sort(entitySorter);
 
@@ -143,6 +149,22 @@ public class Island {
 		}
 		if(this.equals(Utopia)) {
 			leftI = Test;
+		}
+		
+	}
+	
+	
+	public static final int MORNING = 1, EARLY_MORNING = 0, AFTERNOON = 2, EVENING = 3;
+	public int timeIndex() {
+		
+		if (time >= 6 && time < 12) {
+			return 1;
+		} else if (time >= 12 && time < 18) {
+			return 2;
+		} else if (time >= 18 && time < 24) {
+			return 3;
+		} else {
+			return 0;
 		}
 		
 	}

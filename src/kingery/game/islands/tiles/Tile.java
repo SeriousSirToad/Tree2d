@@ -5,7 +5,11 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
+import kingery.game.gfx.Assets;
+import kingery.game.gfx.Colour;
 import kingery.game.gfx.SpriteSheet;
+import kingery.game.islands.Island;
+import kingery.game.menu.Menu;
 
 public abstract class Tile {
 
@@ -29,10 +33,12 @@ public abstract class Tile {
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;
 	private int levelColor;
-	public final static int scale = (int)(2 * Engine.SCALE);
+	public final static int scale = (int) (2 * Engine.SCALE);
 	public static final byte textureWidth = 8;
 	public static final int width = textureWidth * scale;
 	public BufferedImage tileImage;
+	public BufferedImage thisImage;
+	public BufferedImage darkImage;
 	public Rectangle collider;
 	public int defX = 0, defY = 0;
 
@@ -44,12 +50,21 @@ public abstract class Tile {
 		tiles[id] = this;
 		this.levelColor = levelColour;
 		tileImage = SpriteSheet.getImage(SSX, SSY, textureWidth, textureWidth);
+		thisImage = Assets.deepCopy(tileImage);
+		darkImage = Colour.darkerImage(tileImage);
 
 	}
 
 	public void renderTile(Graphics g, int x, int y) {
-		
-		g.drawImage(tileImage, x, y, width, width, null);
+
+		if (Menu.engine.island.timeIndex() == Island.MORNING || Menu.engine.island.timeIndex() == Island.EVENING) {
+			thisImage = darkImage;
+		} else {
+			if (!thisImage.equals(tileImage))
+				thisImage = tileImage;
+		}
+
+		g.drawImage(thisImage, x, y, width, width, null);
 
 	}
 

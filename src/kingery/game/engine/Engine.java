@@ -41,7 +41,7 @@ public class Engine extends Canvas implements Runnable {
 	public InputHandler input = new InputHandler(this);
 	public EntityHandler eHandle;
 
-	public Island island;
+	public static Island island;
 
 	public Menu menu = new Menu(this);
 	InGameMenu inMenu;
@@ -103,7 +103,7 @@ public class Engine extends Canvas implements Runnable {
 	boolean canEnterMenu = false;
 
 	private void update() {
-		
+
 		if (menu.canStartGame() && !inMenu.inMenu) {
 
 			if (!input.esc.isPressed()) {
@@ -117,7 +117,6 @@ public class Engine extends Canvas implements Runnable {
 			}
 
 			island.update();
-			
 
 		} else if (!menu.canStartGame() && !inMenu.inMenu) {
 
@@ -191,9 +190,9 @@ public class Engine extends Canvas implements Runnable {
 
 	int xOffset = 0;
 	int yOffset = 0;
-	
+
 	public void render() {
-		
+
 		// Creating graphics object
 		bs = getBufferStrategy();
 		if (bs == null) {
@@ -220,11 +219,11 @@ public class Engine extends Canvas implements Runnable {
 		if (inMenu.inMenu) {
 			inMenu.renderMenu(g);
 		}
-		
-		for(GameWindow w : subwindows) {
+
+		for (GameWindow w : subwindows) {
 			w.update(g);
 		}
-		
+
 		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		g.setColor(Color.BLACK);
 		g.drawString(frames + " fps", 10, 20);
@@ -235,10 +234,20 @@ public class Engine extends Canvas implements Runnable {
 
 	int bx = 0, by = 0;
 
+	Color bg = new Color(0xFF87CEFA);
+
 	void backGround(Graphics g) {
 
-		Color bg = new Color(0xFF87CEFA);
-		g.setColor(bg);
+		if (island.time >= 6 && island.time < 12) {
+			g.setColor(bg.darker());
+		} else if (island.time >= 12 && island.time < 18) {
+			g.setColor(bg);
+		} else if (island.time >= 18 && island.time < 24) {
+			g.setColor(bg.darker());
+		} else {
+			g.setColor(bg.darker().darker());
+		}
+
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 
 	}
@@ -252,7 +261,7 @@ public class Engine extends Canvas implements Runnable {
 		tickCount++;
 
 	}
-	
+
 	public void start() {
 
 		running = true;

@@ -1,5 +1,6 @@
 package kingery.game.gfx;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 
 public class Colour {
@@ -7,7 +8,7 @@ public class Colour {
 	public static BufferedImage fixYoSelf(int[] colors, int[] newColors, BufferedImage Image) {
 
 		BufferedImage image = Assets.deepCopy(Image);
-		
+
 		for (int i = 0; i < colors.length; i++) {
 			for (int y = 0; y < image.getHeight(); y++) {
 				for (int x = 0; x < image.getWidth(); x++) {
@@ -17,6 +18,20 @@ public class Colour {
 				}
 			}
 		}
+		return image;
+
+	}
+
+	public static BufferedImage darkerImage(BufferedImage Image) {
+
+		BufferedImage image = Assets.deepCopy(Image);
+
+		for (int y = 0; y < image.getHeight(); y++) {
+			for (int x = 0; x < image.getWidth(); x++) {
+				image.setRGB(x, y, new Color(image.getRGB(x, y)).darker().getRGB());
+			}
+		}
+
 		return image;
 
 	}

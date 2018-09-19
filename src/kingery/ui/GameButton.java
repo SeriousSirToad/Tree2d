@@ -31,8 +31,7 @@ public class GameButton {
 
 	public BufferedImage buttonImage;
 
-	public static int STD_WIDTH = 16 * (int) (Engine.SCALE * 2),
-			STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
+	public static int STD_WIDTH = 16 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
 
 	public GameButton(int x, int y, int width, int height, int color, Engine e) {
 
@@ -52,8 +51,7 @@ public class GameButton {
 
 	}
 
-	public GameButton(int x, int y, int width, int height, BufferedImage image,
-			Engine e) {
+	public GameButton(int x, int y, int width, int height, BufferedImage image, Engine e) {
 
 		this.x = x;
 		this.y = y;
@@ -89,17 +87,19 @@ public class GameButton {
 
 	}
 
-	protected void updates() {
+	protected void onClick() {
 
 	}
-	
+
 	public void update(Graphics g) {
-		
+
 		buttonRect.x = x;
 		buttonRect.y = y;
-		
-		if (hasBeenClicked)
+
+		if (hasBeenClicked && !input.clicking()) {
+			onClick();
 			hasBeenClicked = false;
+		}
 
 		if (buttonRect.contains(input.MouseX, input.MouseY)) {
 
@@ -114,10 +114,8 @@ public class GameButton {
 			onThis = false;
 		}
 
-		updates();
-		
 		render(Engine.g);
-		
+
 	}
 
 	private void render(Graphics g) {
@@ -126,9 +124,8 @@ public class GameButton {
 		g.fillRoundRect(x, y, width, height, 16, 16);
 		g.setColor(Color.BLACK);
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
-		g.drawString(string,
-				x + width / 2 - g.getFontMetrics().stringWidth(string) / 2, y
-						+ (height / 2) + (g.getFontMetrics().getHeight() / 4));
+		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
+				y + (height / 2) + (g.getFontMetrics().getHeight() / 4));
 
 	}
 

@@ -41,39 +41,34 @@ public class Menu {
 		int bbbbb = (menuImage.getWidth());
 		int bbbb = (menuImage.getHeight());
 
-		start = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2)
-				- GameButton.STD_WIDTH / 2,
-				(int) (Engine.HEIGHT * Engine.SCALE / 2)
-						- GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start", engine) {
+		start = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2) - GameButton.STD_WIDTH / 2,
+				(int) (Engine.HEIGHT * Engine.SCALE / 2) - GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start", engine) {
+
+			public void onClick() {
+
+				startGame = true;
+
+			}
+
+		};
+		exit = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2) - GameButton.STD_WIDTH / 2,
+				(int) (Engine.HEIGHT * Engine.SCALE / 2) - GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet", engine) {
 			
-			public void update() {
-				
-				
-				
+			public void onClick() {
+				System.exit(0);
 			}
 			
 		};
-		exit = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2)
-				- GameButton.STD_WIDTH / 2,
-				(int) (Engine.HEIGHT * Engine.SCALE / 2)
-						- GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet", engine);
 
 	}
 
 	public void update() {
 		// exit.update();
 
-		if (start.hasBeenClicked || Engine.p.input.space.isPressed()) {
-
+		if (Engine.p.input.space.isPressed()) {
 			startGame = true;
-
 		}
-
-		if (exit.hasBeenClicked) {
-
-			System.exit(0);
-
-		}
+		
 
 	}
 
