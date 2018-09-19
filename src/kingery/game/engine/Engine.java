@@ -70,7 +70,6 @@ public class Engine extends Canvas implements Runnable {
 
 		spriteSheet = new SpriteSheet("spriteSheet", "BuildingSpriteSheet.");
 		frame.setTitle(NAME);
-		frame.setUndecorated(true);
 		frame.setSize(gameDimension);
 		frame.setPreferredSize(gameDimension);
 		frame.setMinimumSize(gameDimension);

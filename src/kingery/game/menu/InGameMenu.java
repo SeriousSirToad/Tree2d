@@ -29,7 +29,7 @@ public class InGameMenu {
 		g.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
 		for (GameButton b : buttons) {
 
-			b.update();
+			b.update(g);
 
 		}
 
@@ -48,9 +48,6 @@ public class InGameMenu {
 			}
 
 		}
-
-		for (GameButton b : buttons)
-			b.update();
 
 		if (buttons[0].hasBeenClicked) {
 

@@ -44,7 +44,15 @@ public class Menu {
 		start = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2)
 				- GameButton.STD_WIDTH / 2,
 				(int) (Engine.HEIGHT * Engine.SCALE / 2)
-						- GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start", engine);
+						- GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start", engine) {
+			
+			public void update() {
+				
+				
+				
+			}
+			
+		};
 		exit = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2)
 				- GameButton.STD_WIDTH / 2,
 				(int) (Engine.HEIGHT * Engine.SCALE / 2)
@@ -73,8 +81,8 @@ public class Menu {
 
 		g.setColor(new Color(0xFF7F7F7F));
 		g.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
-		start.update();
-		exit.update();
+		start.update(g);
+		exit.update(g);
 
 	}
 

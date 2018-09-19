@@ -48,7 +48,7 @@ public class NPCWindow extends GameWindow{
 
 		for (GameButton b : buttons) {
 
-			b.update();
+			b.update(g);
 
 		}
 

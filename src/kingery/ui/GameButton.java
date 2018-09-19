@@ -91,6 +91,10 @@ public class GameButton {
 
 	public void update() {
 
+	}
+	
+	public void update(Graphics g) {
+		
 		if (hasBeenClicked)
 			hasBeenClicked = false;
 
@@ -108,7 +112,9 @@ public class GameButton {
 		}
 
 		render(Engine.g);
-
+		
+		update();
+		
 	}
 
 	private void render(Graphics g) {
