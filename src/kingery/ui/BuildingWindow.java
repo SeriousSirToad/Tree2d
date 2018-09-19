@@ -22,7 +22,7 @@ public class BuildingWindow extends GameWindow {
 	BufferedImage backgroundImage;
 	Building myBuilding;
 
-	public BuildingWindow(String[] buttons, String path, Building b) {
+	public BuildingWindow(GameButton[] buttons, String path, Building b) {
 
 		myBuilding = b;
 
@@ -35,9 +35,11 @@ public class BuildingWindow extends GameWindow {
 						+ h - (GameButton.STD_HEIGHT) - (1 * Tile.scale),
 						0xFF00009F, "Close", Menu.engine);
 			} else {
-				this.buttons[i] = new GameButton(x + w - (17 * Tile.scale), y
-						+ GameButton.STD_HEIGHT + (GameButton.STD_HEIGHT * i)
-						+ (i * Tile.scale), 0xFF009F00, buttons[i], Menu.engine);
+				this.buttons[i] = buttons[i];
+				this.buttons[i].x = x + w - (17 * Tile.scale);
+				this.buttons[i].y = y + GameButton.STD_HEIGHT
+						+ (GameButton.STD_HEIGHT * i) + (i * Tile.scale);
+				;
 			}
 
 		}
@@ -45,8 +47,7 @@ public class BuildingWindow extends GameWindow {
 
 	public void update(Graphics g) {
 		if (myBuilding.inside) {
-			System.out.println("pippa what");
-			showDialog(myBuilding.bldg_name, myBuilding.bldg_desc, Engine.g);
+			showDialog(myBuilding.bldg_name, myBuilding.bldg_desc, g);
 		}
 	}
 

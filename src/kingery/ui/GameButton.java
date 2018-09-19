@@ -17,7 +17,7 @@ public class GameButton {
 
 	private boolean canClick = true;
 	public boolean attatchedToEntity = false;
-	private boolean onThis = false;
+	protected boolean onThis = false;
 	private String string;
 	public Color color;
 
@@ -25,7 +25,7 @@ public class GameButton {
 
 	public int x, y, width, height;
 
-	private InputHandler input;
+	protected InputHandler input;
 
 	private Engine e;
 
@@ -89,11 +89,14 @@ public class GameButton {
 
 	}
 
-	public void update() {
+	protected void updates() {
 
 	}
 	
 	public void update(Graphics g) {
+		
+		buttonRect.x = x;
+		buttonRect.y = y;
 		
 		if (hasBeenClicked)
 			hasBeenClicked = false;
@@ -111,9 +114,9 @@ public class GameButton {
 			onThis = false;
 		}
 
-		render(Engine.g);
+		updates();
 		
-		update();
+		render(Engine.g);
 		
 	}
 
