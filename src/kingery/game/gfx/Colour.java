@@ -28,7 +28,8 @@ public class Colour {
 
 		for (int y = 0; y < image.getHeight(); y++) {
 			for (int x = 0; x < image.getWidth(); x++) {
-				image.setRGB(x, y, new Color(image.getRGB(x, y)).darker().getRGB());
+				//new Color(image.getRGB(x, y)).darker().getRGB()
+				image.setRGB(x, y, newColor.getRGB());
 			}
 		}
 

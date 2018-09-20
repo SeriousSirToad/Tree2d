@@ -21,6 +21,7 @@ public class BuildingWindow extends GameWindow {
 	static FontMetrics fm;
 	BufferedImage backgroundImage;
 	Building myBuilding;
+	public String actionText = "";
 
 	public BuildingWindow(GameButton[] buttons, String path, Building b) {
 
@@ -54,7 +55,7 @@ public class BuildingWindow extends GameWindow {
 	public void showDialog(String title, String message, Graphics g) {
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		fm = g.getFontMetrics();
-		int sx = x, sy = y + fm.getHeight() + (1 * Tile.scale);
+		int sx = x + 1 * Tile.scale, sy = y + fm.getHeight() + (1 * Tile.scale);
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
@@ -63,6 +64,8 @@ public class BuildingWindow extends GameWindow {
 				y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
 			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
+
+		g.drawString(actionText, sx, y + h - 1 * Tile.scale);
 
 		for (GameButton b : buttons) {
 
@@ -73,6 +76,7 @@ public class BuildingWindow extends GameWindow {
 		if (buttons[buttons.length - 1].hasBeenClicked) {
 			active = false;
 			myBuilding.inside = false;
+			actionText = "";
 		}
 
 	}

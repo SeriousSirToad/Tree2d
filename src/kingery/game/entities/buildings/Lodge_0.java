@@ -22,6 +22,9 @@ public class Lodge_0 extends Building {
 					public void onClick() {
 						if (Engine.island.time < Engine.island.maxTime)
 							Engine.island.time++;
+						
+						interior.actionText = "Thank you for eating a burger.";
+						
 					}
 
 				} };
