@@ -240,10 +240,9 @@ public class Engine extends Canvas implements Runnable {
 	void money(Graphics g) {
 		String playerMoneyAmnt = "$" + eHandle.p.money;
 		g.fillRect(moneyX, moneyY, moneyW, moneyH);
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, (int) (8 * SCALE)));
 		g.setColor(Color.BLUE);
-		g.drawString(playerMoneyAmnt,
-				moneyX + (moneyW / 6) - (g.getFontMetrics().stringWidth(playerMoneyAmnt) / 2),
+		g.drawString(playerMoneyAmnt, moneyX + (moneyW / 6) - (g.getFontMetrics().stringWidth(playerMoneyAmnt) / 2),
 				moneyY + (moneyH / 2) + (g.getFontMetrics().getHeight() / 4));
 	}
 
