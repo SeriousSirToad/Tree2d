@@ -16,18 +16,47 @@ public class Lodge_0 extends Building {
 		this.bldg_desc = "Welcome to the lodge. You want anything?";
 		GameButton[] buttons = {
 
-				new GameButton(0, 0, 0xFF009F00, "Burger", e) {
+				new GameButton(0, 0, 0xFF009F00, "Burger - $5", e) {
 
 					@Override
 					public void onClick() {
-						if (Engine.island.time < Engine.island.maxTime)
+
+						if (Engine.island.time < Engine.island.maxTime && e.eHandle.p.money >= 5) {
 							Engine.island.time++;
-						
-						interior.actionText = "Thank you for eating a burger.";
-						
+
+							e.eHandle.p.money -= 5;
+							interior.actionText = "Thank you for eating a burger.";
+						} else {
+
+							interior.actionText = "It's too late for you now.";
+
+						}
+
 					}
 
-				} };
+				},
+
+				new GameButton(0, 0, 0xFF009F00, "Flip Burgers", e) {
+
+					@Override
+					public void onClick() {
+
+						if (Engine.island.time < Engine.island.maxTime) {
+							Engine.island.time += 2;
+
+							e.eHandle.p.money += 5;
+							interior.actionText = "Thank you for cooking a burger.";
+						} else {
+
+							interior.actionText = "It's too late for you now.";
+
+						}
+
+					}
+
+				}
+
+		};
 		interior = new BuildingWindow(buttons, bldg_desc, this);
 	}
 

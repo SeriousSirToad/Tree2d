@@ -62,7 +62,7 @@ public class Assets {
 
 	// Items
 	public static BufferedImage WOOD = SpriteSheet.getImage(0, 96, 16, 7);
-	public static BufferedImage MONEY = SpriteSheet.getImage(0, 108, 7, 3);
+	public static BufferedImage MONEY = SpriteSheet.getImage(768, 0, 32, 16);
 
 	// Inventory
 	public static BufferedImage INVENTORY = SpriteSheet.getImage(63, 0, 34, 34);

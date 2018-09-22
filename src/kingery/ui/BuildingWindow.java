@@ -37,7 +37,7 @@ public class BuildingWindow extends GameWindow {
 						0xFF00009F, "Close", Menu.engine);
 			} else {
 				this.buttons[i] = buttons[i];
-				this.buttons[i].x = x + w - (17 * Tile.scale);
+				this.buttons[i].x = x + w - (buttons[i].width) - 1 * Tile.scale;
 				this.buttons[i].y = y + GameButton.STD_HEIGHT
 						+ (GameButton.STD_HEIGHT * i) + (i * Tile.scale);
 				;

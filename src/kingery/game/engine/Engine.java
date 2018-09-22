@@ -22,6 +22,7 @@ import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.Assets;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
+import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
@@ -76,6 +77,7 @@ public class Engine extends Canvas implements Runnable {
 		frame.setMaximumSize(gameDimension);
 		frame.add(this, BorderLayout.CENTER);
 		frame.setResizable(false);
+		frame.setUndecorated(true);
 		frame.setVisible(true);
 		frame.setLocationRelativeTo(null);
 
@@ -201,12 +203,12 @@ public class Engine extends Canvas implements Runnable {
 		}
 
 		g = bs.getDrawGraphics();
-
 		// General Rendering
 		g.clearRect(0, 0, (WIDTH), (HEIGHT));
 		if (menu.canStartGame()) {
 			backGround(g);
 			island.renderEntities(g);
+			money(g);
 			if (eHandle.p.inventory.active) {
 				eHandle.p.inventory.render(g);
 			}
@@ -224,12 +226,25 @@ public class Engine extends Canvas implements Runnable {
 			w.update(g);
 		}
 
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		g.setColor(Color.BLACK);
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
 		g.drawString(frames + " fps", 10, 20);
 
 		bs.show();
 		g.dispose();
+	}
+
+	int moneyX = (int) (138 * SCALE), moneyY = (int) (2 * SCALE);
+	int moneyW = (int) (116 * SCALE), moneyH = (int) (16 * SCALE);
+
+	void money(Graphics g) {
+		String playerMoneyAmnt = "$" + eHandle.p.money;
+		g.fillRect(moneyX, moneyY, moneyW, moneyH);
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 20));
+		g.setColor(Color.BLUE);
+		g.drawString(playerMoneyAmnt,
+				moneyX + (moneyW / 6) - (g.getFontMetrics().stringWidth(playerMoneyAmnt) / 2),
+				moneyY + (moneyH / 2) + (g.getFontMetrics().getHeight() / 4));
 	}
 
 	int bx = 0, by = 0;

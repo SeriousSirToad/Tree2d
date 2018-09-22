@@ -73,7 +73,7 @@ public class GameButton {
 
 		this.x = x;
 		this.y = y;
-		this.width = STD_WIDTH;
+		this.width = STD_WIDTH + s.length() % STD_WIDTH;
 		this.height = STD_HEIGHT;
 		this.e = e;
 		string = s;
