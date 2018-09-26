@@ -16,7 +16,7 @@ public class EntityHandler {
 
 	Engine engine;
 
-	public Player p;
+	public static Player p;
 
 	public Random r = new Random();
 
@@ -67,7 +67,7 @@ public class EntityHandler {
 		String[] josephText = { "What? Oh, Sorry. Hey.",
 				"Don't you think it's strange there's only 2 islands?" };
 		NPC npc_1 = new Lumberjack(7 * Tile.width, 7 * Tile.width, josephText,
-				"Joseph", 1, engine, Island.Test);
+				"Joseph", 1, engine, Island.Start);
 
 	}
 

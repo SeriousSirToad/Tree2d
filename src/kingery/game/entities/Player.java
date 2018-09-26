@@ -136,18 +136,16 @@ public class Player extends Mob {
 		if (shouldExit((x + xa + collider.x + collider.width) / Tile.width, (y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width > island.width / 2) {
 				Engine.island = island.rightI;
-				System.out.println(Engine.island.imagePath);
 			}
 
 			island.entities.remove(this);
 			island = Engine.island;
 			island.entities.add(this);
 
-			thid: for (int x = 0; x < island.width; x++) {
+			for (int x = 0; x < island.width; x++) {
 				for (int y = 0; y < island.height; y++) {
 					if (island.getTile(x, y).getId() == 8) {
-						this.x = island.width - ((x + 1) * Tile.width);
-						break thid;
+						this.x = (x + 1) * Tile.width;
 					}
 				}
 			}
@@ -155,7 +153,6 @@ public class Player extends Mob {
 		} else if (shouldExit((x + xa + collider.x) / Tile.width, (y + collider.y) / Tile.width)) {
 			if ((x + collider.x) / Tile.width < island.width / 2) {
 				Engine.island = island.leftI;
-				System.out.println(Engine.island.imagePath);
 			}
 
 			island.entities.remove(this);
@@ -165,14 +162,13 @@ public class Player extends Mob {
 			for (int x = 0; x < Engine.island.width; x++) {
 				for (int y = 0; y < Engine.island.height; y++) {
 					if (island.getTile(x, y).getId() == 8) {
-						this.x = (x - 2) * Tile.width;
+						this.x = (x - 1) * Tile.width;
 					}
 				}
 			} // y + ya + collider.y + collider.height
 		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y) / Tile.width)) {
 			if ((y + collider.y) / Tile.width < island.height / 2) {
 				Engine.island = island.rightI;
-				System.out.println(Engine.island.imagePath);
 			}
 
 			island.entities.remove(this);
@@ -189,7 +185,6 @@ public class Player extends Mob {
 		} else if (shouldExit((x + collider.x) / Tile.width, (y + ya + collider.y + collider.height) / Tile.width)) {
 			if ((y + collider.y) / Tile.width > island.height / 2) {
 				Engine.island = island.rightI;
-				// System.out.println(e.island.imagePath);
 			}
 
 			island.entities.remove(this);

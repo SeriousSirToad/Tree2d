@@ -40,9 +40,9 @@ public class Menu {
 
 		int bbbbb = (menuImage.getWidth());
 		int bbbb = (menuImage.getHeight());
-
+		
 		start = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2) - GameButton.STD_WIDTH / 2,
-				(int) (Engine.HEIGHT * Engine.SCALE / 2) - GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start", engine) {
+				(int) (Engine.HEIGHT * Engine.SCALE / 2) - GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start") {
 
 			public void onClick() {
 
@@ -52,12 +52,12 @@ public class Menu {
 
 		};
 		exit = new GameButton((int) (Engine.WIDTH * Engine.SCALE / 2) - GameButton.STD_WIDTH / 2,
-				(int) (Engine.HEIGHT * Engine.SCALE / 2) - GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet", engine) {
-			
+				(int) (Engine.HEIGHT * Engine.SCALE / 2) - GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet") {
+
 			public void onClick() {
 				System.exit(0);
 			}
-			
+
 		};
 
 	}
@@ -68,7 +68,6 @@ public class Menu {
 		if (Engine.p.input.space.isPressed()) {
 			startGame = true;
 		}
-		
 
 	}
 

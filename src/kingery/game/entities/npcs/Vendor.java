@@ -21,13 +21,6 @@ public class Vendor extends NPC{
 
 
 			if (canShowBox && !e.input.E.isPressed()) {
-				int val = dialougeBox.drawQuestionBox(message, name);
-				System.out.println(val);
-				if(val == 0) {
-					System.out.println(true);
-				} else {
-					System.out.println(false);
-				}
 				canShowBox = false;
 			}
 

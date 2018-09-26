@@ -22,12 +22,14 @@ import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.Assets;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
+import kingery.game.islands.Island_Start;
 import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
 import kingery.ui.GameButton;
 import kingery.ui.GameWindow;
+import kingery.ui.InGameUI;
 
 public class Engine extends Canvas implements Runnable {
 
@@ -44,8 +46,8 @@ public class Engine extends Canvas implements Runnable {
 
 	public static Island island;
 
-	public Menu menu = new Menu(this);
-	InGameMenu inMenu;
+	public Menu menu;
+	public static InGameMenu inMenu;
 
 	public static Player p;
 	public int cameraX = 0;
@@ -55,7 +57,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static double SCALE = 2.5;
+	public static double SCALE = 5;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
@@ -66,6 +68,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public Engine() {
 
+		menu = new Menu(this);
 		WIDTH *= SCALE;
 		HEIGHT *= SCALE;
 
@@ -84,7 +87,6 @@ public class Engine extends Canvas implements Runnable {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		System.out.println(WIDTH + ", " + HEIGHT);
-
 		inMenu = new InGameMenu(this);
 
 		new Sound(this).start();
@@ -98,7 +100,7 @@ public class Engine extends Canvas implements Runnable {
 	public void initIslands() {
 
 		Island.Utopia = new Island("res/Islands/Utopia.png", this);
-		Island.Test = new Island("res/Islands/test.png", this);
+		Island.Start = new Island_Start(this);
 
 	}
 
@@ -208,10 +210,10 @@ public class Engine extends Canvas implements Runnable {
 		if (menu.canStartGame()) {
 			backGround(g);
 			island.renderEntities(g);
-			money(g);
 			if (eHandle.p.inventory.active) {
 				eHandle.p.inventory.render(g);
 			}
+			InGameUI.render(g);
 		} else {
 			g.setColor(Color.gray);
 			g.fillRect(0, 0, (WIDTH), (HEIGHT));
@@ -227,23 +229,12 @@ public class Engine extends Canvas implements Runnable {
 		}
 
 		g.setColor(Color.BLACK);
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
-		g.drawString(frames + " fps", 10, 20);
+		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, (int) (5.6 * SCALE)));
+		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
 
 		bs.show();
 		g.dispose();
-	}
 
-	int moneyX = (int) (138 * SCALE), moneyY = (int) (2 * SCALE);
-	int moneyW = (int) (116 * SCALE), moneyH = (int) (16 * SCALE);
-
-	void money(Graphics g) {
-		String playerMoneyAmnt = "$" + eHandle.p.money;
-		g.fillRect(moneyX, moneyY, moneyW, moneyH);
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, (int) (8 * SCALE)));
-		g.setColor(Color.BLUE);
-		g.drawString(playerMoneyAmnt, moneyX + (moneyW / 6) - (g.getFontMetrics().stringWidth(playerMoneyAmnt) / 2),
-				moneyY + (moneyH / 2) + (g.getFontMetrics().getHeight() / 4));
 	}
 
 	int bx = 0, by = 0;
@@ -252,11 +243,11 @@ public class Engine extends Canvas implements Runnable {
 
 	void backGround(Graphics g) {
 
-		if (island.time >= 6 && island.time < 12) {
+		if (island.timeIndex() == Island.MORNING) {
 			g.setColor(bg.darker());
-		} else if (island.time >= 12 && island.time < 18) {
+		} else if (island.timeIndex() == Island.AFTERNOON) {
 			g.setColor(bg);
-		} else if (island.time >= 18 && island.time < 24) {
+		} else if (island.timeIndex() == Island.EVENING) {
 			g.setColor(bg.darker());
 		} else {
 			g.setColor(bg.darker().darker());
@@ -281,6 +272,10 @@ public class Engine extends Canvas implements Runnable {
 		running = true;
 		new Thread(this).start();
 
+	}
+
+	public static int scale(int num) {
+		return (int) (num * SCALE);
 	}
 
 	public static void main(String[] args) {

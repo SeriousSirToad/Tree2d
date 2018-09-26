@@ -16,9 +16,9 @@ public class InGameMenu {
 
 	public InGameMenu(Engine engine) {
 		e = engine;
-		buttons[0] = new GameButton(Engine.WIDTH - (17 * Tile.scale), 1 * Tile.scale, 0xFF9F0000, "Exit", e);
-		buttons[1] = new GameButton(Engine.WIDTH - (17 * Tile.scale), GameButton.STD_HEIGHT + (2 * Tile.scale),
-				0xFF7F7F7F, "Menu", e);
+		buttons[0] = new GameButton(Engine.WIDTH - GameButton.STD_WIDTH - (1 * Tile.scale), 1 * Tile.scale, 0xFF9F0000, "Exit");
+		buttons[1] = new GameButton(Engine.WIDTH - GameButton.STD_WIDTH - (1 * Tile.scale), GameButton.STD_HEIGHT + (2 * Tile.scale),
+				0xFF7F7F7F, "Main Menu"); 
 	}
 
 	Color thisColor = new Color(128, 128, 128, 220);

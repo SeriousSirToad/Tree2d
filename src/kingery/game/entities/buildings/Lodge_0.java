@@ -16,7 +16,7 @@ public class Lodge_0 extends Building {
 		this.bldg_desc = "Welcome to the lodge. You want anything?";
 		GameButton[] buttons = {
 
-				new GameButton(0, 0, 0xFF009F00, "Burger - $5", e) {
+				new GameButton(0, 0, 0xFF009F00, "Burger - $5") {
 
 					@Override
 					public void onClick() {
@@ -36,7 +36,7 @@ public class Lodge_0 extends Building {
 
 				},
 
-				new GameButton(0, 0, 0xFF009F00, "Flip Burgers", e) {
+				new GameButton(0, 0, 0xFF009F00, "Flip Burgers") {
 
 					@Override
 					public void onClick() {

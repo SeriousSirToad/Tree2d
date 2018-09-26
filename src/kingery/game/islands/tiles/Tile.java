@@ -53,7 +53,7 @@ public abstract class Tile {
 		tileImage = SpriteSheet.getImage(SSX, SSY, textureWidth, textureWidth);
 		thisImage = Assets.deepCopy(tileImage);
 		darkImage = Colour.darkerImage(tileImage);
-		darkerImage = Colour.darkerImage(Colour.darkerImage(tileImage));
+		darkerImage = Colour.darkerImage(darkImage);
 
 	}
 

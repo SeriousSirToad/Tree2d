@@ -8,6 +8,8 @@ import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
+import kingery.game.islands.tiles.Tile;
+import kingery.game.menu.Menu;
 
 public class GameButton {
 
@@ -27,55 +29,18 @@ public class GameButton {
 
 	protected InputHandler input;
 
-	private Engine e;
+	private Engine e = Menu.engine;
 
 	public BufferedImage buttonImage;
 
-	public static int STD_WIDTH = 16 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
+	public static int STD_WIDTH = 32 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
 
-	public GameButton(int x, int y, int width, int height, int color, Engine e) {
-
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.e = e;
-
-		this.color = new Color(color);
-
-		input = e.input;
-
-		buttonRect = new Rectangle(x, y, width, height);
-
-		e.buttons.add(this);
-
-	}
-
-	public GameButton(int x, int y, int width, int height, BufferedImage image, Engine e) {
+	public GameButton(int x, int y, int width, int height, int color, String s) {
 
 		this.x = x;
 		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.e = e;
-
-		buttonImage = image;
-
-		input = e.input;
-
-		buttonRect = new Rectangle(x, y, width, height);
-
-		e.buttons.add(this);
-
-	}
-
-	public GameButton(int x, int y, int color, String s, Engine e) {
-
-		this.x = x;
-		this.y = y;
-		this.width = STD_WIDTH + s.length() % STD_WIDTH;
-		this.height = STD_HEIGHT;
-		this.e = e;
+		this.width = Engine.scale(width);
+		this.height = Engine.scale(height);
 		string = s;
 		this.color = new Color(color);
 
@@ -83,7 +48,35 @@ public class GameButton {
 
 		buttonRect = new Rectangle(x, y, width, height);
 
-		e.buttons.add(this);
+	}
+
+	public GameButton(int x, int y, int width, int height, BufferedImage image) {
+
+		this.x = x;
+		this.y = y;
+		this.width = Engine.scale(width);
+		this.height = Engine.scale(height);
+
+		buttonImage = image;
+
+		input = e.input;
+
+		buttonRect = new Rectangle(x, y, width, height);
+
+	}
+
+	public GameButton(int x, int y, int color, String s) {
+
+		this.x = x;
+		this.y = y;
+		this.width = STD_WIDTH;
+		this.height = STD_HEIGHT;
+		string = s;
+		this.color = new Color(color);
+
+		input = e.input;
+
+		buttonRect = new Rectangle(x, y, width, height);
 
 	}
 
@@ -93,8 +86,15 @@ public class GameButton {
 
 	public void update(Graphics g) {
 
+		if (Engine.g.getFontMetrics().stringWidth(string) > width) {
+			this.width += (width % Engine.g.getFontMetrics().stringWidth(string));
+			this.height = STD_HEIGHT;
+			x -= width % Engine.g.getFontMetrics().stringWidth(string);
+		}
 		buttonRect.x = x;
 		buttonRect.y = y;
+		buttonRect.width = width;
+		buttonRect.height = height;
 
 		if (hasBeenClicked && !input.clicking()) {
 			onClick();
@@ -121,9 +121,9 @@ public class GameButton {
 	private void render(Graphics g) {
 
 		g.setColor(color());
-		g.fillRoundRect(x, y, width, height, 32, 32);
+		g.fillRoundRect(x, y, width, height, (int) (12.8 * Engine.SCALE), (int) (12.8 * Engine.SCALE));
 		g.setColor(Color.BLACK);
-		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+		g.setFont(new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE)));
 		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
 				y + (height / 2) + (g.getFontMetrics().getHeight() / 4));
 

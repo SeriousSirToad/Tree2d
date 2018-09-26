@@ -21,11 +21,10 @@ public class NPC extends Mob {
 	public Rectangle interactZone;
 	public String[] messages;
 	protected String message;
-	protected TextBox dialougeBox;
 	public String name;
 	protected boolean inverted = false;
 	protected boolean vendor;
-	protected GameWindow dialogWindow;
+	protected NPCWindow dialogWindow;
 
 	private Island l;
 
@@ -36,7 +35,6 @@ public class NPC extends Mob {
 		interactZone = new Rectangle(x, y, width, height);
 		messages = new String[1];
 		messages[0] = message;
-		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
 		this.vendor = vendor;
@@ -49,7 +47,6 @@ public class NPC extends Mob {
 		collider = new Rectangle(9, 43, 16, 22);
 		interactZone = new Rectangle(x, y, width, height);
 		this.messages = messages;
-		dialougeBox = new TextBox(e);
 		this.entityImage = entityImage;
 		this.name = name;
 		dialogWindow = new NPCWindow(this);

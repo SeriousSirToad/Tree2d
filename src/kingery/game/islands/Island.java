@@ -1,7 +1,9 @@
 package kingery.game.islands;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -12,8 +14,8 @@ import javax.imageio.ImageIO;
 
 import kingery.game.engine.Engine;
 import kingery.game.entities.Entity;
-import kingery.game.entities.buildings.Building;
 import kingery.game.gfx.Camera;
+import kingery.game.gfx.lighting.Light;
 import kingery.game.islands.tiles.Tile;
 
 public class Island {
@@ -21,6 +23,7 @@ public class Island {
 	private Engine e;
 	public BufferedImage levelImage;
 	public ArrayList<Entity> entities = new ArrayList<>();
+	public ArrayList<Light> lights = new ArrayList<>();
 	boolean hasCycledA = false;
 	boolean hasCycledB = false;
 	private int[][] tiles;
@@ -29,12 +32,12 @@ public class Island {
 	public String imagePath;
 	private BufferedImage image;
 	public Island rightI, leftI;
-	public int time = 0;
+	public int time = 13;
 	public int maxTime = 24;
 	//
 
 	public static Island Utopia;
-	public static Island Test;
+	public static Island_Start Start;
 
 	private Comparator<Entity> entitySorter = new Comparator<Entity>() {
 
@@ -72,13 +75,11 @@ public class Island {
 	}
 
 	private void loadTiles() {
-		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0,
-				width);
+		int[] tileColours = this.image.getRGB(0, 0, width, height, null, 0, width);
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				tileCheck: for (Tile t : Tile.tiles) {
-					if (t != null
-							&& t.getLevelColour() == tileColours[x + y * width]) {
+					if (t != null && t.getLevelColour() == tileColours[x + y * width]) {
 						this.tiles[x][y] = t.getId();
 						break tileCheck;
 					}
@@ -98,16 +99,13 @@ public class Island {
 	public void renderTile(Graphics g) {
 
 		int xMin = Math.max(0, Camera.x() / Tile.width);
-		int xMax = Math
-				.min(width, (Camera.x() + Engine.WIDTH) / Tile.width + 1);
+		int xMax = Math.min(width, (Camera.x() + Engine.WIDTH) / Tile.width + 1);
 		int yMin = Math.max(0, Camera.y() / Tile.width);
-		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT) / Tile.width
-				+ 1);
+		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT) / Tile.width + 1);
 
 		for (int y = yMin; y < yMax; y++) {
 			for (int x = xMin; x < xMax; x++) {
-				getTile(x, y).renderTile(g, x * Tile.width - Camera.x(),
-						y * Tile.width - Camera.y());
+				getTile(x, y).renderTile(g, x * Tile.width - Camera.x(), y * Tile.width - Camera.y());
 			}
 		}
 
@@ -115,18 +113,22 @@ public class Island {
 
 	public void update() {
 
-		if(time > maxTime) {
-			
+		if (time > maxTime) {
+			time = 0;
 		}
-		
-		for(int i = 0; i < entities.size(); i++) {
-				entities.get(i).update();
+
+		for (int i = 0; i < entities.size(); i++) {
+			entities.get(i).update();
 		}
-		
-		if(rightI == null && leftI == null) {
+
+		if (rightI == null && leftI == null) {
 			init();
 		}
 		
+		for (Light l : lights) {
+			l.update();
+		}
+
 	}
 
 	public void renderEntities(Graphics g) {
@@ -138,39 +140,43 @@ public class Island {
 		for (Entity f : entities) {
 			f.render(g);
 		}
-		
+
+		Graphics2D g2 = (Graphics2D) g;
+
+		for (Light l : lights) {
+			l.render(g2);
+		}
+		g2.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
+
 		g.setColor(Color.BLACK);
 		g.drawString("" + time, 8, 62);
 
 		entities.sort(entitySorter);
 
 	}
-	
+
 	public void init() {
-		
-		if(this.equals(Test)) {
-			rightI = Utopia;
+
+		if (this.equals(Utopia)) {
+			leftI = Start;
 		}
-		if(this.equals(Utopia)) {
-			leftI = Test;
-		}
-		
+
 	}
-	
-	
+
 	public static final int MORNING = 1, EARLY_MORNING = 0, AFTERNOON = 2, EVENING = 3;
+
 	public int timeIndex() {
-		
-		if (time >= 6 && time < 12) {
+
+		if (time >= maxTime / 4 && time < maxTime / 2) {
 			return 1;
-		} else if (time >= 12 && time < 18) {
+		} else if (time >= maxTime / 2 && time < maxTime / 2 + maxTime / 4) {
 			return 2;
-		} else if (time >= 18 && time < 24) {
+		} else if (time >= maxTime / 2 + maxTime / 4 && time < maxTime) {
 			return 3;
 		} else {
 			return 0;
 		}
-		
+
 	}
 
 	public void GenerateIsland() {

@@ -27,19 +27,20 @@ public class BuildingWindow extends GameWindow {
 
 		myBuilding = b;
 
+		title = b.bldg_name;
+		message = b.bldg_desc;
+		
 		this.buttons = new GameButton[buttons.length + 1];
 
 		for (int i = 0; i < buttons.length + 1; i++) {
 
 			if (i == buttons.length) {
-				this.buttons[i] = new GameButton(x + w - (17 * Tile.scale), y
-						+ h - (GameButton.STD_HEIGHT) - (1 * Tile.scale),
-						0xFF00009F, "Close", Menu.engine);
+				this.buttons[i] = new GameButton(x + w - (17 * Tile.scale),
+						y + h - (GameButton.STD_HEIGHT) - (1 * Tile.scale), 0xFF00009F, "Close");
 			} else {
 				this.buttons[i] = buttons[i];
 				this.buttons[i].x = x + w - (buttons[i].width) - 1 * Tile.scale;
-				this.buttons[i].y = y + GameButton.STD_HEIGHT
-						+ (GameButton.STD_HEIGHT * i) + (i * Tile.scale);
+				this.buttons[i].y = y + GameButton.STD_HEIGHT + (GameButton.STD_HEIGHT * i) + (i * Tile.scale);
 				;
 			}
 
@@ -48,20 +49,20 @@ public class BuildingWindow extends GameWindow {
 
 	public void update(Graphics g) {
 		if (myBuilding.inside) {
-			showDialog(myBuilding.bldg_name, myBuilding.bldg_desc, g);
+			show();
 		}
 	}
 
-	public void showDialog(String title, String message, Graphics g) {
-		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
+	public void show() {
+		Graphics g = Engine.g;
+		g.setFont(font);
 		fm = g.getFontMetrics();
 		int sx = x + 1 * Tile.scale, sy = y + fm.getHeight() + (1 * Tile.scale);
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
-		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
-				y + fm.getHeight() + (1 * Tile.scale));
+		g.drawString(title, sx, y + fm.getHeight());
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w, y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
 			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 
