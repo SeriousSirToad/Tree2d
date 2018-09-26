@@ -14,9 +14,6 @@ public class Island_Start extends Island {
 	}
 	
 	public void init() {
-		lights.add(new Light(25, 7, Tile.width * 3, new Color(0, 0, 0, 0)));
-		lights.add(new Light(25, 10, Tile.width * 3, new Color(66, 13, 171, 100)));
-		lights.add(new BigLight(this));
 		rightI = Island.Utopia;
 	}
 

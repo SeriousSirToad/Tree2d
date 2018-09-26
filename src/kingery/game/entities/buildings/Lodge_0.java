@@ -57,7 +57,7 @@ public class Lodge_0 extends Building {
 				}
 
 		};
-		interior = new BuildingWindow(buttons, bldg_desc, this);
+		interior = new BuildingWindow(buttons, "bldg_101", this);
 	}
 
 }

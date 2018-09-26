@@ -1,14 +1,13 @@
 package kingery.ui;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import kingery.game.engine.Engine;
 import kingery.game.entities.npcs.NPC;
 import kingery.game.islands.tiles.Tile;
-import kingery.game.menu.Menu;
 
 public class NPCWindow extends GameWindow {
 	private NPC npc;
@@ -21,7 +20,6 @@ public class NPCWindow extends GameWindow {
 	static int y = Engine.HEIGHT / 2 - h / 2;
 
 	public NPCWindow(NPC attatchedNPC) {
-		active = true;
 		Engine.subwindows.add(this);
 		this.npc = attatchedNPC;
 		buttons = new GameButton[1];
@@ -29,7 +27,7 @@ public class NPCWindow extends GameWindow {
 				0xFF00009F, "Close");
 	}
 
-	public void update(Graphics g) {
+	public void update(Graphics2D g) {
 		if (npc.canShowBox) {
 			active = true;
 			showDialog(npc.name, npc.messages[npc.speechIndex], g);

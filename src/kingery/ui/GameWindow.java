@@ -4,11 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import kingery.game.engine.Engine;
-import kingery.game.entities.npcs.NPC;
 import kingery.game.islands.tiles.Tile;
-import kingery.game.menu.Menu;
 
 public class GameWindow {
 
@@ -25,11 +24,10 @@ public class GameWindow {
 	static Color transluscentBackground = new Color(0, 0, 0, 100);
 
 	public GameWindow() {
-		active = true;
 		Engine.subwindows.add(this);
 	}
 
-	public void update(Graphics g) {
+	public void update(Graphics2D g) {
 
 	}
 

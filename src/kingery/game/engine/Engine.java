@@ -4,12 +4,12 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.GraphicsConfiguration;
+import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import kingery.game.entities.Player;
-import kingery.game.entities.buildings.Building;
-import kingery.game.gfx.Assets;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
 import kingery.game.islands.Island_Start;
@@ -27,6 +25,7 @@ import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
+import kingery.ui.BuildingWindow;
 import kingery.ui.GameButton;
 import kingery.ui.GameWindow;
 import kingery.ui.InGameUI;
@@ -117,7 +116,13 @@ public class Engine extends Canvas implements Runnable {
 				if (input.esc.isPressed()) {
 					inMenu.inMenu = true;
 					canEnterMenu = false;
+					BuildingWindow.isOpen = false;
 				}
+			}
+
+			if (BuildingWindow.isOpen) {
+
+				return;
 			}
 
 			island.update();
@@ -134,7 +139,7 @@ public class Engine extends Canvas implements Runnable {
 
 	}
 
-	int frames = 0;
+	float frames = 0;
 
 	@Override
 	public void run() {
@@ -142,7 +147,7 @@ public class Engine extends Canvas implements Runnable {
 		double nsPerTick = 1000000000D / 60;
 		double renderTime = 1000000000D / Settings.frameCap;
 		int ticks = 0;
-		int frames = 0;
+		float frames = 0;
 		long lastTimer = System.currentTimeMillis();
 		double delta = 0;
 		double delta2 = 0;
@@ -180,6 +185,7 @@ public class Engine extends Canvas implements Runnable {
 			}
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
+				System.out.print(BuildingWindow.isOpen + " | ");
 				System.out.println(ticks + " ticks, " + frames + " frames");
 				this.frames = frames;
 				ticks = 0;
@@ -190,7 +196,7 @@ public class Engine extends Canvas implements Runnable {
 	}
 
 	BufferStrategy bs;
-	public static Graphics g;
+	public static Graphics2D g;
 
 	int xOffset = 0;
 	int yOffset = 0;
@@ -204,16 +210,18 @@ public class Engine extends Canvas implements Runnable {
 			return;
 		}
 
-		g = bs.getDrawGraphics();
+		g = (Graphics2D) bs.getDrawGraphics();
 		// General Rendering
 		g.clearRect(0, 0, (WIDTH), (HEIGHT));
-		if (menu.canStartGame()) {
+		if (menu.canStartGame() && !BuildingWindow.isOpen) {
 			backGround(g);
 			island.renderEntities(g);
 			if (eHandle.p.inventory.active) {
 				eHandle.p.inventory.render(g);
 			}
+
 			InGameUI.render(g);
+
 		} else {
 			g.setColor(Color.gray);
 			g.fillRect(0, 0, (WIDTH), (HEIGHT));
@@ -223,14 +231,15 @@ public class Engine extends Canvas implements Runnable {
 		if (inMenu.inMenu) {
 			inMenu.renderMenu(g);
 		}
-
 		for (GameWindow w : subwindows) {
 			w.update(g);
 		}
 
 		g.setColor(Color.BLACK);
-		g.setFont(new Font(Font.MONOSPACED, Font.BOLD, (int) (5.6 * SCALE)));
+		g.setFont(new Font("Cracked", Font.BOLD, (int) (5.6 * SCALE)));
 		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
+		g.drawString("(" + (float) eHandle.p.x / Tile.width + ", " + (float) eHandle.p.y / Tile.width + ")", Tile.scale,
+				g.getFontMetrics().getHeight() * 2);
 
 		bs.show();
 		g.dispose();

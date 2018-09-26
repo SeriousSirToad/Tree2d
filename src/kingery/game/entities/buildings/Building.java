@@ -50,7 +50,6 @@ public abstract class Building extends Entity {
 			if (canOpen && !e.input.f.isPressed()) {
 				canOpen = false;
 				inside = true;
-				System.out.print("yo ");
 			}
 
 		}
