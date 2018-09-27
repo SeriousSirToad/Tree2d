@@ -23,8 +23,9 @@ public class NPCWindow extends GameWindow {
 		Engine.subwindows.add(this);
 		this.npc = attatchedNPC;
 		buttons = new GameButton[1];
-		buttons[0] = new GameButton(x + w - (17 * Tile.scale), y + h - (GameButton.STD_HEIGHT) - (1 * Tile.scale),
-				0xFF00009F, "Close");
+		buttons[0] = new GameButton(x + w - (GameButton.STD_WIDTH)
+				- (1 * Tile.scale), y + h - (GameButton.STD_HEIGHT)
+				- (1 * Tile.scale), 0xFF00009F, "Close");
 	}
 
 	public void update(Graphics2D g) {
@@ -42,7 +43,8 @@ public class NPCWindow extends GameWindow {
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
 		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w, y + fm.getHeight() + (1 * Tile.scale));
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
+				y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
 			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 

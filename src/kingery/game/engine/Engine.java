@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import kingery.dev.EditingWindow;
 import kingery.game.entities.Player;
 import kingery.game.gfx.SpriteSheet;
 import kingery.game.islands.Island;
@@ -46,24 +46,27 @@ public class Engine extends Canvas implements Runnable {
 	public static Island island;
 
 	public Menu menu;
+	EditingWindow ewindow;
 	public static InGameMenu inMenu;
 
 	public static Player p;
 	public int cameraX = 0;
 	public int cameraY = 0;
 
-	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
+	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment()
+			.getScreenDevices()[0];
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static double SCALE = 5;
+	public static double SCALE = 2.5;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
+	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE),
+			(int) (HEIGHT * SCALE));
 
 	public Engine() {
 
@@ -92,7 +95,8 @@ public class Engine extends Canvas implements Runnable {
 		initIslands();
 		island = Island.Utopia;
 		eHandle = new EntityHandler(this);
-		p = eHandle.p;
+		p = EntityHandler.p;
+		ewindow = new EditingWindow();
 
 	}
 
@@ -216,8 +220,8 @@ public class Engine extends Canvas implements Runnable {
 		if (menu.canStartGame() && !BuildingWindow.isOpen) {
 			backGround(g);
 			island.renderEntities(g);
-			if (eHandle.p.inventory.active) {
-				eHandle.p.inventory.render(g);
+			if (EntityHandler.p.inventory.active) {
+				EntityHandler.p.inventory.render(g);
 			}
 
 			InGameUI.render(g);
@@ -235,11 +239,17 @@ public class Engine extends Canvas implements Runnable {
 			w.update(g);
 		}
 
+		if (BuildingWindow.isOpen) {
+			InGameUI.render(g);
+		}
+
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Cracked", Font.BOLD, (int) (5.6 * SCALE)));
-		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
-		g.drawString("(" + (float) eHandle.p.x / Tile.width + ", " + (float) eHandle.p.y / Tile.width + ")", Tile.scale,
-				g.getFontMetrics().getHeight() * 2);
+		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics()
+				.getHeight());
+		g.drawString("(" + (float) EntityHandler.p.x / Tile.width + ", "
+				+ (float) EntityHandler.p.y / Tile.width + ")", Tile.scale, g
+				.getFontMetrics().getHeight() * 2);
 
 		bs.show();
 		g.dispose();

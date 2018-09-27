@@ -34,7 +34,8 @@ public class BuildingWindow extends GameWindow {
 		message = b.bldg_desc;
 
 		try {
-			backgroundImage = ImageIO.read(new File("res/Images/interiors/" + path + ".png"));
+			backgroundImage = ImageIO.read(new File("res/Images/interiors/"
+					+ path + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,8 +45,10 @@ public class BuildingWindow extends GameWindow {
 		for (int i = 0; i < buttons.length + 1; i++) {
 
 			if (i == buttons.length) {
-				this.buttons[i] = new GameButton(x + w - (17 * Tile.scale),
-						y + h - (GameButton.STD_HEIGHT) - (1 * Tile.scale), 0xFF00009F, "Close") {
+				this.buttons[i] = new GameButton(x + w
+						- (GameButton.STD_WIDTH) - (1 * Tile.scale), y + h
+						- (GameButton.STD_HEIGHT) - (1 * Tile.scale),
+						0xFF00009F, "Close") {
 
 					public void onClick() {
 						active = false;
@@ -57,7 +60,8 @@ public class BuildingWindow extends GameWindow {
 			} else {
 				this.buttons[i] = buttons[i];
 				this.buttons[i].x = x + w - (buttons[i].width) - 1 * Tile.scale;
-				this.buttons[i].y = y + GameButton.STD_HEIGHT + (GameButton.STD_HEIGHT * i) + (i * Tile.scale);
+				this.buttons[i].y = y + GameButton.STD_HEIGHT
+						+ (GameButton.STD_HEIGHT * i) + (i * Tile.scale);
 			}
 
 		}
@@ -84,7 +88,8 @@ public class BuildingWindow extends GameWindow {
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
 		g.drawString(title, sx, y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w, y + fm.getHeight() + (1 * Tile.scale));
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
+				y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
 			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 

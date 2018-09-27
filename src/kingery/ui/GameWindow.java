@@ -28,7 +28,9 @@ public class GameWindow {
 	}
 
 	public void update(Graphics2D g) {
-
+		if(active){
+			show();
+		}
 	}
 
 	public void show() {

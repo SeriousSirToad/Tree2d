@@ -10,7 +10,7 @@ import kingery.ui.GameButton;
 
 public class Lodge_0 extends Building {
 
-	public Lodge_0(Engine e) {
+	public Lodge_0(final Engine e) {
 		super(0, 39 * Tile.width, 10 * Tile.width, Assets.BLDG_SHOPPE_TEST, e, Island.Utopia);
 		this.bldg_name = "Lodge";
 		this.bldg_desc = "Welcome to the lodge. You want anything?";

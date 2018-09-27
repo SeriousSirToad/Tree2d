@@ -1,6 +1,5 @@
 package kingery.game.islands;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,15 +12,14 @@ import java.util.Comparator;
 import javax.imageio.ImageIO;
 
 import kingery.game.engine.Engine;
+import kingery.game.engine.EntityHandler;
 import kingery.game.entities.Entity;
 import kingery.game.gfx.Camera;
 import kingery.game.gfx.lighting.BigLight;
-import kingery.game.gfx.lighting.Light;
 import kingery.game.islands.tiles.Tile;
 
 public class Island {
 
-	private Engine e;
 	public BufferedImage levelImage;
 	public ArrayList<Entity> entities = new ArrayList<>();
 	boolean hasCycledA = false;
@@ -33,7 +31,7 @@ public class Island {
 	private BufferedImage image;
 	public Island rightI, leftI;
 	protected BigLight sun;
-	public int time = 13;
+	public int time = 0;
 	public int maxTime = 24;
 	//
 
@@ -51,7 +49,6 @@ public class Island {
 	};
 
 	public Island(String imagePath, Engine e) {
-		this.e = e;
 		if (imagePath != null) {
 			this.imagePath = imagePath;
 			this.loadLevelFromFile();
@@ -130,8 +127,12 @@ public class Island {
 
 		if (timeIndex() == EVENING) {
 			sun.colour = BigLight.evening;
-		} else {
+		} else if(timeIndex() == AFTERNOON){
 			sun.colour = BigLight.afternoon;
+		} else if(timeIndex() == MORNING){
+			sun.colour = BigLight.morning;
+		} else {
+			sun.colour = BigLight.early;
 		}
 
 		entities.sort(entitySorter);
@@ -140,7 +141,7 @@ public class Island {
 
 	public void renderEntities(Graphics2D g) {
 
-		Camera.centerOnEntity(e.eHandle.p);
+		Camera.centerOnEntity(EntityHandler.p);
 
 		renderTile(g);
 
