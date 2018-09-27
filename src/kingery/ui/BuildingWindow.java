@@ -15,7 +15,6 @@ import kingery.game.islands.tiles.Tile;
 
 public class BuildingWindow extends GameWindow {
 
-	GameButton[] buttons;
 	static int w = (int) (Engine.WIDTH / 1.2), h = (int) (Engine.HEIGHT / 1.2);
 	static int x = Engine.WIDTH / 2 - w / 2;
 	static int y = Engine.HEIGHT / 2 - h / 2;

@@ -19,13 +19,18 @@ public class EditingWindow {
 		gw = new GameWindow() {
 			public void update(Graphics2D g) {
 				InputHandler input = Engine.p.input;
-				if (input.r.isPressed()) {
+				if (input.r.isPressed() && !active) {
 					active = true;
+				} else if (active){
+					if(input.r.isPressed()){
+						active = false;
+					}
 				}
 				if (active) {
 					show();
 				}
 			}
+			
 		};
 		warp = new GameWindow();
 

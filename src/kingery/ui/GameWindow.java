@@ -12,7 +12,7 @@ import kingery.game.islands.tiles.Tile;
 public class GameWindow {
 
 	public GameButton[] buttons;
-	Font font = new Font(Font.DIALOG, Font.BOLD, (int)(5.6 * Engine.SCALE));
+	Font font = new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE));
 	static int w = (int) (Engine.WIDTH), h = (int) (Engine.HEIGHT);
 	static int x = Engine.WIDTH / 2 - w / 2;
 	static int y = Engine.HEIGHT / 2 - h / 2;
@@ -28,12 +28,23 @@ public class GameWindow {
 	}
 
 	public void update(Graphics2D g) {
-		if(active){
+		if (active) {
 			show();
 		}
 	}
 
 	public void show() {
+
+		Graphics g = Engine.g;
+		g.setColor(transluscentBackground);
+		g.fillRect(x, y, w, h);
+		for (GameButton b : buttons) {
+			b.update(g);
+		}
+
+	}
+
+	public void showText() {
 		Graphics g = Engine.g;
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		fm = g.getFontMetrics();
@@ -42,7 +53,8 @@ public class GameWindow {
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
 		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w, y + fm.getHeight() + (1 * Tile.scale));
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
+				y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
 			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 
