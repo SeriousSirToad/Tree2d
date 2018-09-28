@@ -13,26 +13,39 @@ public class EditingWindow {
 
 	GameWindow gw;
 	GameWindow warp;
+	boolean canOpen = false;
 
 	public EditingWindow() {
-
+		warp = new GameWindow();
 		gw = new GameWindow() {
 			public void update(Graphics2D g) {
 				InputHandler input = Engine.p.input;
-				if (input.r.isPressed() && !active) {
-					active = true;
-				} else if (active){
-					if(input.r.isPressed()){
-						active = false;
+
+				if (!input.r.isPressed()) {
+					canOpen = true;
+				}
+
+				if (canOpen && !Engine.inMenu.inMenu) {
+					if (!active) {
+						if (input.r.isPressed()) {
+							active = true;
+							canOpen = false;
+						}
+					} else {
+						if (input.r.isPressed()) {
+							warp.active = false;
+							active = false;
+							canOpen = false;
+						}
 					}
 				}
-				if (active) {
+
+				if (active && !warp.active) {
 					show();
 				}
 			}
-			
+
 		};
-		warp = new GameWindow();
 
 		gw.buttons = new GameButton[] {
 
@@ -40,7 +53,6 @@ public class EditingWindow {
 						"Warp") {
 					public void onClick() {
 						warp.active = true;
-						gw.active = false;
 					}
 				},
 
