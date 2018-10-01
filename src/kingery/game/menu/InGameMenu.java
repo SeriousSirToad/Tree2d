@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import kingery.game.engine.Engine;
-import kingery.game.islands.tiles.Tile;
 import kingery.ui.GameButton;
 
 public class InGameMenu {
@@ -21,12 +20,13 @@ public class InGameMenu {
 		buttons[1] = new GameButton(0, 0, 0xFF7F7F7F, "Main Menu");
 		buttons[2] = new GameButton(0, 0, 0xFF3F3F3F, "Settings") {
 			public void onClick() {
-
+				Settings.window.active = true;
+				inMenu = false;
 			}
 		};
 
 		for (int i = 0; i < buttons.length; i++) {
-			Settings.organize(buttons[i]);
+			Settings.organize(buttons);
 		}
 
 	}

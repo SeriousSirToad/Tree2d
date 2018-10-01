@@ -1,7 +1,5 @@
 package kingery.game.menu;
 
-import java.awt.Graphics;
-
 import kingery.game.engine.Engine;
 import kingery.game.islands.tiles.Tile;
 import kingery.ui.GameButton;
@@ -30,12 +28,18 @@ public class Settings {
 			public void onClick() {
 				frameCap = 0;
 			}
+		},
+
+		new GameButton(0, 0, 0xFF7F0000, "Close") {
+			public void onClick() {
+				window.active = false;
+			}
 		}
 
 		};
 
 		for (int i = 0; i < buttons.length; i++) {
-			organize(buttons[i]);
+			organize(buttons);
 		}
 
 		window = new GameWindow();
@@ -43,12 +47,19 @@ public class Settings {
 
 	}
 
-	public static void organize(GameButton b) {
-		GameButton last = buttons[buttons.length - 1];
-		if (!(last.x + last.width > Engine.WIDTH - b.width)) {
-			b.x = last.x + last.width + 1 * Tile.scale;
-			b.y = Tile.scale;
+	public static void organize(GameButton[] buttons) {
+		for (int i = 0; i < buttons.length; i++) {
+			GameButton b = buttons[i];
+			if (i > 0) {
+				GameButton last = buttons[i - 1];
+				if (!(last.x + last.width > Engine.WIDTH - b.width)) {
+					b.x = last.x + last.width + 1 * Tile.scale;
+					b.y = Tile.scale;
+				}
+			} else {
+				b.x = Tile.scale;
+				b.y = Tile.scale;
+			}
 		}
-
 	}
 }
