@@ -11,14 +11,24 @@ public class InGameMenu {
 
 	public boolean inMenu = false;
 	public Engine e;
-	GameButton[] buttons = new GameButton[2];
+	GameButton[] buttons = new GameButton[3];
 	public boolean canExitMenu = false;
+	public boolean inSettings = false;
 
 	public InGameMenu(Engine engine) {
 		e = engine;
-		buttons[0] = new GameButton(Engine.WIDTH - GameButton.STD_WIDTH - (1 * Tile.scale), 1 * Tile.scale, 0xFF9F0000, "Exit");
-		buttons[1] = new GameButton(Engine.WIDTH - GameButton.STD_WIDTH - (1 * Tile.scale), GameButton.STD_HEIGHT + (2 * Tile.scale),
-				0xFF7F7F7F, "Main Menu"); 
+		buttons[0] = new GameButton(0, 0, 0xFF9F0000, "Exit");
+		buttons[1] = new GameButton(0, 0, 0xFF7F7F7F, "Main Menu");
+		buttons[2] = new GameButton(0, 0, 0xFF3F3F3F, "Settings") {
+			public void onClick() {
+
+			}
+		};
+
+		for (int i = 0; i < buttons.length; i++) {
+			Settings.organize(buttons[i]);
+		}
+
 	}
 
 	Color thisColor = new Color(128, 128, 128, 220);

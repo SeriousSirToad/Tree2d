@@ -44,10 +44,9 @@ public class BuildingWindow extends GameWindow {
 		for (int i = 0; i < buttons.length + 1; i++) {
 
 			if (i == buttons.length) {
-				this.buttons[i] = new GameButton(x + w
-						- (GameButton.STD_WIDTH) - (1 * Tile.scale), y + h
-						- (GameButton.STD_HEIGHT) - (1 * Tile.scale),
-						0xFF00009F, "Close") {
+				this.buttons[i] = new GameButton(x + w - (GameButton.STD_WIDTH)
+						- (1 * Tile.scale), y + h - (GameButton.STD_HEIGHT)
+						- (1 * Tile.scale), 0xFF00009F, "Close") {
 
 					public void onClick() {
 						active = false;

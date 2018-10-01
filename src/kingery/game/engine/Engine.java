@@ -97,6 +97,8 @@ public class Engine extends Canvas implements Runnable {
 		eHandle = new EntityHandler(this);
 		p = EntityHandler.p;
 		ewindow = new EditingWindow();
+		
+		Settings.init();
 
 	}
 
@@ -226,7 +228,7 @@ public class Engine extends Canvas implements Runnable {
 
 			InGameUI.render(g);
 
-		} else {
+		} else if (!menu.canStartGame() && !BuildingWindow.isOpen) {
 			g.setColor(Color.gray);
 			g.fillRect(0, 0, (WIDTH), (HEIGHT));
 			menu.renderTitle(g);
@@ -243,13 +245,20 @@ public class Engine extends Canvas implements Runnable {
 			InGameUI.render(g);
 		}
 
+		String epx = "(" + (float) EntityHandler.p.x / Tile.width;
+		String epy = (float) EntityHandler.p.y / Tile.width + ")";
+
+		g.setFont(new Font("Impact", Font.BOLD, (int) (5.6 * SCALE)));
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Cracked", Font.BOLD, (int) (5.6 * SCALE)));
 		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics()
 				.getHeight());
-		g.drawString("(" + (float) EntityHandler.p.x / Tile.width + ", "
-				+ (float) EntityHandler.p.y / Tile.width + ")", Tile.scale, g
-				.getFontMetrics().getHeight() * 2);
+		g.drawString(epx + ", " + epy, Tile.scale, g.getFontMetrics()
+				.getHeight() * 2);
+		g.setColor(Color.white);
+		g.drawString(frames + " fps", Tile.scale - 1, g.getFontMetrics()
+				.getHeight() - 1);
+		g.drawString(epx + ", " + epy, Tile.scale - 1, g.getFontMetrics()
+				.getHeight() * 2 - 1);
 
 		bs.show();
 		g.dispose();
