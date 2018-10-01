@@ -11,10 +11,8 @@ public class Assets {
 
 	// Entities
 	public static BufferedImage PLAYER = SpriteSheet.getImage(56, 584, 8, 16);
-	public static BufferedImage SHEEP_GENERIC = SpriteSheet.getImage(0, 504,
-			64, 32);
-	private static BufferedImage LUMBERJACK1 = SpriteSheet.getImage(0, 568, 8,
-			16);
+	public static BufferedImage SHEEP_GENERIC = SpriteSheet.getImage(0, 504, 64, 32);
+	private static BufferedImage LUMBERJACK1 = SpriteSheet.getImage(0, 568, 8, 16);
 
 	public static BufferedImage getLumberjack(int a) {
 
@@ -55,10 +53,16 @@ public class Assets {
 		return LUMBERJACK;
 	}
 
+	public static BufferedImage[] treeImages = {
+
+			SpriteSheet.getImage(0, 536, 8, 16), SpriteSheet.getImage(8, 520, 16, 32),
+			SpriteSheet.getImage(24, 520, 16, 32)
+
+	};
+
 	public static BufferedImage NPC_HERMIT = SpriteSheet.getImage(0, 552, 8, 8);
 	// Building
-	public static BufferedImage BLDG_SHOPPE_TEST = SpriteSheet.getImg(128, 64,
-			80, 64);
+	public static BufferedImage BLDG_SHOPPE_TEST = SpriteSheet.getImg(128, 64, 80, 64);
 
 	// Items
 	public static BufferedImage WOOD = SpriteSheet.getImage(0, 96, 16, 7);
@@ -72,8 +76,7 @@ public class Assets {
 	public static BufferedImage deepCopy(BufferedImage bi) {
 		ColorModel cm = bi.getColorModel();
 		boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-		WritableRaster raster = bi.copyData(bi.getRaster()
-				.createCompatibleWritableRaster());
+		WritableRaster raster = bi.copyData(bi.getRaster().createCompatibleWritableRaster());
 		return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
 	}
 

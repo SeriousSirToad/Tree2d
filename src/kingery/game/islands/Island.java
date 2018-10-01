@@ -113,8 +113,8 @@ public class Island {
 
 	public void update() {
 
-		if (time > maxTime) {
-			time = 0;
+		if (time >= maxTime) {
+			time = (time - maxTime);
 		}
 
 		for (int i = 0; i < entities.size(); i++) {

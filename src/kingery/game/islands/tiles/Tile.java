@@ -18,7 +18,7 @@ public abstract class Tile {
 	public static final Tile VOID = new BasicSolidTile(0, 40, 0, 0xFF000000);
 	public static final Tile STONE = new BasicTile(2, 0, 24, 0xFF7F7F7F);
 	public static final Tile STONE_SOLID = new BasicSolidTile(3, 8, 24, 0xFF444444);
-	public static final Tile WOOD = new BasicTile(4, 0, 32, 0xFFFFFF00);
+	public static final Tile WOOD = new BasicTile(4, 0, 32, 0xFFAB9584);
 	public static final Tile WOOD_SOLID = new BasicSolidTile(5, 8, 32, 0xFF5F5F00);
 	public static final Tile WATER = new BasicSolidTile(6, 24, 0, 0xFF0000FF);
 	public static final Tile FLORAL_GRASS = new BasicTile(7, 8, 0, 0xFF227200);
@@ -29,6 +29,7 @@ public abstract class Tile {
 	public static final Tile COUNTER2 = new BasicSolidTile(12, 8, 40, 0xFF888F64);
 	public static final Tile BRICK_ROAD = new BasicTile(13, 16, 24, 0xFF7F0000);
 	public static final Tile WOOD_SOLID2 = new BasicSolidTile(14, 16, 32, 0xFF5F5F22);
+	public static final Tile SIDEWALK = new BasicTile(15, 24, 24, 0xFF9F9F9F);
 
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;

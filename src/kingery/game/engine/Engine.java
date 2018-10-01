@@ -53,20 +53,18 @@ public class Engine extends Canvas implements Runnable {
 	public int cameraX = 0;
 	public int cameraY = 0;
 
-	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment()
-			.getScreenDevices()[0];
+	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static double SCALE = 2.5;
+	public static double SCALE = 5;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE),
-			(int) (HEIGHT * SCALE));
+	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
 
 	public Engine() {
 
@@ -189,7 +187,6 @@ public class Engine extends Canvas implements Runnable {
 			}
 			if (System.currentTimeMillis() - lastTimer >= 1000) {
 				lastTimer += 1000;
-				System.out.print(BuildingWindow.isOpen + " | ");
 				System.out.println(ticks + " ticks, " + frames + " frames");
 				this.frames = frames;
 				ticks = 0;
@@ -217,7 +214,8 @@ public class Engine extends Canvas implements Runnable {
 		g = (Graphics2D) bs.getDrawGraphics();
 		// General Rendering
 		g.clearRect(0, 0, (WIDTH), (HEIGHT));
-		if (menu.canStartGame() && !BuildingWindow.isOpen) {
+		if (BuildingWindow.isOpen) {
+		} else if (menu.canStartGame()) {
 			backGround(g);
 			island.renderEntities(g);
 			if (EntityHandler.p.inventory.active) {
@@ -239,17 +237,11 @@ public class Engine extends Canvas implements Runnable {
 			w.update(g);
 		}
 
-		if (BuildingWindow.isOpen) {
-			InGameUI.render(g);
-		}
-
 		g.setColor(Color.BLACK);
 		g.setFont(new Font("Cracked", Font.BOLD, (int) (5.6 * SCALE)));
-		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics()
-				.getHeight());
-		g.drawString("(" + (float) EntityHandler.p.x / Tile.width + ", "
-				+ (float) EntityHandler.p.y / Tile.width + ")", Tile.scale, g
-				.getFontMetrics().getHeight() * 2);
+		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
+		g.drawString("(" + (float) EntityHandler.p.x / Tile.width + ", " + (float) EntityHandler.p.y / Tile.width + ")",
+				Tile.scale, g.getFontMetrics().getHeight() * 2);
 
 		bs.show();
 		g.dispose();

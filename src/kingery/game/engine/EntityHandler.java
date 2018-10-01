@@ -5,9 +5,9 @@ import java.util.Random;
 import kingery.game.entities.Player;
 import kingery.game.entities.buildings.Building;
 import kingery.game.entities.buildings.Lodge_0;
+import kingery.game.entities.flora.Tree;
 import kingery.game.entities.npcs.Lumberjack;
 import kingery.game.entities.npcs.NPC;
-import kingery.game.entities.npcs.Vendor;
 import kingery.game.gfx.Assets;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
@@ -58,6 +58,8 @@ public class EntityHandler {
 				"Hermit", true, Assets.NPC_HERMIT, engine, Island.Utopia);
 
 		Building lodge = new Lodge_0(engine);
+		
+		Tree tree = new Tree(3 * Tile.width, 3 * Tile.width, 1, engine, Island.Utopia);
 		
 	}
 

@@ -14,7 +14,7 @@ public class BigLight{
 	public static Color early = new Color(0, 0, 0, 200);
 	public static Color afternoon = new Color(0, 0, 0, 0);
 	public static Color morning = new Color(0, 0, 0, 154);
-	public static Color evening = new Color(0, 0, 0, 127);
+	public static Color evening = new Color(50, 35, 0, 127);
 	
 	public void render(Graphics g2) {
 		g2.setColor(colour);
