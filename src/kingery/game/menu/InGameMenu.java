@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import kingery.game.engine.Engine;
 import kingery.ui.GameButton;
+import kingery.ui.Organizer;
 
 public class InGameMenu {
 
@@ -26,7 +27,7 @@ public class InGameMenu {
 		};
 
 		for (int i = 0; i < buttons.length; i++) {
-			Settings.organize(buttons);
+			Organizer.organizeLeft(buttons);
 		}
 
 	}
@@ -46,6 +47,10 @@ public class InGameMenu {
 	}
 
 	public void update() {
+
+		if (Settings.window.active) {
+			inMenu = false;
+		}
 
 		if (!e.input.esc.isPressed()) {
 			canExitMenu = true;

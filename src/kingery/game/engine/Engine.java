@@ -57,7 +57,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static double SCALE = 5;
+	public static double SCALE = 2.5;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
@@ -95,7 +95,7 @@ public class Engine extends Canvas implements Runnable {
 		eHandle = new EntityHandler(this);
 		p = EntityHandler.p;
 		ewindow = new EditingWindow();
-		
+
 		Settings.init();
 
 	}
@@ -239,8 +239,6 @@ public class Engine extends Canvas implements Runnable {
 			w.update(g);
 		}
 
-<<<<<<< HEAD
-=======
 		if (BuildingWindow.isOpen) {
 			InGameUI.render(g);
 		}
@@ -249,24 +247,16 @@ public class Engine extends Canvas implements Runnable {
 		String epy = (float) EntityHandler.p.y / Tile.width + ")";
 
 		g.setFont(new Font("Impact", Font.BOLD, (int) (5.6 * SCALE)));
->>>>>>> branch 'master' of https://github.com/SeriousSirToad/Tree2d
 		g.setColor(Color.BLACK);
-<<<<<<< HEAD
 		g.setFont(new Font("Cracked", Font.BOLD, (int) (5.6 * SCALE)));
 		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
 		g.drawString("(" + (float) EntityHandler.p.x / Tile.width + ", " + (float) EntityHandler.p.y / Tile.width + ")",
 				Tile.scale, g.getFontMetrics().getHeight() * 2);
-=======
-		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics()
-				.getHeight());
-		g.drawString(epx + ", " + epy, Tile.scale, g.getFontMetrics()
-				.getHeight() * 2);
+		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
+		g.drawString(epx + ", " + epy, Tile.scale, g.getFontMetrics().getHeight() * 2);
 		g.setColor(Color.white);
-		g.drawString(frames + " fps", Tile.scale - 1, g.getFontMetrics()
-				.getHeight() - 1);
-		g.drawString(epx + ", " + epy, Tile.scale - 1, g.getFontMetrics()
-				.getHeight() * 2 - 1);
->>>>>>> branch 'master' of https://github.com/SeriousSirToad/Tree2d
+		g.drawString(frames + " fps", Tile.scale - 1, g.getFontMetrics().getHeight() - 1);
+		g.drawString(epx + ", " + epy, Tile.scale - 1, g.getFontMetrics().getHeight() * 2 - 1);
 
 		bs.show();
 		g.dispose();

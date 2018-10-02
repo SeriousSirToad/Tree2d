@@ -8,7 +8,6 @@ import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
-import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.Menu;
 
 public class GameButton {
@@ -17,7 +16,7 @@ public class GameButton {
 
 	public boolean hasBeenClicked = false;
 
-	private boolean canClick = true;
+	// private boolean canClick = true;
 	public boolean attatchedToEntity = false;
 	protected boolean onThis = false;
 	private String string;
@@ -33,7 +32,7 @@ public class GameButton {
 
 	public BufferedImage buttonImage;
 
-	public static int STD_WIDTH = 32 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
+	public static int STD_WIDTH = 24 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
 
 	public GameButton(int x, int y, int width, int height, int color, String s) {
 
@@ -107,7 +106,6 @@ public class GameButton {
 
 			if (input.clicking()) {
 				hasBeenClicked = true;
-				canClick = false;
 			}
 
 		} else {
@@ -123,6 +121,8 @@ public class GameButton {
 		g.setColor(color());
 		g.fillRoundRect(x, y, width, height, (int) (12.8 * Engine.SCALE), (int) (12.8 * Engine.SCALE));
 		g.setColor(Color.BLACK);
+		// g.drawRoundRect(x - 1, y - 1, width, height, (int) (12.8 * Engine.SCALE),
+		// (int) (12.8 * Engine.SCALE));
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE)));
 		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
 				y + (height / 2) + (g.getFontMetrics().getHeight() / 4));
