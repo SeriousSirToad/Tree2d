@@ -5,16 +5,12 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
-import kingery.game.gfx.Assets;
-import kingery.game.gfx.Colour;
 import kingery.game.gfx.SpriteSheet;
-import kingery.game.islands.Island;
-import kingery.game.menu.Menu;
 
 public abstract class Tile {
 
 	public static final Tile[] tiles = new Tile[256];
-	public static final Tile GRASS = new BasicTile(1, 16, 0, 0xFF00FF00);
+	public static final Tile GRASS = new BasicTile(1, 0, 0, 0xFF00FF00);
 	public static final Tile VOID = new BasicSolidTile(0, 40, 0, 0xFF000000);
 	public static final Tile STONE = new BasicTile(2, 0, 24, 0xFF7F7F7F);
 	public static final Tile STONE_SOLID = new BasicSolidTile(3, 8, 24, 0xFF444444);
