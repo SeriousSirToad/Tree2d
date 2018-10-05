@@ -4,15 +4,19 @@ import java.awt.Graphics2D;
 
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
+import kingery.game.gfx.lighting.BigLight;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
+import kingery.game.menu.InGameMenu;
 import kingery.ui.GameButton;
 import kingery.ui.GameWindow;
+import kingery.ui.Organizer;
 
 public class EditingWindow {
 
 	GameWindow gw;
 	GameWindow warp;
+	GameWindow time;
 	boolean canOpen = false;
 
 	public EditingWindow() {
@@ -25,22 +29,23 @@ public class EditingWindow {
 					canOpen = true;
 				}
 
-				if (canOpen && !Engine.inMenu.inMenu) {
-					if (!active) {
+				if (canOpen) {
+					if (!active && !InGameMenu.inMenu) {
 						if (input.r.isPressed()) {
 							active = true;
 							canOpen = false;
 						}
 					} else {
-						if (input.r.isPressed()) {
+						if (input.r.isPressed() || InGameMenu.inMenu) {
 							warp.active = false;
+							time.active = false;
 							active = false;
 							canOpen = false;
 						}
 					}
 				}
 
-				if (active && !warp.active) {
+				if (active && !warp.active && !time.active) {
 					show();
 				}
 			}
@@ -59,7 +64,7 @@ public class EditingWindow {
 				new GameButton(2 * Tile.scale + GameButton.STD_WIDTH,
 						1 * Tile.scale, 0xFF007F00, "Change time") {
 					public void onClick() {
-						Engine.island.time++;
+						time.active = true;
 					}
 				}
 
@@ -76,6 +81,27 @@ public class EditingWindow {
 		}
 
 		};
+
+		time = new GameWindow();
+		time.buttons = new GameButton[] {
+
+		new GameButton(0, 0, 0xFF4F4F4F, "Dark") {
+			public void onClick() {
+				Island.time = 0;
+			}
+		}, new GameButton(0, 0, 0xFF7F7F7F, "Not dark") {
+			public void onClick() {
+				Island.time = 12;
+			}
+		}, new GameButton(0, 0, BigLight.evening.getRGB(), "Sunset") {
+			public void onClick() {
+				Island.time = 18;
+			}
+		}
+
+		};
+
+		Organizer.organizeLeft(time.buttons);
 
 	}
 }

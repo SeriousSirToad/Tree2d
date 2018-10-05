@@ -31,7 +31,7 @@ public class Island {
 	private BufferedImage image;
 	public Island rightI, leftI;
 	protected BigLight sun;
-	public int time = 0;
+	public static int time = 0;
 	public int maxTime = 24;
 	//
 

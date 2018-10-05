@@ -9,11 +9,11 @@ import kingery.ui.Organizer;
 
 public class InGameMenu {
 
-	public boolean inMenu = false;
+	public static boolean inMenu = false;
 	public Engine e;
 	GameButton[] buttons = new GameButton[3];
-	public boolean canExitMenu = false;
-	public boolean inSettings = false;
+	public static boolean canExitMenu = false;
+	public static boolean inSettings = false;
 
 	public InGameMenu(Engine engine) {
 		e = engine;
