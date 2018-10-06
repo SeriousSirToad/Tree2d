@@ -57,7 +57,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static double SCALE = 2.5;
+	public static double SCALE = 1;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
@@ -91,7 +91,7 @@ public class Engine extends Canvas implements Runnable {
 
 		new Sound(this).start();
 		initIslands();
-		island = Island.Utopia;
+		island = Island.Start;
 		eHandle = new EntityHandler(this);
 		p = EntityHandler.p;
 		ewindow = new EditingWindow();
