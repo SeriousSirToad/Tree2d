@@ -13,9 +13,9 @@ public class GameWindow {
 
 	public GameButton[] buttons;
 	Font font = new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE));
-	static int w = (int) (Engine.WIDTH), h = (int) (Engine.HEIGHT);
-	static int x = Engine.WIDTH / 2 - w / 2;
-	static int y = Engine.HEIGHT / 2 - h / 2;
+	public int w = (int) (Engine.WIDTH), h = (int) (Engine.HEIGHT);
+	public int x = Engine.WIDTH / 2 - w / 2;
+	public int y = Engine.HEIGHT / 2 - h / 2;
 	public boolean active;
 	GameButton okay;
 	String title = "", message = "";
@@ -48,13 +48,12 @@ public class GameWindow {
 		Graphics g = Engine.g;
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, 14));
 		fm = g.getFontMetrics();
-		int sx = x, sy = y + fm.getHeight() + (1 * Tile.scale);
+		int sy = y + fm.getHeight() + (1 * Tile.scale);
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
 		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w,
-				y + fm.getHeight() + (1 * Tile.scale));
+		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w, y + fm.getHeight() + (1 * Tile.scale));
 		for (String line : message.split("\n"))
 			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
 

@@ -22,6 +22,12 @@ public class Settings {
 						frameCap = 60;
 					}
 				},
+				
+				new GameButton(0, 0, 0xFF3F3F3F, "30") {
+					public void onClick() {
+						frameCap = 30;
+					}
+				},
 
 				new GameButton(0, 0, 0xFF3F3F3F, "Infinite") {
 					public void onClick() {

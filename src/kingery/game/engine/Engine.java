@@ -44,6 +44,7 @@ public class Engine extends Canvas implements Runnable {
 	public EntityHandler eHandle;
 
 	public static Island island;
+	public static Engine engine;
 
 	public Menu menu;
 	EditingWindow ewindow;
@@ -57,7 +58,7 @@ public class Engine extends Canvas implements Runnable {
 
 	public static int WIDTH = 256;
 	public static int HEIGHT = 192;
-	public static double SCALE = 1;
+	public static double SCALE = 4;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
@@ -95,6 +96,7 @@ public class Engine extends Canvas implements Runnable {
 		eHandle = new EntityHandler(this);
 		p = EntityHandler.p;
 		ewindow = new EditingWindow();
+		engine = this;
 
 		Settings.init();
 
@@ -111,14 +113,14 @@ public class Engine extends Canvas implements Runnable {
 
 	private void update() {
 
-		if (menu.canStartGame() && !inMenu.inMenu) {
+		if (menu.canStartGame() && !InGameMenu.inMenu) {
 
 			if (!input.esc.isPressed()) {
 				canEnterMenu = true;
 			}
 			if (canEnterMenu) {
 				if (input.esc.isPressed()) {
-					inMenu.inMenu = true;
+					InGameMenu.inMenu = true;
 					canEnterMenu = false;
 					BuildingWindow.isOpen = false;
 				}
@@ -131,11 +133,11 @@ public class Engine extends Canvas implements Runnable {
 
 			island.update();
 
-		} else if (!menu.canStartGame() && !inMenu.inMenu) {
+		} else if (!menu.canStartGame() && !InGameMenu.inMenu) {
 
 			menu.update();
 
-		} else if (menu.canStartGame() && inMenu.inMenu) {
+		} else if (menu.canStartGame() && InGameMenu.inMenu) {
 
 			inMenu.update();
 
@@ -149,7 +151,6 @@ public class Engine extends Canvas implements Runnable {
 	public void run() {
 		long lastTime = System.nanoTime();
 		double nsPerTick = 1000000000D / 60;
-		double renderTime = 1000000000D / Settings.frameCap;
 		int ticks = 0;
 		float frames = 0;
 		long lastTimer = System.currentTimeMillis();
@@ -158,6 +159,7 @@ public class Engine extends Canvas implements Runnable {
 
 		while (running) {
 			long now = System.nanoTime();
+			double renderTime = 1000000000D / Settings.frameCap;
 			delta += (now - lastTime) / nsPerTick;
 			delta2 += (now - lastTime) / renderTime;
 			lastTime = now;
@@ -232,7 +234,7 @@ public class Engine extends Canvas implements Runnable {
 			menu.renderTitle(g);
 		}
 
-		if (inMenu.inMenu) {
+		if (InGameMenu.inMenu) {
 			inMenu.renderMenu(g);
 		}
 		for (GameWindow w : subwindows) {

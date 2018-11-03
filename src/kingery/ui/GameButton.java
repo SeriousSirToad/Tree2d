@@ -2,6 +2,7 @@ package kingery.ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -84,12 +85,7 @@ public class GameButton {
 	}
 
 	public void update(Graphics g) {
-
-		if (Engine.g.getFontMetrics().stringWidth(string) > width) {
-			this.width += (width % Engine.g.getFontMetrics().stringWidth(string));
-			this.height = STD_HEIGHT;
-			x -= width % Engine.g.getFontMetrics().stringWidth(string);
-		}
+		
 		buttonRect.x = x;
 		buttonRect.y = y;
 		buttonRect.width = width;
@@ -124,9 +120,24 @@ public class GameButton {
 		// g.drawRoundRect(x - 1, y - 1, width, height, (int) (12.8 * Engine.SCALE),
 		// (int) (12.8 * Engine.SCALE));
 		g.setFont(new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE)));
-		g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
-				y + (height / 2) + (g.getFontMetrics().getHeight() / 4));
+		drawCenteredString(g, string, buttonRect, new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE)));
+		/*g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
+				y + (height / 2) + (g.getFontMetrics().getHeight() / 4));*/
 
+	}
+
+	public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
+		// Get the FontMetrics
+		FontMetrics metrics = g.getFontMetrics(font);
+		// Determine the X coordinate for the text
+		int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
+		// Determine the Y coordinate for the text (note we add the ascent, as in java
+		// 2d 0 is top of the screen)
+		int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+		// Set the font
+		g.setFont(font);
+		// Draw the String
+		g.drawString(text, x, y);
 	}
 
 	public Color color() {

@@ -10,9 +10,8 @@ import java.awt.image.BufferedImage;
 import kingery.game.engine.Engine;
 import kingery.game.entities.Mob;
 import kingery.game.gfx.Camera;
-import kingery.game.gfx.TextBox;
 import kingery.game.islands.Island;
-import kingery.ui.GameWindow;
+import kingery.game.islands.tiles.Tile;
 import kingery.ui.NPCWindow;
 
 public class NPC extends Mob {
@@ -20,19 +19,16 @@ public class NPC extends Mob {
 	public Rectangle collider;
 	public Rectangle interactZone;
 	public String[] messages;
-	protected String message;
 	public String name;
 	protected boolean inverted = false;
 	protected boolean vendor;
 	protected NPCWindow dialogWindow;
 
-	private Island l;
-
 	public NPC(int x, int y, String message, String name, boolean vendor, BufferedImage entityImage, Engine e,
 			Island island) {
-		super(x, y, name, entityImage, e, island);
+		super(x * Tile.width, y * Tile.width, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
-		interactZone = new Rectangle(x, y, width, height);
+		interactZone = new Rectangle(x * Tile.width, y * Tile.width, width, height);
 		messages = new String[1];
 		messages[0] = message;
 		this.entityImage = entityImage;
@@ -43,9 +39,9 @@ public class NPC extends Mob {
 	}
 
 	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Engine e, Island island) {
-		super(x, y, name, entityImage, e, island);
+		super(x * Tile.width, y * Tile.width, name, entityImage, e, island);
 		collider = new Rectangle(9, 43, 16, 22);
-		interactZone = new Rectangle(x, y, width, height);
+		interactZone = new Rectangle(x * Tile.width, y * Tile.width, width, height);
 		this.messages = messages;
 		this.entityImage = entityImage;
 		this.name = name;
@@ -62,7 +58,6 @@ public class NPC extends Mob {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}
-
 		}
 
 		if (speechIndex == messages.length) {
@@ -71,7 +66,7 @@ public class NPC extends Mob {
 
 	}
 
-	Font font = new Font(Font.MONOSPACED, Font.BOLD, 14);
+	Font font = new Font(Font.MONOSPACED, Font.BOLD, (int) (5.6 * Engine.SCALE));
 	FontMetrics fm;
 
 	public void render(Graphics g) {
@@ -85,11 +80,11 @@ public class NPC extends Mob {
 			fm = g.getFontMetrics();
 			int eWidth = fm.stringWidth("[E]");
 			g.setColor(Color.WHITE);
-			g.fillRect(Engine.p.x + e.p.width / 2 - eWidth / 2 - Camera.x(), Engine.p.y - Camera.y() - fm.getHeight(),
-					eWidth, fm.getHeight());
+			g.fillRect(Engine.p.x + Engine.p.width / 2 - eWidth / 2 - Camera.x(),
+					Engine.p.y - Camera.y() - fm.getHeight(), eWidth, fm.getHeight());
 			g.setColor(Color.black);
 			g.drawString("[E]", Engine.p.x + Engine.p.width / 2 - fm.stringWidth("[E]") / 2 - Camera.x(),
-					(int) (e.p.y - Camera.y() - Engine.p.height / 10));
+					(int) (Engine.p.y - Camera.y() - Engine.p.height / 10));
 		}
 
 	}

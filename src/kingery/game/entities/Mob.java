@@ -18,8 +18,7 @@ public abstract class Mob extends Entity {
 
 	public Inventory inventory;
 
-	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e,
-			Island island) {
+	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e, Island island) {
 		super(x, y, name, true, entityImage, e, island);
 		inventory = new Inventory(0, 0, 225, 225, e);
 	}
@@ -34,9 +33,7 @@ public abstract class Mob extends Entity {
 			int tx = (int) (x + xa + collider.x + collider.width) / Tile.width;
 
 			if (!collisionWithTile(tx, (int) (y + collider.y) / Tile.width)
-					&& !collisionWithTile(tx,
-							(int) (y + collider.y + collider.height)
-									/ Tile.width)) {
+					&& !collisionWithTile(tx, (int) (y + collider.y + collider.height) / Tile.width)) {
 				x += xa;
 			} else {
 				x = tx * Tile.width - collider.x - collider.width - speed + 1;
@@ -45,9 +42,7 @@ public abstract class Mob extends Entity {
 			int tx = (int) (x + xa + collider.x) / Tile.width;
 
 			if (!collisionWithTile(tx, (int) (y + collider.y) / Tile.width)
-					&& !collisionWithTile(tx,
-							(int) (y + collider.y + collider.height)
-									/ Tile.width)) {
+					&& !collisionWithTile(tx, (int) (y + collider.y + collider.height) / Tile.width)) {
 				x += xa;
 			} else {
 				x = tx * Tile.width + Tile.width - collider.x;
@@ -56,13 +51,12 @@ public abstract class Mob extends Entity {
 	}
 
 	protected void moveY() {
+		
 		if (ya < 0) {// Up
 			int ty = (int) (y + ya + collider.y) / Tile.width;
 
 			if (!collisionWithTile((int) (x + collider.x) / Tile.width, ty)
-					&& !collisionWithTile(
-							(int) (x + collider.x + collider.width)
-									/ Tile.width, ty)) {
+					&& !collisionWithTile((int) (x + collider.x + collider.width) / Tile.width, ty)) {
 				y += ya;
 			} else {
 				y = ty * Tile.width + Tile.width - collider.y;
@@ -72,9 +66,7 @@ public abstract class Mob extends Entity {
 			int ty = (int) (y + ya + collider.y + collider.height) / Tile.width;
 
 			if (!collisionWithTile((int) (x + collider.x) / Tile.width, ty)
-					&& !collisionWithTile(
-							(int) (x + collider.x + collider.width)
-									/ Tile.width, ty)) {
+					&& !collisionWithTile((int) (x + collider.x + collider.width) / Tile.width, ty)) {
 				y += ya;
 			} else {
 				y = ty * Tile.width - collider.y - collider.height - 1;

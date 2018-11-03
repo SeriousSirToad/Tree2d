@@ -6,6 +6,7 @@ import kingery.game.entities.Player;
 import kingery.game.entities.buildings.Building;
 import kingery.game.entities.buildings.Lodge_0;
 import kingery.game.entities.flora.Tree;
+import kingery.game.entities.npcs.Eian;
 import kingery.game.entities.npcs.Lumberjack;
 import kingery.game.entities.npcs.NPC;
 import kingery.game.gfx.Assets;
@@ -23,7 +24,7 @@ public class EntityHandler {
 	public EntityHandler(Engine engine) {
 
 		this.engine = engine;
-		p = new Player("Developer", 1 * Tile.width, 0 * Tile.width, engine.input, engine, engine.island);
+		p = new Player("Developer", 1 * Tile.width, 0 * Tile.width, engine.input, engine, Engine.island);
 		Utopia();
 		Island_1();
 		// 40 * Tile.width, 23 * Tile.width
@@ -42,12 +43,11 @@ public class EntityHandler {
 		String vendorText = "Want to trade?";
 		String[] parque = { "I really love the park.", "Did you know I am the most recent addition \n" + "to this map?",
 				"You're very chatty." };
-		NPC npc_1 = new Lumberjack(40 * Tile.width, 22 * Tile.width, "My name is ian.", "Ian", 1, engine,
-				Island.Utopia);
-		NPC npc_2 = new Lumberjack(54 * Tile.width, 32 * Tile.width, parque, "Park guy", 0, engine, Island.Utopia);
-		NPC john = new Lumberjack(11 * Tile.width, 6 * Tile.width, johnText, "John", 0, engine, Island.Utopia);
-		NPC hermit = new NPC(5 * Tile.width, 97 * Tile.width, hermitText, "Hermit", true, Assets.NPC_HERMIT, engine,
-				Island.Utopia);
+		new Lumberjack(54, 32, parque, "Park guy", 0, engine, Island.Utopia);
+		NPC john = new Lumberjack(11, 6, johnText, "John", 0, engine, Island.Utopia);
+		NPC hermit = new NPC(5, 97, hermitText, "Hermit", true, Assets.NPC_HERMIT, engine, Island.Utopia);
+
+		new Eian(engine);
 
 		Building lodge = new Lodge_0(engine);
 
