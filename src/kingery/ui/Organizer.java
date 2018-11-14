@@ -3,7 +3,7 @@ package kingery.ui;
 import kingery.game.engine.Engine;
 import kingery.game.islands.tiles.Tile;
 
-public interface Organizer {
+public class Organizer {
 
 	public static void organizeLeft(GameButton[] buttons) {
 		for (int i = 0; i < buttons.length; i++) {
@@ -32,7 +32,7 @@ public interface Organizer {
 					b.y = window.y + Tile.scale;
 				}
 			} else {
-				b.x = window.x + window.w - Tile.scale;
+				b.x = window.x + window.w - (b.width + Tile.scale);
 				b.y = window.y + Tile.scale + b.height;
 			}
 		}

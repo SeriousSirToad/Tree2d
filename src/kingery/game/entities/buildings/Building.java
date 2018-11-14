@@ -56,8 +56,4 @@ public abstract class Building extends Entity {
 
 	}
 
-	public void render(Graphics g) {
-		g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
-	}
-
 }

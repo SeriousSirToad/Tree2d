@@ -15,8 +15,7 @@ public class InGameUI {
 	static int moneyY = (int) (2 * Engine.SCALE);
 	static int moneyW = (int) (116 * Engine.SCALE);
 	static int moneyH = (int) (16 * Engine.SCALE);
-	static GameButton menubutton = new GameButton(moneyX + moneyW - (Engine.scale(16)) - (2 * Tile.scale), moneyY, 16,
-			GameButton.STD_HEIGHT, 0xFF420DAB, "Menu") {
+	static GameButton menubutton = new GameButton(moneyX + moneyW - (GameButton.STD_WIDTH) - (1 * Tile.scale), moneyY, 0xFF420DAB, "Menu") {
 
 		public void onClick() {
 			Engine.inMenu.inMenu = true;

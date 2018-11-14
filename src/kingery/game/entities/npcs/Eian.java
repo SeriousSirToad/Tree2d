@@ -15,7 +15,7 @@ public class Eian extends NPC {
 
 		GameButton[] buttons = new GameButton[] {
 
-				new GameButton(0, 0, 0xFF339933, "Gimme beans bitch")
+				new GameButton(0, 0, 0xFF339933, "Gimme beans B")
 
 		};
 

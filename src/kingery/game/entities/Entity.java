@@ -46,7 +46,7 @@ public abstract class Entity {
 
 		width = entityImage.getWidth() * Tile.scale;
 		height = entityImage.getHeight() * Tile.scale;
-		
+
 		collider = new Rectangle(0, 0, width, height);
 
 		island.entities.add(this);
@@ -64,7 +64,9 @@ public abstract class Entity {
 	public abstract void update();
 
 	public void render(Graphics g) {
-		g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
+		if (Camera.contains(this)) {
+			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
+		}
 	}
 
 }

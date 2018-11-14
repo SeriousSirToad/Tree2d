@@ -14,6 +14,15 @@ public class Camera {
 		y = e.y - (Engine.HEIGHT / 2) + e.height / 2;
 	}
 	
+	public static boolean contains(Entity e) {
+		if(e.x < x + Engine.WIDTH && e.x + e.width > x) {
+			if(e.y < y + Engine.HEIGHT && e.y + e.height > y) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public static int x() {
 		return x;
 	}
