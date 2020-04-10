@@ -1,7 +1,7 @@
 package kingery.game.entities.buildings;
 
 import kingery.game.engine.Engine;
-import kingery.game.engine.EntityHandler;
+import kingery.game.engine.GameState;
 import kingery.game.gfx.Assets;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
@@ -22,10 +22,10 @@ public class Lodge_0 extends Building {
 					@Override
 					public void onClick() {
 
-						if (Engine.island.time < Engine.island.maxTime && EntityHandler.p.money >= 5) {
-							Engine.island.time++;
+						if (GameState.time < 24 && GameState.p.money >= 5) {
+							GameState.time++;
 
-							EntityHandler.p.money -= 5;
+							GameState.p.money -= 5;
 							interior.actionText = "Thank you for eating a burger.";
 						} else {
 
@@ -42,10 +42,10 @@ public class Lodge_0 extends Building {
 					@Override
 					public void onClick() {
 
-						if (Engine.island.time < Engine.island.maxTime) {
-							Engine.island.time += 2;
+						if (GameState.time < 24) {
+							GameState.time += 2;
 
-							EntityHandler.p.money += 5;
+							GameState.p.money += 5;
 							interior.actionText = "Thank you for cooking a burger.";
 						} else {
 

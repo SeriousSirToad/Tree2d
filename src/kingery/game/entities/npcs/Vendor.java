@@ -2,6 +2,7 @@ package kingery.game.entities.npcs;
 
 import kingery.game.engine.Engine;
 import kingery.game.gfx.Assets;
+import kingery.game.gfx.Camera;
 import kingery.game.inventory.Inventory;
 import kingery.game.islands.Island;
 
@@ -14,7 +15,9 @@ public class Vendor extends NPC{
 	}
 	
 	public void update() {
-		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
+		if(!Camera.contains(this))
+			return;
+		if (interactZone.intersects(Engine.p.collider) && !Engine.p.moving) {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}

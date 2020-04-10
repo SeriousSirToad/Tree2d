@@ -44,8 +44,8 @@ public abstract class Entity {
 		this.isMob = isMob;
 		this.entityImage = entityImage;
 
-		width = entityImage.getWidth() * Tile.scale;
-		height = entityImage.getHeight() * Tile.scale;
+		width = entityImage.getWidth();
+		height = entityImage.getHeight();
 
 		collider = new Rectangle(0, 0, width, height);
 

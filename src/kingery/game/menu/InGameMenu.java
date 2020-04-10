@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import kingery.game.engine.Engine;
+import kingery.game.gfx.Camera;
 import kingery.ui.GameButton;
 import kingery.ui.Organizer;
 
@@ -37,7 +38,7 @@ public class InGameMenu {
 	public void renderMenu(Graphics g) {
 
 		g.setColor(thisColor);
-		g.fillRect(0, 0, Engine.WIDTH, Engine.HEIGHT);
+		g.fillRect(0, 0, Camera.width, Camera.height);
 		for (GameButton b : buttons) {
 
 			b.update(g);

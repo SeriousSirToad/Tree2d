@@ -3,6 +3,7 @@ package kingery.dev;
 import java.awt.Graphics2D;
 
 import kingery.game.engine.Engine;
+import kingery.game.engine.GameState;
 import kingery.game.engine.InputHandler;
 import kingery.game.gfx.lighting.BigLight;
 import kingery.game.islands.Island;
@@ -46,7 +47,7 @@ public class EditingWindow {
 				}
 
 				if (active && !warp.active && !time.active) {
-					show();
+					show(g);
 				}
 			}
 
@@ -75,8 +76,8 @@ public class EditingWindow {
 		new GameButton(1 * Tile.scale, 1 * Tile.scale, 0xFF420dab, "Lodge") {
 			public void onClick() {
 				Engine.p.changeIsland(Island.Utopia);
-				Engine.p.x = 39 * Tile.width;
-				Engine.p.y = 17 * Tile.width;
+				Engine.p.x = 40 * Tile.width;
+				Engine.p.y = 18 * Tile.width;
 			}
 		}
 
@@ -87,15 +88,15 @@ public class EditingWindow {
 
 		new GameButton(0, 0, 0xFF4F4F4F, "Dark") {
 			public void onClick() {
-				Island.time = 0;
+				GameState.time = 0;
 			}
 		}, new GameButton(0, 0, 0xFF7F7F7F, "Not dark") {
 			public void onClick() {
-				Island.time = 12;
+				GameState.time = 12;
 			}
 		}, new GameButton(0, 0, BigLight.evening.getRGB(), "Sunset") {
 			public void onClick() {
-				Island.time = 18;
+				GameState.time = 18;
 			}
 		}
 

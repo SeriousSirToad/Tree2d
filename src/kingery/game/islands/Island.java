@@ -12,7 +12,7 @@ import java.util.Comparator;
 import javax.imageio.ImageIO;
 
 import kingery.game.engine.Engine;
-import kingery.game.engine.EntityHandler;
+import kingery.game.engine.GameState;
 import kingery.game.entities.Entity;
 import kingery.game.gfx.Camera;
 import kingery.game.gfx.lighting.BigLight;
@@ -29,10 +29,7 @@ public class Island {
 	public int height;
 	public String imagePath;
 	private BufferedImage image;
-	public Island rightI, leftI;
 	protected BigLight sun;
-	public static int time = 0;
-	public int maxTime = 24;
 	//
 
 	public static Island Utopia;
@@ -99,9 +96,9 @@ public class Island {
 	public void renderTile(Graphics g) {
 
 		int xMin = Math.max(0, Camera.x() / Tile.width);
-		int xMax = Math.min(width, (Camera.x() + Engine.WIDTH) / Tile.width + 1);
+		int xMax = Math.min(width, (Camera.x() + Camera.width) / Tile.width + 1);
 		int yMin = Math.max(0, Camera.y() / Tile.width);
-		int yMax = Math.min(height, (Camera.y() + Engine.HEIGHT) / Tile.width + 1);
+		int yMax = Math.min(height, (Camera.y() + Camera.height) / Tile.width + 1);
 
 		for (int y = yMin; y < yMax; y++) {
 			for (int x = xMin; x < xMax; x++) {
@@ -113,23 +110,19 @@ public class Island {
 
 	public void update() {
 
-		if (time >= maxTime) {
-			time = (time - maxTime);
+		if (GameState.time >= 24) {
+			GameState.time = (GameState.time - 24);
 		}
 
 		for (int i = 0; i < entities.size(); i++) {
 			entities.get(i).update();
 		}
 
-		if (rightI == null && leftI == null) {
-			init();
-		}
-
 		if (timeIndex() == EVENING) {
 			sun.colour = BigLight.evening;
-		} else if(timeIndex() == AFTERNOON){
+		} else if (timeIndex() == AFTERNOON) {
 			sun.colour = BigLight.afternoon;
-		} else if(timeIndex() == MORNING){
+		} else if (timeIndex() == MORNING) {
 			sun.colour = BigLight.morning;
 		} else {
 			sun.colour = BigLight.early;
@@ -139,28 +132,25 @@ public class Island {
 
 	}
 
-	public void renderEntities(Graphics2D g) {
+	public void render(Graphics2D g) {
 
-		Camera.centerOnEntity(EntityHandler.p);
+		Camera.centerOnEntity(GameState.p);
 
 		renderTile(g);
 
 		for (Entity f : entities) {
-			f.render(g);
+			if (Camera.contains(f))
+				f.render(g);
 		}
 
-		sun.render(g);
+		// sun.render(g);
 
 		g.setColor(Color.BLACK);
-		g.drawString("" + time, 8, 62);
+		g.drawString("" + GameState.time, 8, 62);
 
 	}
 
 	public void init() {
-
-		if (this.equals(Utopia)) {
-			leftI = Start;
-		}
 
 	}
 
@@ -168,11 +158,11 @@ public class Island {
 
 	public int timeIndex() {
 
-		if (time >= maxTime / 4 && time < maxTime / 2) {
+		if (GameState.time >= 24 / 4 && GameState.time < 24 / 2) {
 			return 1;
-		} else if (time >= maxTime / 2 && time < maxTime / 2 + maxTime / 4) {
+		} else if (GameState.time >= 24 / 2 && GameState.time < 24 / 2 + 24 / 4) {
 			return 2;
-		} else if (time >= maxTime / 2 + maxTime / 4 && time < maxTime) {
+		} else if (GameState.time >= 24 / 2 + 24 / 4 && GameState.time < 24) {
 			return 3;
 		} else {
 			return 0;

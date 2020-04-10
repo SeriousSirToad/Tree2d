@@ -25,10 +25,10 @@ public abstract class Building extends Entity {
 
 		super(x, y, null, false, entityImage, e, island);
 
-		dx = x + (width / 2 - (1 * Tile.width));
-		dy = y + (height - ((1 * Tile.width) / 2));
+		dx = x + (width / 2 - (1));
+		dy = y + (height - ((1) / 2));
 		dw = 2 * Tile.width;
-		dh = 1 * Tile.width;
+		dh = Tile.width;
 		this.id = id;
 		this.island = island;
 
@@ -41,7 +41,7 @@ public abstract class Building extends Entity {
 	@Override
 	public void update() {
 
-		if (dCollider.intersects(Engine.p.zoneCheck)) {
+		if (dCollider.intersects(Engine.p.collider)) {
 			
 			if (e.input.f.isPressed()) {
 				canOpen = true;

@@ -1,15 +1,10 @@
 package kingery.game.entities.npcs;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
 import kingery.game.entities.Mob;
-import kingery.game.gfx.Camera;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
 import kingery.ui.NPCWindow;
@@ -54,8 +49,8 @@ public class NPC extends Mob {
 	@Override
 	public void update() {
 
-		if (interactZone.intersects(Engine.p.zoneCheck) && !Engine.p.moving) {
-			if (e.input.E.isPressed()) {
+		if (interactZone.intersects(Engine.p.collider) && !Engine.p.moving) {
+			if (e.input.f.isPressed()) {
 				canShowBox = true;
 			}
 		}

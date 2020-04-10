@@ -5,7 +5,6 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -41,9 +40,7 @@ public class Engine extends Canvas implements Runnable {
 	public static ArrayList<GameWindow> subwindows = new ArrayList<>();
 
 	public InputHandler input = new InputHandler(this);
-	public EntityHandler eHandle;
 
-	public static Island island;
 	public static Engine engine;
 
 	public Menu menu;
@@ -56,24 +53,20 @@ public class Engine extends Canvas implements Runnable {
 
 	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
-	public static int WIDTH = 256;
-	public static int HEIGHT = 192;
-	public static double SCALE = 4;
+	public static int WIDTH = 1024;
+	public static int HEIGHT = 768;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
 	public boolean running = false;
 	public JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension((int) (WIDTH * SCALE), (int) (HEIGHT * SCALE));
+	static final Dimension gameDimension = new Dimension(WIDTH, HEIGHT);
 
 	public Engine() {
 
 		menu = new Menu(this);
-		WIDTH *= SCALE;
-		HEIGHT *= SCALE;
 
-		spriteSheet = new SpriteSheet("spriteSheet", "BuildingSpriteSheet.");
 		frame.setTitle(NAME);
 		frame.setSize(gameDimension);
 		frame.setPreferredSize(gameDimension);
@@ -92,13 +85,14 @@ public class Engine extends Canvas implements Runnable {
 
 		new Sound(this).start();
 		initIslands();
-		island = Island.Start;
-		eHandle = new EntityHandler(this);
-		p = EntityHandler.p;
+		GameState.init(this);
+		p = GameState.p;
 		ewindow = new EditingWindow();
 		engine = this;
 
 		Settings.init();
+
+		new Sound(this).start();
 
 	}
 
@@ -131,7 +125,7 @@ public class Engine extends Canvas implements Runnable {
 				return;
 			}
 
-			island.update();
+			GameState.currentLevel.update();
 
 		} else if (!menu.canStartGame() && !InGameMenu.inMenu) {
 
@@ -216,14 +210,14 @@ public class Engine extends Canvas implements Runnable {
 		}
 
 		g = (Graphics2D) bs.getDrawGraphics();
+		g.scale(Tile.scale, Tile.scale);
 		// General Rendering
 		g.clearRect(0, 0, (WIDTH), (HEIGHT));
 		if (BuildingWindow.isOpen) {
 		} else if (menu.canStartGame()) {
-			backGround(g);
-			island.renderEntities(g);
-			if (EntityHandler.p.inventory.active) {
-				EntityHandler.p.inventory.render(g);
+			GameState.currentLevel.render(g);
+			if (p.inventory.active) {
+				p.inventory.render(g);
 			}
 
 			InGameUI.render(g);
@@ -245,15 +239,14 @@ public class Engine extends Canvas implements Runnable {
 			InGameUI.render(g);
 		}
 
-		String epx = "(" + (float) EntityHandler.p.x / Tile.width;
-		String epy = (float) EntityHandler.p.y / Tile.width + ")";
+		String epx = "(" + (float) p.x / Tile.width;
+		String epy = (float) p.y / Tile.width + ")";
 
-		g.setFont(new Font("Impact", Font.BOLD, (int) (5.6 * SCALE)));
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Cracked", Font.BOLD, (int) (5.6 * SCALE)));
+		g.setFont(new Font("Cracked", Font.BOLD, 12));
 		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
-		g.drawString("(" + (float) EntityHandler.p.x / Tile.width + ", " + (float) EntityHandler.p.y / Tile.width + ")",
-				Tile.scale, g.getFontMetrics().getHeight() * 2);
+		g.drawString("(" + (float) p.x / Tile.width + ", " + (float) p.y / Tile.width + ")", Tile.scale,
+				g.getFontMetrics().getHeight() * 2);
 		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
 		g.drawString(epx + ", " + epy, Tile.scale, g.getFontMetrics().getHeight() * 2);
 		g.setColor(Color.white);
@@ -269,26 +262,6 @@ public class Engine extends Canvas implements Runnable {
 
 	Color bg = new Color(0xFF87CEFA);
 
-	void backGround(Graphics g) {
-
-		if (island.timeIndex() == Island.MORNING) {
-			g.setColor(bg.darker());
-		} else if (island.timeIndex() == Island.AFTERNOON) {
-			g.setColor(bg);
-		} else if (island.timeIndex() == Island.EVENING) {
-			g.setColor(bg.darker());
-		} else {
-			g.setColor(bg.darker().darker());
-		}
-
-		g.fillRect(0, 0, WIDTH, HEIGHT);
-
-	}
-
-	public Island getIsland() {
-		return island;
-	}
-
 	void tick() {
 
 		tickCount++;
@@ -300,10 +273,6 @@ public class Engine extends Canvas implements Runnable {
 		running = true;
 		new Thread(this).start();
 
-	}
-
-	public static int scale(int num) {
-		return (int) (num * SCALE);
 	}
 
 	public static void main(String[] args) {

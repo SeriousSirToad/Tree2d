@@ -22,13 +22,10 @@ public class Sound implements Runnable {
 		this.e = e;
 
 		try {
-			menuMusic = AudioSystem.getAudioInputStream(new File(
-					"sound/music/Island_1.wav"));
+			menuMusic = AudioSystem.getAudioInputStream(new File("res/sound/music/Island_1.wav"));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-
-		running = e.running;
 
 	}
 
@@ -38,13 +35,15 @@ public class Sound implements Runnable {
 
 	public void run() {
 
-		while (running) {
+		while (e.running) {
 
 			if (!e.menu.canStartGame()) {
 
 				if (currentTrack != menuMusic) {
 					currentTrack = menuMusic;
 					music();
+
+					System.out.println("wee");
 				}
 
 			}
@@ -75,9 +74,8 @@ public class Sound implements Runnable {
 			clip = AudioSystem.getClip();
 
 			clip.open(currentTrack);
-			FloatControl gainControl = (FloatControl) clip
-					.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(0 + Settings.musicVolume);
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(0);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 
 		} catch (Exception e) {
@@ -91,9 +89,8 @@ public class Sound implements Runnable {
 		try {
 			Clip c = AudioSystem.getClip();
 			c.open(audio);
-			FloatControl gainControl = (FloatControl) c
-					.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(0 + Settings.fxVolume);
+			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(0.0f);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

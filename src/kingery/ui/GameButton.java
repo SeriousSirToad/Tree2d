@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
+import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.Menu;
 
 public class GameButton {
@@ -33,14 +34,14 @@ public class GameButton {
 
 	public BufferedImage buttonImage;
 
-	public static int STD_WIDTH = 24 * (int) (Engine.SCALE * 2), STD_HEIGHT = 8 * (int) (Engine.SCALE * 2);
+	public static int STD_WIDTH = 32, STD_HEIGHT = 12;
 
 	public GameButton(int x, int y, int width, int height, int color, String s) {
 
 		this.x = x;
 		this.y = y;
-		this.width = Engine.scale(width);
-		this.height = Engine.scale(height);
+		this.width = width;
+		this.height = width;
 		string = s;
 		this.color = new Color(color);
 
@@ -54,8 +55,8 @@ public class GameButton {
 
 		this.x = x;
 		this.y = y;
-		this.width = Engine.scale(width);
-		this.height = Engine.scale(height);
+		this.width = width;
+		this.height = height;
 
 		buttonImage = image;
 
@@ -85,11 +86,11 @@ public class GameButton {
 	}
 
 	public void update(Graphics g) {
-		
-		buttonRect.x = x;
-		buttonRect.y = y;
-		buttonRect.width = width;
-		buttonRect.height = height;
+
+		buttonRect.x = x * Tile.scale;
+		buttonRect.y = y * Tile.scale;
+		buttonRect.width = width * Tile.scale;
+		buttonRect.height = height * Tile.scale;
 
 		if (hasBeenClicked && !input.clicking()) {
 			onClick();
@@ -115,25 +116,19 @@ public class GameButton {
 	private void render(Graphics g) {
 
 		g.setColor(color());
-		g.fillRoundRect(x, y, width, height, (int) (12.8 * Engine.SCALE), (int) (12.8 * Engine.SCALE));
+		g.fillRoundRect(x, y, width, height, 12, 12);
 		g.setColor(Color.BLACK);
-		// g.drawRoundRect(x - 1, y - 1, width, height, (int) (12.8 * Engine.SCALE),
-		// (int) (12.8 * Engine.SCALE));
-		g.setFont(new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE)));
-		drawCenteredString(g, string, buttonRect, new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE)));
-		/*g.drawString(string, x + width / 2 - g.getFontMetrics().stringWidth(string) / 2,
-				y + (height / 2) + (g.getFontMetrics().getHeight() / 4));*/
-
+		
+		drawCenteredString(g, string, buttonRect, new Font(Font.DIALOG, Font.BOLD, 5));
 	}
 
 	public void drawCenteredString(Graphics g, String text, Rectangle rect, Font font) {
 		// Get the FontMetrics
 		FontMetrics metrics = g.getFontMetrics(font);
 		// Determine the X coordinate for the text
-		int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
-		// Determine the Y coordinate for the text (note we add the ascent, as in java
-		// 2d 0 is top of the screen)
-		int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
+		int x = this.x + (width - metrics.stringWidth(text)) / 2;
+		// Determine the Y coordinate for the text
+		int y = this.y + ((height - metrics.getHeight()) / 2) + metrics.getAscent();
 		// Set the font
 		g.setFont(font);
 		// Draw the String

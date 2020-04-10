@@ -8,29 +8,40 @@ import javax.imageio.ImageIO;
 
 public class SpriteSheet {
 
-	private static BufferedImage spriteSheet;
-	private static BufferedImage spriteSheetB;
+	private BufferedImage sheet;
 
-	public SpriteSheet(String file, String file2) {
+	public SpriteSheet(String file) {
 
 		try {
-			spriteSheet = ImageIO.read(new File("res/Images/" + file + ".png"));
-			spriteSheetB = ImageIO.read(new File("res/Images/" + file2 + ".png"));
+			sheet = ImageIO.read(new File("res/Images/" + file + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 	}
+	
+	public BufferedImage[] getAnimation(int startX, int startY, int cellW, int cellH, int numFrames) {
 
-	public static BufferedImage getImage(int x, int y, int w, int h) {
+		BufferedImage[] frames = new BufferedImage[numFrames];
+		for (int i = 0; i < numFrames; i++) {
 
-		return Assets.deepCopy(spriteSheet.getSubimage(x, y, w, h));
+			frames[i] = sheet.getSubimage(startX + (i * cellW), startY, cellW, cellH);
+
+		}
+
+		return frames;
+	}
+	
+
+	public BufferedImage getImage(int x, int y, int w, int h) {
+
+		return Assets.deepCopy(sheet.getSubimage(x, y, w, h));
 
 	}
 
-	public static BufferedImage getImg(int x, int y, int w, int h) {
+	public BufferedImage getImg(int x, int y, int w, int h) {
 
-		return Assets.deepCopy(spriteSheetB.getSubimage(x, y, w, h));
+		return Assets.deepCopy(sheet.getSubimage(x, y, w, h));
 
 	}
 

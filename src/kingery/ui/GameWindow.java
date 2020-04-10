@@ -12,7 +12,7 @@ import kingery.game.islands.tiles.Tile;
 public class GameWindow {
 
 	public GameButton[] buttons;
-	Font font = new Font(Font.DIALOG, Font.BOLD, (int) (5.6 * Engine.SCALE));
+	Font font = new Font(Font.DIALOG, Font.BOLD, 5);
 	public int w = (int) (Engine.WIDTH), h = (int) (Engine.HEIGHT);
 	public int x = Engine.WIDTH / 2 - w / 2;
 	public int y = Engine.HEIGHT / 2 - h / 2;
@@ -29,13 +29,12 @@ public class GameWindow {
 
 	public void update(Graphics2D g) {
 		if (active) {
-			show();
+			show(g);
 		}
 	}
 
-	public void show() {
+	public void show(Graphics2D g) {
 
-		Graphics g = Engine.g;
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		for (GameButton b : buttons) {

@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 
 import kingery.game.engine.Engine;
 import kingery.game.entities.npcs.NPC;
+import kingery.game.gfx.Camera;
 import kingery.game.islands.tiles.Tile;
 
 public class NPCWindow extends GameWindow {
@@ -15,16 +16,16 @@ public class NPCWindow extends GameWindow {
 
 	static FontMetrics fm;
 
-	int w = (int) (Engine.WIDTH / 1.2), h = (int) (Engine.HEIGHT / 1.2);
-	int x = Engine.WIDTH / 2 - w / 2;
-	int y = Engine.HEIGHT / 2 - h / 2;
+	int w = (int) (Camera.width / 1.2), h = (int) (Camera.height / 1.2);
+	int x = Camera.width / 2 - w / 2;
+	int y = Camera.height / 2 - h / 2;
 
 	public NPCWindow(NPC attatchedNPC) {
 		Engine.subwindows.add(this);
 		this.npc = attatchedNPC;
 		buttons = new GameButton[1];
-		buttons[0] = new GameButton(x + w - (GameButton.STD_WIDTH) - (1 * Tile.scale),
-				y + h - (GameButton.STD_HEIGHT) - (1 * Tile.scale), 0xFF00009F, "Close");
+		buttons[0] = new GameButton(x + w - (GameButton.STD_WIDTH) - 1, y + h - (GameButton.STD_HEIGHT) - 1, 0xFF00009F,
+				"Close");
 	}
 
 	public void update(Graphics2D g) {
@@ -37,14 +38,14 @@ public class NPCWindow extends GameWindow {
 	public void showDialog(String title, String message, Graphics g) {
 		g.setFont(font);
 		fm = g.getFontMetrics();
-		int sy = y + fm.getHeight() + (1 * Tile.scale);
+		int sy = y + fm.getHeight() + 1;
 		g.setColor(transluscentBackground);
 		g.fillRect(x, y, w, h);
 		g.setColor(Color.white);
-		g.drawString(title, x + (1 * Tile.scale), y + fm.getHeight());
-		g.drawLine(x, y + fm.getHeight() + (1 * Tile.scale), x + w, y + fm.getHeight() + (1 * Tile.scale));
+		g.drawString(title, x + (1), y + fm.getHeight());
+		g.drawLine(x, y + fm.getHeight() + (1), x + w, y + fm.getHeight() + (1));
 		for (String line : message.split("\n"))
-			g.drawString(line, x + (1 * Tile.scale), sy += fm.getHeight());
+			g.drawString(line, x + (1), sy += fm.getHeight());
 
 		for (GameButton b : buttons) {
 

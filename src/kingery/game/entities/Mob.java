@@ -9,7 +9,7 @@ import kingery.game.islands.tiles.Tile;
 
 public abstract class Mob extends Entity {
 
-	protected byte speed = (byte) (1 * Tile.scale - Tile.scale / 4);
+	protected byte speed = 1;
 	protected int xa, ya;
 
 	int numsteps = 0;
@@ -24,59 +24,23 @@ public abstract class Mob extends Entity {
 	}
 
 	public void move() {
-		moveY();
-		moveX();
-	}
-
-	protected void moveX() {
-		if (xa > 0) {// Moving right
-			int tx = (int) (x + xa + collider.x + collider.width) / Tile.width;
-
-			if (!collisionWithTile(tx, (int) (y + collider.y) / Tile.width)
-					&& !collisionWithTile(tx, (int) (y + collider.y + collider.height) / Tile.width)) {
-				x += xa;
-			} else {
-				x = tx * Tile.width - collider.x - collider.width - speed + 1;
-			}
-		} else if (xa < 0) {// Moving left
-			int tx = (int) (x + xa + collider.x) / Tile.width;
-
-			if (!collisionWithTile(tx, (int) (y + collider.y) / Tile.width)
-					&& !collisionWithTile(tx, (int) (y + collider.y + collider.height) / Tile.width)) {
-				x += xa;
-			} else {
-				x = tx * Tile.width + Tile.width - collider.x;
-			}
-		}
-	}
-
-	protected void moveY() {
-		
-		if (ya < 0) {// Up
-			int ty = (int) (y + ya + collider.y) / Tile.width;
-
-			if (!collisionWithTile((int) (x + collider.x) / Tile.width, ty)
-					&& !collisionWithTile((int) (x + collider.x + collider.width) / Tile.width, ty)) {
-				y += ya;
-			} else {
-				y = ty * Tile.width + Tile.width - collider.y;
-
-			}
-		} else if (ya > 0) {// Down
-			int ty = (int) (y + ya + collider.y + collider.height) / Tile.width;
-
-			if (!collisionWithTile((int) (x + collider.x) / Tile.width, ty)
-					&& !collisionWithTile((int) (x + collider.x + collider.width) / Tile.width, ty)) {
-				y += ya;
-			} else {
-				y = ty * Tile.width - collider.y - collider.height - 1;
-			}
+		if (!collisionWithTile(x, y)) {
+			x += xa;
+			y += ya;
 		}
 	}
 
 	protected boolean collisionWithTile(int x, int y) {
 
-		return island.getTile(x, y).isSolid();
+		if (movingDir == 1)
+			return island.getTile(x / Tile.width + 1, y / Tile.width + 1).isSolid();
+		if (movingDir == 2)
+			return island.getTile(x / Tile.width, y / Tile.width + 2).isSolid();
+		if (movingDir == 3)
+			return island.getTile((x - 1) / Tile.width, y / Tile.width + 1).isSolid();
+		if (movingDir == 4)
+			return island.getTile(x / Tile.width, ((y - 1) / Tile.width) + 1).isSolid();
+		return false;
 
 	}
 

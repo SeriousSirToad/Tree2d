@@ -1,54 +1,40 @@
 package kingery.game.gfx;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 public class Animation {
 
 	public BufferedImage[] frames;
 	public BufferedImage currentFrame;
-	public byte frameSkip;
-	private byte frameIndex;
+	public int frameSkip;
+	private int frameIndex;
+	boolean skipFirst = false;
 
-	public Animation(short framecount, byte frameSkip, BufferedImage[] images) {
-
-		frames = new BufferedImage[framecount];
+	public Animation(boolean skipFirst, int frameSkip, BufferedImage[] images) {
 		this.frameSkip = frameSkip;
-
+		this.skipFirst = skipFirst;
 		frames = images;
-
+		currentFrame = images[0];
 	}
 
-	byte b = 0;
+	long lastTime = System.currentTimeMillis();
 
 	public BufferedImage animate() {
 
-		return frames[frameIndex];
-
-	}
-
-	public void update() {
-		b++;
-
-		if (b >= frameSkip) {
-
+		long now = System.currentTimeMillis();
+		if ((now - lastTime) / 16 >= frameSkip) {
 			frameIndex++;
-			b = 0;
-
+			if (frameIndex >= frames.length) {
+				if (skipFirst)
+					frameIndex = 1;
+				else
+					frameIndex = 0;
+			}
+			currentFrame = frames[frameIndex];
+			lastTime = now;
 		}
 
-		if (frameIndex >= frames.length) {
-			frameIndex = 0;
-		}
-	}
-
-	public void reset() {
-
-		b = 0;
-		frameIndex = 0;
+		return frames[frameIndex];
 
 	}
 
