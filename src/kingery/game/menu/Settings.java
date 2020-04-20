@@ -3,6 +3,8 @@ package kingery.game.menu;
 import kingery.ui.GameButton;
 import kingery.ui.GameWindow;
 import kingery.ui.Organizer;
+import kingery.ui.RenderOrder;
+import kingery.ui.Slider;
 
 public class Settings {
 
@@ -12,6 +14,7 @@ public class Settings {
 
 	public static GameButton[] buttons;
 	public static GameWindow window;
+	static Slider volumeSlider = new Slider(40, 52, 100);
 
 	public static void init() {
 
@@ -22,7 +25,7 @@ public class Settings {
 						frameCap = 60;
 					}
 				},
-				
+
 				new GameButton(0, 0, 0xFF3F3F3F, "30") {
 					public void onClick() {
 						frameCap = 30;
@@ -32,6 +35,20 @@ public class Settings {
 				new GameButton(0, 0, 0xFF3F3F3F, "Infinite") {
 					public void onClick() {
 						frameCap = 0;
+					}
+				},
+
+				new GameButton(0, 0, 0xFF009900, "Volume") {
+					boolean sliderActive = false;
+
+					public void onClick() {
+						if (!sliderActive) {
+							RenderOrder.add(volumeSlider);
+							sliderActive = true;
+						} else {
+							RenderOrder.remove(volumeSlider);
+							sliderActive = false;
+						}
 					}
 				},
 
@@ -47,10 +64,13 @@ public class Settings {
 			Organizer.organizeLeft(buttons);
 		}
 
-		window = new GameWindow();
+		window = new GameWindow() {
+			public void close() {
+				RenderOrder.remove(volumeSlider);
+			}
+		};
 		window.buttons = buttons;
 
 	}
 
-	
 }

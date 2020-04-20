@@ -32,21 +32,14 @@ public class Player extends Mob {
 	public Player(String username, int x, int y, InputHandler input, Engine e, Island is) {
 
 		super(x, y, "player", Colour.fixYoSelf(colors, newColors, Assets.PLAYER), e, is);
-
 		name = username;
 		EntityColor = Color.orange;
 		defaultColor = EntityColor;
 		this.input = input;
-
-		collider.x = 1;
-		collider.y = 10;
-		collider.width = 5;
-		collider.height = 5;
-
 	}
 
 	@Override
-	public void update() {
+	public void tick() {
 
 		if (x % Tile.width == 0 && y % Tile.width == 0) {
 			xa = 0;
@@ -78,12 +71,6 @@ public class Player extends Mob {
 
 	}
 
-	public void changeIsland(Island i) {
-		GameState.currentLevel = i;
-		island.entities.remove(this);
-		island = GameState.currentLevel;
-		island.entities.add(this);
-	}
 
 	@Override
 	public void render(Graphics g) {
@@ -103,15 +90,19 @@ public class Player extends Mob {
 			switch (movingDir) {
 			case 1:
 				g.drawImage(walkR.currentFrame, x - Camera.x(), y - Camera.y(), width, height, null);
+				walkR.reset();
 				break;
 			case 3:
 				g.drawImage(walkR.currentFrame, x - Camera.x() + width, y - Camera.y(), -width, height, null);
+				walkR.reset();
 				break;
 			case 2:
 				g.drawImage(walkD.currentFrame, x - Camera.x(), y - Camera.y(), width, height, null);
+				walkD.reset();
 				break;
 			case 4:
 				g.drawImage(walkU.currentFrame, x - Camera.x(), y - Camera.y(), width, height, null);
+				walkU.reset();
 				break;
 			default:
 				g.drawImage(walkR.currentFrame, x - Camera.x(), y - Camera.y(), width, height, null);

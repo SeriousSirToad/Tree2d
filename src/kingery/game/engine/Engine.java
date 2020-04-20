@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -24,10 +23,10 @@ import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
-import kingery.ui.BuildingWindow;
 import kingery.ui.GameButton;
 import kingery.ui.GameWindow;
 import kingery.ui.InGameUI;
+import kingery.ui.RenderOrder;
 
 public class Engine extends Canvas implements Runnable {
 
@@ -39,7 +38,7 @@ public class Engine extends Canvas implements Runnable {
 	public ArrayList<GameButton> buttons = new ArrayList<>();
 	public static ArrayList<GameWindow> subwindows = new ArrayList<>();
 
-	public InputHandler input = new InputHandler(this);
+	public static InputHandler input;
 
 	public static Engine engine;
 
@@ -60,11 +59,12 @@ public class Engine extends Canvas implements Runnable {
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
 	public boolean running = false;
-	public JFrame frame = new JFrame();
+	public static JFrame frame = new JFrame();
 	static final Dimension gameDimension = new Dimension(WIDTH, HEIGHT);
 
 	public Engine() {
 
+		input = new InputHandler(this);
 		menu = new Menu(this);
 
 		frame.setTitle(NAME);
@@ -83,7 +83,6 @@ public class Engine extends Canvas implements Runnable {
 		System.out.println(WIDTH + ", " + HEIGHT);
 		inMenu = new InGameMenu(this);
 
-		new Sound(this).start();
 		initIslands();
 		GameState.init(this);
 		p = GameState.p;
@@ -92,7 +91,9 @@ public class Engine extends Canvas implements Runnable {
 
 		Settings.init();
 
-		new Sound(this).start();
+		// new Sound().start();
+
+		System.out.println("reduced resolution: " + WIDTH / Tile.scale + ", " + HEIGHT / Tile.scale);
 
 	}
 
@@ -116,13 +117,7 @@ public class Engine extends Canvas implements Runnable {
 				if (input.esc.isPressed()) {
 					InGameMenu.inMenu = true;
 					canEnterMenu = false;
-					BuildingWindow.isOpen = false;
 				}
-			}
-
-			if (BuildingWindow.isOpen) {
-
-				return;
 			}
 
 			GameState.currentLevel.update();
@@ -213,8 +208,7 @@ public class Engine extends Canvas implements Runnable {
 		g.scale(Tile.scale, Tile.scale);
 		// General Rendering
 		g.clearRect(0, 0, (WIDTH), (HEIGHT));
-		if (BuildingWindow.isOpen) {
-		} else if (menu.canStartGame()) {
+		if (menu.canStartGame()) {
 			GameState.currentLevel.render(g);
 			if (p.inventory.active) {
 				p.inventory.render(g);
@@ -222,7 +216,7 @@ public class Engine extends Canvas implements Runnable {
 
 			InGameUI.render(g);
 
-		} else if (!menu.canStartGame() && !BuildingWindow.isOpen) {
+		} else if (!menu.canStartGame()) {
 			g.setColor(Color.gray);
 			g.fillRect(0, 0, (WIDTH), (HEIGHT));
 			menu.renderTitle(g);
@@ -235,23 +229,7 @@ public class Engine extends Canvas implements Runnable {
 			w.update(g);
 		}
 
-		if (BuildingWindow.isOpen) {
-			InGameUI.render(g);
-		}
-
-		String epx = "(" + (float) p.x / Tile.width;
-		String epy = (float) p.y / Tile.width + ")";
-
-		g.setColor(Color.BLACK);
-		g.setFont(new Font("Cracked", Font.BOLD, 12));
-		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
-		g.drawString("(" + (float) p.x / Tile.width + ", " + (float) p.y / Tile.width + ")", Tile.scale,
-				g.getFontMetrics().getHeight() * 2);
-		g.drawString(frames + " fps", Tile.scale, g.getFontMetrics().getHeight());
-		g.drawString(epx + ", " + epy, Tile.scale, g.getFontMetrics().getHeight() * 2);
-		g.setColor(Color.white);
-		g.drawString(frames + " fps", Tile.scale - 1, g.getFontMetrics().getHeight() - 1);
-		g.drawString(epx + ", " + epy, Tile.scale - 1, g.getFontMetrics().getHeight() * 2 - 1);
+		RenderOrder.render();
 
 		bs.show();
 		g.dispose();

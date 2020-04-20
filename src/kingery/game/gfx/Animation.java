@@ -38,4 +38,9 @@ public class Animation {
 
 	}
 
+	public void reset() {
+		frameIndex = 0;
+		currentFrame = frames[0];
+	}
+
 }

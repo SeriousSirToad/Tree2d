@@ -53,12 +53,12 @@ public class InGameMenu {
 			inMenu = false;
 		}
 
-		if (!e.input.esc.isPressed()) {
+		if (!Engine.input.esc.isPressed()) {
 			canExitMenu = true;
 		}
 
 		if (canExitMenu) {
-			if (e.input.esc.isPressed()) {
+			if (Engine.input.esc.isPressed()) {
 				inMenu = false;
 				canExitMenu = false;
 			}

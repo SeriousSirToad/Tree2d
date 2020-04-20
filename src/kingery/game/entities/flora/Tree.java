@@ -36,7 +36,7 @@ public class Tree extends Entity {
 
 
 	@Override
-	public void update() {
+	public void tick() {
 		// TODO Auto-generated method stub
 		
 	}

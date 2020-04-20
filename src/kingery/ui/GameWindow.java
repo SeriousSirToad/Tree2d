@@ -30,6 +30,8 @@ public class GameWindow {
 	public void update(Graphics2D g) {
 		if (active) {
 			show(g);
+		} else {
+			close();
 		}
 	}
 
@@ -63,6 +65,9 @@ public class GameWindow {
 		}
 
 	}
+
+	public void close() {
+	};
 
 	public void setTitle(String title) {
 		this.title = title;

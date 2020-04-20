@@ -55,15 +55,13 @@ public class EditingWindow {
 
 		gw.buttons = new GameButton[] {
 
-				new GameButton(1 * Tile.scale, 1 * Tile.scale, 0xFF007F00,
-						"Warp") {
+				new GameButton(1 * Tile.scale, 1 * Tile.scale, 0xFF007F00, "Warp") {
 					public void onClick() {
 						warp.active = true;
 					}
 				},
 
-				new GameButton(2 * Tile.scale + GameButton.STD_WIDTH,
-						1 * Tile.scale, 0xFF007F00, "Change time") {
+				new GameButton(2 * Tile.scale + GameButton.STD_WIDTH, 1 * Tile.scale, 0xFF007F00, "Change time") {
 					public void onClick() {
 						time.active = true;
 					}
@@ -73,32 +71,32 @@ public class EditingWindow {
 
 		warp.buttons = new GameButton[] {
 
-		new GameButton(1 * Tile.scale, 1 * Tile.scale, 0xFF420dab, "Lodge") {
-			public void onClick() {
-				Engine.p.changeIsland(Island.Utopia);
-				Engine.p.x = 40 * Tile.width;
-				Engine.p.y = 18 * Tile.width;
-			}
-		}
+				new GameButton(1, 1, 0xFF420dab, "Lodge") {
+					public void onClick() {
+						Engine.p.changeIsland(Island.Utopia);
+						Engine.p.x = 40 * Tile.width;
+						Engine.p.y = 18 * Tile.width;
+					}
+				}
 
 		};
 
 		time = new GameWindow();
 		time.buttons = new GameButton[] {
 
-		new GameButton(0, 0, 0xFF4F4F4F, "Dark") {
-			public void onClick() {
-				GameState.time = 0;
-			}
-		}, new GameButton(0, 0, 0xFF7F7F7F, "Not dark") {
-			public void onClick() {
-				GameState.time = 12;
-			}
-		}, new GameButton(0, 0, BigLight.evening.getRGB(), "Sunset") {
-			public void onClick() {
-				GameState.time = 18;
-			}
-		}
+				new GameButton(0, 0, 0xFF4F4F4F, "Dark") {
+					public void onClick() {
+						GameState.time = 0;
+					}
+				}, new GameButton(0, 0, 0xFF7F7F7F, "Not dark") {
+					public void onClick() {
+						GameState.time = 12;
+					}
+				}, new GameButton(0, 0, BigLight.evening.getRGB(), "Sunset") {
+					public void onClick() {
+						GameState.time = 18;
+					}
+				}
 
 		};
 

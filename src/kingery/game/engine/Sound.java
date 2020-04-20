@@ -2,30 +2,27 @@ package kingery.game.engine;
 
 import java.io.File;
 
+import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.DataLine;
 import javax.sound.sampled.FloatControl;
 
 import kingery.game.menu.Settings;
 
 public class Sound implements Runnable {
 
-	Engine e;
 	AudioInputStream currentTrack;
-	AudioInputStream menuMusic;
+	String menuMusic;
+	String mainTheme;
 	Clip clip;
 	boolean running;
 
-	public Sound(Engine e) {
+	public Sound() {
 
-		this.e = e;
-
-		try {
-			menuMusic = AudioSystem.getAudioInputStream(new File("res/sound/music/Island_1.wav"));
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		menuMusic = "res/sound/music/Island_1.wav";
+		mainTheme = "res/sound/music/game.wav";
 
 	}
 
@@ -35,51 +32,25 @@ public class Sound implements Runnable {
 
 	public void run() {
 
-		while (e.running) {
-
-			if (!e.menu.canStartGame()) {
-
-				if (currentTrack != menuMusic) {
-					currentTrack = menuMusic;
-					music();
-
-					System.out.println("wee");
-				}
-
-			}
-
-			if (e.menu.canStartGame()) {
-
-				if (currentTrack == menuMusic) {
-
-					stopMusic();
-
-				}
-
-			}
-
-			try {
-				Thread.sleep(2);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-
-		}
+		playSound(mainTheme);
 
 	}
 
-	public void music() {
+	public void playSound(String FileName) {
 
 		try {
-			clip = AudioSystem.getClip();
-
-			clip.open(currentTrack);
+			File soundFile = new File(FileName);
+			AudioInputStream ais = AudioSystem.getAudioInputStream(soundFile);
+			AudioFormat format = ais.getFormat();
+			DataLine.Info info = new DataLine.Info(Clip.class, format);
+			Clip clip = (Clip) AudioSystem.getLine(info);
+			clip.open(ais);
 			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(0);
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-
-		} catch (Exception e) {
-			e.printStackTrace();
+			gainControl.setValue(Settings.musicVolume);
+			clip.start();
+			clip.loop(-1);
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 
 	}
@@ -87,10 +58,13 @@ public class Sound implements Runnable {
 	public void playClip(AudioInputStream audio) {
 
 		try {
-			Clip c = AudioSystem.getClip();
+			DataLine.Info info = null;
+			Clip c = (Clip) AudioSystem.getLine(info);
 			c.open(audio);
 			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
-			gainControl.setValue(0.0f);
+			double gain = .1D; // number between 0 and 1 (loudest)
+			float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+			gainControl.setValue(dB);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

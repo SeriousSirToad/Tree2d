@@ -6,6 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import kingery.game.engine.Engine;
+import kingery.game.engine.GameState;
 import kingery.game.gfx.Camera;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
@@ -30,8 +31,6 @@ public abstract class Entity {
 	public Engine e;
 	protected Island island;
 
-	public Rectangle collider;
-
 	private boolean isMob;
 
 	public Entity(int x, int y, String name_short, boolean isMob, BufferedImage entityImage, Engine e, Island island) {
@@ -47,8 +46,6 @@ public abstract class Entity {
 		width = entityImage.getWidth();
 		height = entityImage.getHeight();
 
-		collider = new Rectangle(0, 0, width, height);
-
 		island.entities.add(this);
 		System.out.println(island.imagePath);
 
@@ -61,7 +58,14 @@ public abstract class Entity {
 		return isMob;
 	}
 
-	public abstract void update();
+	public void changeIsland(Island i) {
+		GameState.currentLevel = i;
+		island.entities.remove(this);
+		island = GameState.currentLevel;
+		island.entities.add(this);
+	}
+
+	public abstract void tick();
 
 	public void render(Graphics g) {
 		if (Camera.contains(this)) {

@@ -37,21 +37,14 @@ public abstract class Mob extends Entity {
 		if (movingDir == 2)
 			return island.getTile(x / Tile.width, y / Tile.width + 2).isSolid();
 		if (movingDir == 3)
-			return island.getTile((x - 1) / Tile.width, y / Tile.width + 1).isSolid();
+			return island.getTile((x - 1) / Tile.width, y / Tile.width + 1).isSolid() || x - 1 < 0;
 		if (movingDir == 4)
-			return island.getTile(x / Tile.width, ((y - 1) / Tile.width) + 1).isSolid();
+			return island.getTile(x / Tile.width, (y - 1) / Tile.width + 1).isSolid() || (y + Tile.width) - 1 < 0;
 		return false;
 
 	}
 
-	protected boolean shouldExit(int x, int y) {
-		if (island.getTile(x, y).getId() == 8)
-			return true;
-		else
-			return false;
-	}
-
 	@Override
-	public abstract void update();
+	public abstract void tick();
 
 }

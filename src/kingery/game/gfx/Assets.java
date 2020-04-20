@@ -10,6 +10,7 @@ import kingery.game.entities.npcs.Lumberjack;
 public class Assets {
 
 	public static SpriteSheet sheet = new SpriteSheet("spriteSheet");
+	public static SpriteSheet buildings = new SpriteSheet("buildings");
 	
 	// Entities
 	public static BufferedImage PLAYER = sheet.getImage(144, 568, 16, 32);
@@ -68,7 +69,7 @@ public class Assets {
 
 	public static BufferedImage NPC_HERMIT = sheet.getImage(0, 552, 8, 8);
 	// Building
-	public static BufferedImage BLDG_SHOPPE_TEST = sheet.getImg(128, 64, 80, 64);
+	public static BufferedImage BLDG_CABIN = sheet.getImg(0, 0, 96, 80);
 
 	// Items
 	public static BufferedImage WOOD = sheet.getImage(0, 96, 16, 7);

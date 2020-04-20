@@ -14,10 +14,10 @@ public class Vendor extends NPC{
 		inventory = new Inventory(640, 0, 225, 225, e);
 	}
 	
-	public void update() {
+	public void tick() {
 		if(!Camera.contains(this))
 			return;
-		if (interactZone.intersects(Engine.p.collider) && !Engine.p.moving) {
+	//	if (interactZone.intersects(Engine.p.collider) && !Engine.p.moving) {
 			if (e.input.E.isPressed()) {
 				canShowBox = true;
 			}
@@ -27,7 +27,7 @@ public class Vendor extends NPC{
 				canShowBox = false;
 			}
 
-		}
+		//}
 	}
 
 }

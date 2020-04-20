@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import kingery.game.engine.Engine;
 import kingery.game.engine.GameState;
 import kingery.game.entities.Entity;
+import kingery.game.entities.buildings.Door;
 import kingery.game.gfx.Camera;
 import kingery.game.gfx.lighting.BigLight;
 import kingery.game.islands.tiles.Tile;
@@ -21,7 +22,9 @@ import kingery.game.islands.tiles.Tile;
 public class Island {
 
 	public BufferedImage levelImage;
+	public BufferedImage renderImage;
 	public ArrayList<Entity> entities = new ArrayList<>();
+	public ArrayList<Door> doors = new ArrayList<>();
 	boolean hasCycledA = false;
 	boolean hasCycledB = false;
 	private int[][] tiles;
@@ -66,6 +69,10 @@ public class Island {
 			this.height = this.image.getHeight();
 			tiles = new int[width][height];
 			this.loadTiles();
+			renderImage = new BufferedImage(width * Tile.width, height * Tile.width, BufferedImage.TYPE_INT_RGB);
+			Graphics g = renderImage.getGraphics();
+			renderTile(g);
+			g.dispose();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -88,21 +95,16 @@ public class Island {
 	int xOffset, yOffset;
 
 	public Tile getTile(int x, int y) {
-		if (x < 0 || x > width || 0 > y || y > height)
+		if (x < 0 || x > width - 1 || y < 0 || y > height - 1)
 			return Tile.VOID;
 		return Tile.tiles[tiles[x][y]];
 	}
 
 	public void renderTile(Graphics g) {
 
-		int xMin = Math.max(0, Camera.x() / Tile.width);
-		int xMax = Math.min(width, (Camera.x() + Camera.width) / Tile.width + 1);
-		int yMin = Math.max(0, Camera.y() / Tile.width);
-		int yMax = Math.min(height, (Camera.y() + Camera.height) / Tile.width + 1);
-
-		for (int y = yMin; y < yMax; y++) {
-			for (int x = xMin; x < xMax; x++) {
-				getTile(x, y).renderTile(g, x * Tile.width - Camera.x(), y * Tile.width - Camera.y());
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				getTile(x, y).renderTile(g, x * Tile.width, y * Tile.width);
 			}
 		}
 
@@ -115,7 +117,7 @@ public class Island {
 		}
 
 		for (int i = 0; i < entities.size(); i++) {
-			entities.get(i).update();
+			entities.get(i).tick();
 		}
 
 		if (timeIndex() == EVENING) {
@@ -136,7 +138,7 @@ public class Island {
 
 		Camera.centerOnEntity(GameState.p);
 
-		renderTile(g);
+		g.drawImage(renderImage, -Camera.x(), -Camera.y(), null);
 
 		for (Entity f : entities) {
 			if (Camera.contains(f))

@@ -47,14 +47,10 @@ public class NPC extends Mob {
 	public int speechIndex = 0;
 
 	@Override
-	public void update() {
+	public void tick() {
 
-		if (interactZone.intersects(Engine.p.collider) && !Engine.p.moving) {
-			if (e.input.f.isPressed()) {
-				canShowBox = true;
-			}
-		}
-
+		
+		
 		if (speechIndex == messages.length) {
 			speechIndex = 0;
 		}
