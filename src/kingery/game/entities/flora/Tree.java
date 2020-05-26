@@ -1,44 +1,33 @@
 package kingery.game.entities.flora;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
-import kingery.game.engine.Engine;
+import kingery.game.engine.GameState;
 import kingery.game.entities.Entity;
 import kingery.game.gfx.Animation;
 import kingery.game.gfx.Assets;
-import kingery.game.gfx.Camera;
 import kingery.game.islands.Island;
 
 public class Tree extends Entity {
 
-	public enum GrowthState{
-		SMALL,
-		GROWN
-	}
-	
-	Animation eyebrows;
-	GrowthState growthState;
+	int growthstate = 0;
 
-	public Tree(int x, int y, GrowthState growthState, Engine e, Island island) {
-		super(x, y, "tree", false, Assets.treeImages[0], e, island);
-		this.growthState = growthState;
+	Animation growCycle;
+
+	public Tree(int x, int y, int growthState, Island island) {
+		super(x, y, "tree", false, Assets.treeImages[0], island);
+		this.growthstate = growthState;
 
 	}
 
 	public void render(Graphics g) {
-		if (growthState == GrowthState.SMALL) {
-			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
-		} else {
-			g.drawImage(eyebrows.animate(), x - Camera.x(), y - Camera.y(), width, height, null);
-		}
+		g.drawImage(growCycle.frames[growthstate], x - GameState.camera.x(), y - GameState.camera.y(), width, height, null);
 	}
-
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -1,6 +1,5 @@
 package kingery.game.gfx;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -19,7 +18,7 @@ public class Assets {
 	public static Animation PLAYER_DOWN = new Animation(true, 10, sheet.getAnimation(144, 568, 16, 32, 7));
 	
 	public static BufferedImage SHEEP_GENERIC = sheet.getImage(0, 504, 64, 32);
-	private static BufferedImage LUMBERJACK1 = sheet.getImage(0, 448, 16, 32);
+	public static BufferedImage LUMBERJACK1 = sheet.getImage(0, 488, 16, 32);
 
 	public static BufferedImage getLumberjack(int a) {
 
@@ -69,7 +68,7 @@ public class Assets {
 
 	public static BufferedImage NPC_HERMIT = sheet.getImage(0, 552, 8, 8);
 	// Building
-	public static BufferedImage BLDG_CABIN = sheet.getImg(0, 0, 96, 80);
+	public static BufferedImage BLDG_CABIN = buildings.getImg(0, 0, 96, 80);
 
 	// Items
 	public static BufferedImage WOOD = sheet.getImage(0, 96, 16, 7);

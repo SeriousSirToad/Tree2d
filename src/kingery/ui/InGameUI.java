@@ -8,23 +8,22 @@ import java.util.HashMap;
 
 import javax.swing.text.html.parser.Entity;
 
-import kingery.game.engine.Engine;
 import kingery.game.engine.GameState;
-import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
+import kingery.ui.component.GameButton;
+import kingery.ui.component.GameWindow;
 
 public class InGameUI {
 
-	static int moneyX = 138;
-	static int moneyY = 2;
-	static int moneyW = 116;
-	static int moneyH = 16;
-	
+	static int moneyX = 173;
+	static int moneyY = 3;
+	static int moneyW = 80;
+	static int moneyH = 20;
+
 	static HashMap<Entity, Point> entities;
 	static HashMap<GameWindow, Point> windows;
-	
-	static GameButton menubutton = new GameButton(moneyX + moneyW - (GameButton.STD_WIDTH) - (1), moneyY, 0xFF420DAB,
-			"Menu") {
+
+	static GameButton menubutton = new GameButton(219, 7, 0xFF420DAB, "Menu") {
 
 		public void onClick() {
 			InGameMenu.inMenu = true;

@@ -2,13 +2,11 @@ package kingery.game.gfx.lighting;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
 import java.awt.geom.Point2D;
 
-import kingery.game.engine.Engine;
-import kingery.game.gfx.Camera;
+import kingery.game.engine.GameState;
 import kingery.game.islands.tiles.Tile;
 
 public class Light {
@@ -25,12 +23,12 @@ public class Light {
 		this.radius = radius;
 		lightColor = colour;
 		System.out.println(lightColor.getAlpha());
-		colours = new Color[]{ lightColor, Color.black };
+		colours = new Color[] { lightColor, Color.black };
 	}
 
 	public void update() {
-		center = new Point2D.Float((x * Tile.width) + Tile.width / 2 - Camera.x(),
-				(y * Tile.width) + Tile.width / 2 - Camera.y());
+		center = new Point2D.Float((x * Tile.width) + Tile.width / 2 - GameState.camera.x(),
+				(y * Tile.width) + Tile.width / 2 - GameState.camera.y());
 	}
 
 	public void render(Graphics2D g2) {

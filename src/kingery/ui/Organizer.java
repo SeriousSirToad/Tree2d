@@ -2,6 +2,8 @@ package kingery.ui;
 
 import kingery.game.engine.Engine;
 import kingery.game.islands.tiles.Tile;
+import kingery.ui.component.GameButton;
+import kingery.ui.component.GameWindow;
 
 public class Organizer {
 

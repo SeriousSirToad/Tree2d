@@ -1,4 +1,4 @@
-package kingery.ui;
+package kingery.ui.component;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -17,7 +17,7 @@ public class Slider implements GameComponent {
 	private int currentValue;
 	private int realValue;
 	private boolean changing = false;
-	
+
 	private BufferedImage sliderImage;
 
 	public Slider(int x, int y, int realValue) {
@@ -35,13 +35,12 @@ public class Slider implements GameComponent {
 
 		Graphics2D g = Engine.g;
 		g.setColor(Color.black);
-		if(sliderImage != null)
+		if (sliderImage != null)
 			g.drawImage(sliderImage, container.x, container.y, null);
 		g.draw(container);
 		g.draw(slideBar);
 
 		if (slideBar.contains(mouseX, mouseY)) {
-			System.out.println("cringe");
 			if (Engine.input.clicking()) {
 				changing = true;
 			}
@@ -51,7 +50,6 @@ public class Slider implements GameComponent {
 		}
 
 		if (changing) {
-			System.out.println("overload " + (mouseX - container.x > maxValue));
 			if (mouseX - container.x > maxValue) {
 				currentValue = maxValue;
 			} else if (mouseX - container.x < minValue) {
@@ -67,11 +65,11 @@ public class Slider implements GameComponent {
 		realValue = (int) ((double) currentValue / maxValue * 100);
 
 	}
-	
+
 	public void setImage(BufferedImage image) {
 		this.sliderImage = image;
 	}
-	
+
 	public int getValue() {
 		return realValue;
 	}

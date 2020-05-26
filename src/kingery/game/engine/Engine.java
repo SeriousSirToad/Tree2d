@@ -23,10 +23,10 @@ import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
 import kingery.game.menu.Menu;
 import kingery.game.menu.Settings;
-import kingery.ui.GameButton;
-import kingery.ui.GameWindow;
 import kingery.ui.InGameUI;
 import kingery.ui.RenderOrder;
+import kingery.ui.component.GameButton;
+import kingery.ui.component.GameWindow;
 
 public class Engine extends Canvas implements Runnable {
 
@@ -52,19 +52,22 @@ public class Engine extends Canvas implements Runnable {
 
 	GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getScreenDevices()[0];
 
-	public static int WIDTH = 1024;
-	public static int HEIGHT = 768;
+	public static int WIDTH = 256;
+	public static int HEIGHT = 192;
 	private static final String NAME = "Tree Town alpha";
 
 	BufferedImage backGround;
 	public SpriteSheet spriteSheet;
 	public boolean running = false;
 	public static JFrame frame = new JFrame();
-	static final Dimension gameDimension = new Dimension(WIDTH, HEIGHT);
+	static final Dimension gameDimension = new Dimension(WIDTH * Tile.scale, HEIGHT * Tile.scale);
+	public static final Dimension reduced = new Dimension(WIDTH / Tile.scale, HEIGHT / Tile.scale);
 
 	public Engine() {
 
+		initIslands();
 		input = new InputHandler(this);
+		GameState.init();
 		menu = new Menu(this);
 
 		frame.setTitle(NAME);
@@ -83,15 +86,13 @@ public class Engine extends Canvas implements Runnable {
 		System.out.println(WIDTH + ", " + HEIGHT);
 		inMenu = new InGameMenu(this);
 
-		initIslands();
-		GameState.init(this);
 		p = GameState.p;
 		ewindow = new EditingWindow();
 		engine = this;
 
 		Settings.init();
 
-		// new Sound().start();
+		new Sound().start();
 
 		System.out.println("reduced resolution: " + WIDTH / Tile.scale + ", " + HEIGHT / Tile.scale);
 
@@ -99,8 +100,8 @@ public class Engine extends Canvas implements Runnable {
 
 	public void initIslands() {
 
-		Island.Utopia = new Island("res/Islands/Utopia.png", this);
-		Island.Start = new Island_Start(this);
+		Island.Utopia = new Island("res/Islands/Utopia.png");
+		Island.Start = new Island_Start();
 
 	}
 
@@ -121,6 +122,7 @@ public class Engine extends Canvas implements Runnable {
 			}
 
 			GameState.currentLevel.update();
+			GameState.camera.tick();
 
 		} else if (!menu.canStartGame() && !InGameMenu.inMenu) {
 
@@ -192,9 +194,6 @@ public class Engine extends Canvas implements Runnable {
 	BufferStrategy bs;
 	public static Graphics2D g;
 
-	int xOffset = 0;
-	int yOffset = 0;
-
 	public void render() {
 
 		// Creating graphics object
@@ -214,7 +213,7 @@ public class Engine extends Canvas implements Runnable {
 				p.inventory.render(g);
 			}
 
-			InGameUI.render(g);
+			//InGameUI.render(g);
 
 		} else if (!menu.canStartGame()) {
 			g.setColor(Color.gray);
@@ -225,6 +224,7 @@ public class Engine extends Canvas implements Runnable {
 		if (InGameMenu.inMenu) {
 			inMenu.renderMenu(g);
 		}
+		
 		for (GameWindow w : subwindows) {
 			w.update(g);
 		}
@@ -235,10 +235,6 @@ public class Engine extends Canvas implements Runnable {
 		g.dispose();
 
 	}
-
-	int bx = 0, by = 0;
-
-	Color bg = new Color(0xFF87CEFA);
 
 	void tick() {
 
@@ -255,6 +251,14 @@ public class Engine extends Canvas implements Runnable {
 
 	public static void main(String[] args) {
 		new Engine().start();
+	}
+
+	public static int height() {
+		return HEIGHT * Tile.scale;
+	}
+
+	public static int width() {
+		return WIDTH * Tile.scale;
 	}
 
 }

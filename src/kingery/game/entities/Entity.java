@@ -5,11 +5,8 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import kingery.game.engine.Engine;
 import kingery.game.engine.GameState;
-import kingery.game.gfx.Camera;
 import kingery.game.islands.Island;
-import kingery.game.islands.tiles.Tile;
 
 public abstract class Entity {
 
@@ -21,6 +18,7 @@ public abstract class Entity {
 	public Color defaultColor = EntityColor;
 	public BufferedImage entityImage;
 	public boolean moving = false;
+	public Rectangle collider;
 
 	public String name_short;
 
@@ -28,27 +26,26 @@ public abstract class Entity {
 	protected int collidedDir = 0;
 	public boolean dead;
 
-	public Engine e;
 	protected Island island;
 
 	private boolean isMob;
 
-	public Entity(int x, int y, String name_short, boolean isMob, BufferedImage entityImage, Engine e, Island island) {
+	public Entity(int x, int y, String name_short, boolean isMob, BufferedImage entityImage, Island island) {
 
 		this.x = x;
 		this.y = y;
 		this.name_short = name_short;
-		this.e = e;
-		this.name_short = name_short;
 		this.isMob = isMob;
 		this.entityImage = entityImage;
 
-		width = entityImage.getWidth();
-		height = entityImage.getHeight();
+		if (entityImage != null) {
+			width = entityImage.getWidth();
+			height = entityImage.getHeight();
+		}
 
 		island.entities.add(this);
-		System.out.println(island.imagePath);
 
+		collider = new Rectangle(width, height);
 	}
 
 	public int hpCount;
@@ -59,18 +56,25 @@ public abstract class Entity {
 	}
 
 	public void changeIsland(Island i) {
-		GameState.currentLevel = i;
 		island.entities.remove(this);
-		island = GameState.currentLevel;
+		island = i;
 		island.entities.add(this);
 	}
 
 	public abstract void tick();
+	
+	public void makeCollider(int width, int height) {
+		collider = new Rectangle(width, height);
+	}
 
 	public void render(Graphics g) {
-		if (Camera.contains(this)) {
-			g.drawImage(entityImage, x - Camera.x(), y - Camera.y(), width, height, null);
+		if (GameState.camera.contains(this)) {
+			g.drawImage(entityImage, x - GameState.camera.x(), y - GameState.camera.y(), width, height, null);
 		}
+	}
+
+	public Island getLevel() {
+		return island;
 	}
 
 }

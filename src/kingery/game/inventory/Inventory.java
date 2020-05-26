@@ -8,24 +8,22 @@ import kingery.game.gfx.Assets;
 import kingery.game.items.Item;
 
 public class Inventory {
-	private Engine e;
 	public boolean active = false;
 	private ArrayList<Item> inventoryItems;
 	private static final int InvWidth = 225, InvHeight = 225;
 
-	public Inventory(int InvX, int InvY, int InvWidth, int InvHeight, Engine e) {
-		this.e = e;
+	public Inventory(int InvX, int InvY, int InvWidth, int InvHeight) {
 		inventoryItems = new ArrayList<Item>();
 	}
 
 	boolean canOpen = false;
 	public void update() {
 		
-		if (e.input.space.isPressed()) {
+		if (Engine.input.space.isPressed()) {
 			canOpen = true;
 		}
 		
-		if (canOpen && !e.input.space.isPressed()) {
+		if (canOpen && !Engine.input.space.isPressed()) {
 			active = !active;
 			canOpen = false;
 		}

@@ -1,8 +1,5 @@
 package kingery.game.entities.npcs;
 
-import java.awt.Color;
-
-import kingery.game.engine.Engine;
 import kingery.game.gfx.Assets;
 import kingery.game.islands.Island;
 
@@ -17,12 +14,12 @@ public class Lumberjack extends NPC {
 	public static final int LUMBERJACK_VENDOR = 2;
 	public static final int LUMBERJACK_ENEMY = 3;
 
-	public Lumberjack(int x, int y, String[] stuffs, String name, int type, Engine e, Island island) {
-		super(x, y, stuffs, name, Assets.getLumberjack(type), e, island);
+	public Lumberjack(int x, int y, String[] stuffs, String name, int type, Island island) {
+		super(x, y, stuffs, name, Assets.getLumberjack(type), island);
 	}
 
-	public Lumberjack(int x, int y, String stuffs, String name, int type, Engine e, Island island) {
-		super(x, y, stuffs, name, false, Assets.getLumberjack(type), e, island);
+	public Lumberjack(int x, int y, String stuffs, String name, int type, Island island) {
+		super(x, y, stuffs, name, false, Assets.getLumberjack(type), island);
 	}
 
 }

@@ -32,7 +32,7 @@ public class Sound implements Runnable {
 
 	public void run() {
 
-		playSound(mainTheme);
+		//playSound(mainTheme);
 
 	}
 
@@ -62,9 +62,9 @@ public class Sound implements Runnable {
 			Clip c = (Clip) AudioSystem.getLine(info);
 			c.open(audio);
 			FloatControl gainControl = (FloatControl) c.getControl(FloatControl.Type.MASTER_GAIN);
-			double gain = .1D; // number between 0 and 1 (loudest)
-			float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-			gainControl.setValue(dB);
+			float range = gainControl.getMaximum() - gainControl.getMinimum();
+			float gain = (range * Settings.musicVolume) + gainControl.getMinimum();
+			gainControl.setValue(gain);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -21,6 +21,7 @@ public abstract class Tile {
 	public static final Tile BRICK_ROAD = new BasicTile(10, 32, 48, 0xFF7F0000);
 	public static final Tile SIDEWALK = new BasicTile(12, 48, 48, 0xFF9F9F9F);
 	public static final Tile GRASS_PLAIN = new BasicTile(13, 32, 0, 0xFF009900);
+	public static final Tile CARPET = new BasicTile(14, 96, 32, 0xFFFF7F00);
 
 	protected boolean isSolid, isEmitter, isRandom = false;
 	protected byte id;

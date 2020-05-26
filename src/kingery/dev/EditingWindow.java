@@ -9,9 +9,9 @@ import kingery.game.gfx.lighting.BigLight;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
 import kingery.game.menu.InGameMenu;
-import kingery.ui.GameButton;
-import kingery.ui.GameWindow;
 import kingery.ui.Organizer;
+import kingery.ui.component.GameButton;
+import kingery.ui.component.GameWindow;
 
 public class EditingWindow {
 

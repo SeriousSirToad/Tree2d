@@ -9,8 +9,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import kingery.game.engine.Engine;
-import kingery.game.gfx.Camera;
-import kingery.ui.GameButton;
+import kingery.game.engine.GameState;
+import kingery.ui.component.GameButton;
 
 public class Menu {
 
@@ -21,11 +21,8 @@ public class Menu {
 
 	public boolean startGame = false;
 
-	public static Engine engine;
 
 	public Menu(Engine engine) {
-
-		this.engine = engine;
 
 		try {
 			menuImage = ImageIO.read(new File("res/Images/titlescreen.bmp"));
@@ -33,8 +30,8 @@ public class Menu {
 			e.printStackTrace();
 		}
 
-		start = new GameButton((Camera.width / 2) - GameButton.STD_WIDTH / 2,
-				(Camera.height / 2) - GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start") {
+		start = new GameButton((GameState.camera.width / 2) - GameButton.STD_WIDTH / 2,
+				(GameState.camera.height / 2) - GameButton.STD_HEIGHT * 2, 0xFF009F00, "Start") {
 
 			public void onClick() {
 
@@ -43,8 +40,8 @@ public class Menu {
 			}
 
 		};
-		exit = new GameButton((Camera.width / 2) - GameButton.STD_WIDTH / 2,
-				(Camera.height / 2) - GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet") {
+		exit = new GameButton((GameState.camera.width / 2) - GameButton.STD_WIDTH / 2,
+				(GameState.camera.height / 2) - GameButton.STD_HEIGHT / 2, 0xFF9F0000, "Yeet") {
 
 			public void onClick() {
 				System.exit(0);

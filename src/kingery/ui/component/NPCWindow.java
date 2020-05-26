@@ -1,4 +1,4 @@
-package kingery.ui;
+package kingery.ui.component;
 
 import java.awt.Color;
 import java.awt.FontMetrics;
@@ -6,9 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import kingery.game.engine.Engine;
+import kingery.game.engine.GameState;
 import kingery.game.entities.npcs.NPC;
-import kingery.game.gfx.Camera;
-import kingery.game.islands.tiles.Tile;
 
 public class NPCWindow extends GameWindow {
 	private NPC npc;
@@ -16,9 +15,9 @@ public class NPCWindow extends GameWindow {
 
 	static FontMetrics fm;
 
-	int w = (int) (Camera.width / 1.2), h = (int) (Camera.height / 1.2);
-	int x = Camera.width / 2 - w / 2;
-	int y = Camera.height / 2 - h / 2;
+	int w = (int) (GameState.camera.width / 1.2), h = (int) (GameState.camera.height / 1.2);
+	int x = GameState.camera.width / 2 - w / 2;
+	int y = GameState.camera.height / 2 - h / 2;
 
 	public NPCWindow(NPC attatchedNPC) {
 		Engine.subwindows.add(this);

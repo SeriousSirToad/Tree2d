@@ -1,10 +1,10 @@
 package kingery.game.menu;
 
-import kingery.ui.GameButton;
-import kingery.ui.GameWindow;
 import kingery.ui.Organizer;
 import kingery.ui.RenderOrder;
-import kingery.ui.Slider;
+import kingery.ui.component.GameButton;
+import kingery.ui.component.GameWindow;
+import kingery.ui.component.Slider;
 
 public class Settings {
 
@@ -14,7 +14,7 @@ public class Settings {
 
 	public static GameButton[] buttons;
 	public static GameWindow window;
-	static Slider volumeSlider = new Slider(40, 52, 100);
+	static Slider volumeSlider = new Slider(40, 52, 0);
 
 	public static void init() {
 
@@ -67,6 +67,7 @@ public class Settings {
 		window = new GameWindow() {
 			public void close() {
 				RenderOrder.remove(volumeSlider);
+				InGameMenu.canExitMenu = false;
 			}
 		};
 		window.buttons = buttons;

@@ -1,6 +1,4 @@
-package kingery.ui;
-
-import java.awt.Graphics2D;
+package kingery.ui.component;
 
 public interface GameComponent {
 

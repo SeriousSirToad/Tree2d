@@ -1,4 +1,4 @@
-package kingery.ui;
+package kingery.ui.component;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -10,9 +10,8 @@ import java.awt.image.BufferedImage;
 import kingery.game.engine.Engine;
 import kingery.game.engine.InputHandler;
 import kingery.game.islands.tiles.Tile;
-import kingery.game.menu.Menu;
 
-public class GameButton {
+public class GameButton implements GameComponent{
 
 	private Rectangle buttonRect;
 
@@ -30,7 +29,6 @@ public class GameButton {
 
 	protected InputHandler input;
 
-	private Engine e = Menu.engine;
 
 	public BufferedImage buttonImage;
 
@@ -45,7 +43,7 @@ public class GameButton {
 		string = s;
 		this.color = new Color(color);
 
-		input = e.input;
+		input = Engine.input;
 
 		buttonRect = new Rectangle(x, y, width, height);
 
@@ -60,7 +58,7 @@ public class GameButton {
 
 		buttonImage = image;
 
-		input = e.input;
+		input = Engine.input;
 
 		buttonRect = new Rectangle(x, y, width, height);
 
@@ -75,7 +73,7 @@ public class GameButton {
 		string = s;
 		this.color = new Color(color);
 
-		input = e.input;
+		input = Engine.input;
 
 		buttonRect = new Rectangle(x, y, width, height);
 
@@ -139,6 +137,36 @@ public class GameButton {
 		if (onThis)
 			return color.brighter();
 		return color;
+	}
+
+	@Override
+	public int getX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getHeight() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

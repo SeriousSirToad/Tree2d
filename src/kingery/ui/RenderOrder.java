@@ -3,6 +3,7 @@ package kingery.ui;
 import java.util.ArrayList;
 
 import kingery.game.engine.Engine;
+import kingery.ui.component.GameComponent;
 
 public class RenderOrder {
 

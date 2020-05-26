@@ -3,11 +3,10 @@ package kingery.game.entities.npcs;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import kingery.game.engine.Engine;
 import kingery.game.entities.Mob;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
-import kingery.ui.NPCWindow;
+import kingery.ui.component.NPCWindow;
 
 public class NPC extends Mob {
 
@@ -19,9 +18,8 @@ public class NPC extends Mob {
 	protected boolean vendor;
 	protected NPCWindow dialogWindow;
 
-	public NPC(int x, int y, String message, String name, boolean vendor, BufferedImage entityImage, Engine e,
-			Island island) {
-		super(x * Tile.width, y * Tile.width, name, entityImage, e, island);
+	public NPC(int x, int y, String message, String name, boolean vendor, BufferedImage entityImage, Island island) {
+		super(x * Tile.width, y * Tile.width, name, entityImage, island);
 		collider = new Rectangle(9, 43, 16, 22);
 		interactZone = new Rectangle(x * Tile.width, y * Tile.width, width, height);
 		messages = new String[1];
@@ -33,8 +31,8 @@ public class NPC extends Mob {
 		dialogWindow = new NPCWindow(this);
 	}
 
-	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Engine e, Island island) {
-		super(x * Tile.width, y * Tile.width, name, entityImage, e, island);
+	public NPC(int x, int y, String[] messages, String name, BufferedImage entityImage, Island island) {
+		super(x * Tile.width, y * Tile.width, name, entityImage, island);
 		collider = new Rectangle(9, 43, 16, 22);
 		interactZone = new Rectangle(x * Tile.width, y * Tile.width, width, height);
 		this.messages = messages;
@@ -49,8 +47,6 @@ public class NPC extends Mob {
 	@Override
 	public void tick() {
 
-		
-		
 		if (speechIndex == messages.length) {
 			speechIndex = 0;
 		}

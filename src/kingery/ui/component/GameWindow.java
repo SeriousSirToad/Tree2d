@@ -1,4 +1,4 @@
-package kingery.ui;
+package kingery.ui.component;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import kingery.game.engine.Engine;
 import kingery.game.islands.tiles.Tile;
 
-public class GameWindow {
+public class GameWindow implements GameComponent{
 
 	public GameButton[] buttons;
 	Font font = new Font(Font.DIALOG, Font.BOLD, 5);
@@ -83,6 +83,31 @@ public class GameWindow {
 
 	public String getMessage() {
 		return message;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	@Override
+	public int getY() {
+		return y;
+	}
+
+	@Override
+	public int getWidth() {
+		return w;
+	}
+
+	@Override
+	public int getHeight() {
+		return h;
+	}
+
+	@Override
+	public void render() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

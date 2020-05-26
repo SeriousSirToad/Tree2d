@@ -2,7 +2,6 @@ package kingery.game.entities;
 
 import java.awt.image.BufferedImage;
 
-import kingery.game.engine.Engine;
 import kingery.game.inventory.Inventory;
 import kingery.game.islands.Island;
 import kingery.game.islands.tiles.Tile;
@@ -18,9 +17,9 @@ public abstract class Mob extends Entity {
 
 	public Inventory inventory;
 
-	public Mob(int x, int y, String name, BufferedImage entityImage, Engine e, Island island) {
-		super(x, y, name, true, entityImage, e, island);
-		inventory = new Inventory(0, 0, 225, 225, e);
+	public Mob(int x, int y, String name, BufferedImage entityImage, Island island) {
+		super(x, y, name, true, entityImage, island);
+		inventory = new Inventory(0, 0, 225, 225);
 	}
 
 	public void move() {
@@ -32,16 +31,18 @@ public abstract class Mob extends Entity {
 
 	protected boolean collisionWithTile(int x, int y) {
 
-		if (movingDir == 1)
-			return island.getTile(x / Tile.width + 1, y / Tile.width + 1).isSolid();
-		if (movingDir == 2)
-			return island.getTile(x / Tile.width, y / Tile.width + 2).isSolid();
-		if (movingDir == 3)
-			return island.getTile((x - 1) / Tile.width, y / Tile.width + 1).isSolid() || x - 1 < 0;
-		if (movingDir == 4)
-			return island.getTile(x / Tile.width, (y - 1) / Tile.width + 1).isSolid() || (y + Tile.width) - 1 < 0;
+		if (island != null) {
+			if (movingDir == 1) // right
+				return island.getTile(x / Tile.width + 1, y / Tile.width + 1).isSolid();
+			if (movingDir == 2) // down
+				return island.getTile(x / Tile.width, (y + Tile.width) / Tile.width + 1).isSolid();
+			if (movingDir == 3) // left
+				return island.getTile((x - 1) / Tile.width, y / Tile.width + 1).isSolid() || x - 1 < 0;
+			if (movingDir == 4) // up
+				return island.getTile(x / Tile.width, (y - 1) / Tile.width + 1).isSolid() || (y + Tile.width) - 1 < 0;
+			return false;
+		}
 		return false;
-
 	}
 
 	@Override
